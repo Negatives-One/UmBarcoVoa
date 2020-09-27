@@ -8,6 +8,7 @@ var _velocity : Vector2 = Vector2(0, 0)
 var _acelleration : Vector2 = Vector2(0, 0)
 
 var _target : Vector2
+var _position : Vector2
 enum States {Acelerando, Estavel, Desacelerando, Parado}
 var currentState : int
 
@@ -26,7 +27,8 @@ func _unhandled_input(event):
 
 func _physics_process(delta) -> void:
 	print(_velocity, "/n", _acelleration)
-	_target = get_global_mouse_position()
+	_target = get_viewport().get_mouse_position()
+	_position = get_global_transform_with_canvas()
 	
 	if(_velocity.length() >= MaxSpeed):
 		currentState = States.Estavel
