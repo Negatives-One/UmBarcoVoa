@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/UMBARCOVOA_loop.ogg-be381253bdffb7a4f1dd96f077d8b0aa.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/UMBARCOVOA_loop.ogg"
+dest_files=[ "res://.import/UMBARCOVOA_loop.ogg-be381253bdffb7a4f1dd96f077d8b0aa.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,29 +1,64 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/Scripts/Mundo.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Images/unknown.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/AssetsEduardo/BG.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Scenes/Vento.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Scenes/Obstaculo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Predio3.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Predio4.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Predio2.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Predio1.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Chuva.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem4.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem3.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem1.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem2.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Images/AssetsEduardo/Sol.png" type="Texture" id=15]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Map" type="Sprite" parent="."]
+[node name="BG" type="Sprite" parent="."]
+position = Vector2( 479.26, 172.313 )
+scale = Vector2( 1, 0.8 )
 texture = ExtResource( 3 )
+region_rect = Rect2( 1331, 901, 310, 34 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -356.141
-margin_top = -128.526
-margin_right = -181.141
-margin_bottom = 31.4741
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="BG2" type="Sprite" parent="."]
+position = Vector2( -1392.6, 172.313 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 1331, 901, 310, 34 )
+
+[node name="BG3" type="Sprite" parent="."]
+position = Vector2( 2392.9, 172.313 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 1331, 901, 310, 34 )
+
+[node name="BG4" type="Sprite" parent="."]
+position = Vector2( 479.26, -667.289 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 1331, 901, 310, 34 )
+
+[node name="BG5" type="Sprite" parent="."]
+position = Vector2( -1392.6, -667.289 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 1331, 901, 310, 34 )
+
+[node name="BG6" type="Sprite" parent="."]
+position = Vector2( 2392.9, -667.289 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 1331, 901, 310, 34 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 text = "TExtooooooooooooosdasdasd"
@@ -32,6 +67,7 @@ __meta__ = {
 }
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
+visible = false
 margin_top = 22.247
 margin_right = 189.0
 margin_bottom = 36.247
@@ -41,6 +77,7 @@ __meta__ = {
 }
 
 [node name="Label3" type="Label" parent="CanvasLayer"]
+visible = false
 margin_top = 46.0311
 margin_right = 189.0
 margin_bottom = 60.0311
@@ -50,44 +87,85 @@ __meta__ = {
 }
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( -1272.45, -88.2147 )
-z_index = 3
-
-[node name="Area2D10" parent="." instance=ExtResource( 5 )]
-position = Vector2( 273.612, 108.766 )
-
-[node name="Area2D11" parent="." instance=ExtResource( 5 )]
-position = Vector2( -77.5088, -340.518 )
-
-[node name="Area2D12" parent="." instance=ExtResource( 5 )]
-position = Vector2( -387.1, -159.294 )
-
-[node name="Area2D13" parent="." instance=ExtResource( 5 )]
-position = Vector2( -553.221, 89.8886 )
+position = Vector2( -2231, -116.249 )
+z_index = 6
 
 [node name="Area2D" parent="." instance=ExtResource( 4 )]
-position = Vector2( -168.015, 3.48788 )
+position = Vector2( -608.34, -610.794 )
 
 [node name="Area2D2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 107.674, -46.9295 )
+position = Vector2( 2427.67, -702.93 )
 
 [node name="Area2D3" parent="." instance=ExtResource( 4 )]
-position = Vector2( -413.367, -7.87566 )
+position = Vector2( 1907.88, -106.652 )
 
 [node name="Area2D4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 557.196, -71.9539 )
+position = Vector2( 3105.2, 144.046 )
 
 [node name="Area2D5" parent="." instance=ExtResource( 4 )]
-position = Vector2( -788.981, -108.773 )
+position = Vector2( -1862.37, -219.872 )
 
 [node name="Area2D6" parent="." instance=ExtResource( 4 )]
-position = Vector2( -527.277, -310.207 )
+position = Vector2( -1129.97, 114.047 )
 
 [node name="Area2D7" parent="." instance=ExtResource( 4 )]
-position = Vector2( -180.201, -181.026 )
+position = Vector2( 1081.45, -64.2899 )
 
 [node name="Area2D8" parent="." instance=ExtResource( 4 )]
-position = Vector2( -18.0588, 152.06 )
+position = Vector2( 863.594, -698.143 )
 
 [node name="Area2D9" parent="." instance=ExtResource( 4 )]
 position = Vector2( 189.341, -213.115 )
+
+[node name="Nuvem1" type="Sprite" parent="."]
+position = Vector2( 210.982, -609.661 )
+texture = ExtResource( 13 )
+
+[node name="Nuvem2" type="Sprite" parent="."]
+position = Vector2( 2834.72, -273.003 )
+texture = ExtResource( 14 )
+
+[node name="Nuvem3" type="Sprite" parent="."]
+position = Vector2( 1433.58, -635.358 )
+texture = ExtResource( 12 )
+
+[node name="Chuva" type="Sprite" parent="Nuvem3"]
+show_behind_parent = true
+position = Vector2( 51.3107, 393.945 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 10 )
+
+[node name="Chuva2" type="Sprite" parent="Nuvem3"]
+show_behind_parent = true
+position = Vector2( 126.134, 1074.76 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 10 )
+
+[node name="Nuvem4" type="Sprite" parent="."]
+position = Vector2( -1116.66, -425.997 )
+texture = ExtResource( 11 )
+
+[node name="Predio1" type="Sprite" parent="."]
+position = Vector2( -348.132, 442.002 )
+texture = ExtResource( 9 )
+
+[node name="Predio2" type="Sprite" parent="."]
+position = Vector2( 2621.38, 412.973 )
+texture = ExtResource( 8 )
+
+[node name="Predio3" type="Sprite" parent="."]
+position = Vector2( 1564.3, 490.015 )
+texture = ExtResource( 6 )
+
+[node name="Predio4" type="Sprite" parent="."]
+position = Vector2( 455.032, 199.055 )
+texture = ExtResource( 7 )
+
+[node name="Sol" type="Sprite" parent="."]
+position = Vector2( -699.573, -349.739 )
+rotation = -0.261799
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 15 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/AnimacaoSol = ExtResource( 5 )

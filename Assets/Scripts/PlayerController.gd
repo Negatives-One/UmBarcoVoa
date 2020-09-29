@@ -17,6 +17,8 @@ var acelleration : Vector2
 var currentState : int
 var target : Vector2
 
+onready var Sprites = $Jangada.get_children()
+
 func _ready() -> void:
 	currentState = States.Parado
 
@@ -48,11 +50,16 @@ func _physics_process(delta : float) -> void:
 		
 
 func _process(delta : float) -> void:
-	$barco.rotation = linear_velocity.normalized().angle()
+	
+	$Jangada.rotation = linear_velocity.normalized().angle()
 	if(linear_velocity.x > 0):
-		$barco.flip_v = false
+		$Jangada.scale.y = 0.5
+#		for i in range(len(Sprites)):
+#			Sprites[i].flip_v = false
 	elif(linear_velocity.x < 0):
-		$barco.flip_v = true
+		$Jangada.scale.y = -0.5
+#		for i in range(len(Sprites)):
+#			Sprites[i].flip_v = true
 	else:
 		pass
 
