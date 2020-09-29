@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody2D",
+"base": "RigidBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Assets/Scripts/PlayerController.gd"
@@ -17,11 +17,23 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Vento",
 "language": "GDScript",
+"path": "res://Assets/Scripts/PrimeiroVento.gd"
+}, {
+"base": "Area2D",
+"class": "Vento2",
+"language": "GDScript",
 "path": "res://Assets/Scripts/Vento.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "a",
+"language": "GDScript",
+"path": "res://Assets/Scripts/testePlayer.gd"
 } ]
 _global_script_class_icons={
 "Player": "",
-"Vento": ""
+"Vento": "",
+"Vento2": "",
+"a": ""
 }
 
 [application]

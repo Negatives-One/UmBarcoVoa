@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Scripts/Mundo.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Images/unknown.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Scenes/Vento.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Scenes/Obstaculo.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,10 +20,6 @@ margin_bottom = 31.4741
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="KinematicBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( -336.85, 18.8915 )
-Acelleration = 50.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -41,3 +39,55 @@ text = "TExtooooooooooooosdasdasd"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+margin_top = 46.0311
+margin_right = 189.0
+margin_bottom = 60.0311
+text = "TExtooooooooooooosdasdasd"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( -1272.45, -88.2147 )
+z_index = 3
+
+[node name="Area2D10" parent="." instance=ExtResource( 5 )]
+position = Vector2( 273.612, 108.766 )
+
+[node name="Area2D11" parent="." instance=ExtResource( 5 )]
+position = Vector2( -77.5088, -340.518 )
+
+[node name="Area2D12" parent="." instance=ExtResource( 5 )]
+position = Vector2( -387.1, -159.294 )
+
+[node name="Area2D13" parent="." instance=ExtResource( 5 )]
+position = Vector2( -553.221, 89.8886 )
+
+[node name="Area2D" parent="." instance=ExtResource( 4 )]
+position = Vector2( -168.015, 3.48788 )
+
+[node name="Area2D2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 107.674, -46.9295 )
+
+[node name="Area2D3" parent="." instance=ExtResource( 4 )]
+position = Vector2( -413.367, -7.87566 )
+
+[node name="Area2D4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 557.196, -71.9539 )
+
+[node name="Area2D5" parent="." instance=ExtResource( 4 )]
+position = Vector2( -788.981, -108.773 )
+
+[node name="Area2D6" parent="." instance=ExtResource( 4 )]
+position = Vector2( -527.277, -310.207 )
+
+[node name="Area2D7" parent="." instance=ExtResource( 4 )]
+position = Vector2( -180.201, -181.026 )
+
+[node name="Area2D8" parent="." instance=ExtResource( 4 )]
+position = Vector2( -18.0588, 152.06 )
+
+[node name="Area2D9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 189.341, -213.115 )

@@ -1,62 +1,74 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 class_name Player
 
-export(float) var Acelleration : float = 1
-export(float, 0, 9999) var MaxSpeed : float = 100
-var _velocity : Vector2 = Vector2(0, 0)
-var _acelleration : Vector2 = Vector2(0, 0)
+export(float) var VerticalAcelleration : float = 10
+export(float) var HorizontalAcelleration : float = 10
+export(float, 0, 9999) var MaxSpeed : float = 300
 
-var _target : Vector2
-var _position : Vector2
-enum States {Acelerando, Desacelerando, Parado}
+enum States {Parado, Acelerando, Desacelerando}
+enum BoostStates {Usando, Acabou, Estavel}
+
+var boostState : int = BoostStates.Estavel
+
+var velocity : Vector2
+var acelleration : Vector2
+
 var currentState : int
+var target : Vector2
 
 func _ready() -> void:
 	currentState = States.Parado
+
+func _integrate_forces(state : Physics2DDirectBodyState):
 	pass
 
-func _unhandled_input(event):
+func _unhandled_input(event : InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
 			currentState = States.Acelerando
 		elif event.is_action_released("LClick"):
-			_target = global_position + _velocity
 			currentState = States.Desacelerando
 		else:
 			pass
-		if event.pressed and event.button_index == BUTTON_RIGHT:
-			AddForce(Vector2(-100, 0))
 
-func _physics_process(delta) -> void:
-	
+func _physics_process(delta : float) -> void:
+	applied_force = Vector2.ZERO
 	FSM()
-	_velocity += _acelleration
-	_acelleration = Vector2.ZERO
-	_velocity = _velocity.clamped(MaxSpeed)
-	_velocity = move_and_slide(_velocity, Vector2(0, -1), false, 4, 0.78598, false)
+	linear_velocity = linear_velocity.normalized() * linear_velocity.length()
+	if boostState == BoostStates.Usando:
+		pass
+	elif boostState == BoostStates.Acabou:
+		linear_damp = 1.5
+		if linear_velocity.length() <= linear_velocity.clamped(MaxSpeed).length():
+			boostState = BoostStates.Estavel
+			linear_damp = -1
+	else:
+		linear_velocity = linear_velocity.clamped(MaxSpeed)
+		
 
-func FSM() -> void:
-	if(currentState == States.Acelerando):
-		_target = get_global_mouse_position()
-		AddForce(Vector2(_target.x - self.global_position.x, 0).normalized())
-		AddForce(Vector2(0, _target.y - self.global_position.y).normalized())
-	elif(currentState == States.Desacelerando):
-		
-		var coeficient : float = 0.01
-		
-		if(_velocity.length() < 7):
-			coeficient = 1
-		elif(_velocity.length() < MaxSpeed/4):
-			coeficient = 0.04
-		elif(_velocity.length() < MaxSpeed/2):
-			coeficient = 0.02
-			
-		_velocity = _velocity.linear_interpolate(Vector2.ZERO, coeficient)
-		if _velocity.length() == 0:
-			currentState = States.Parado
+func _process(delta : float) -> void:
+	$barco.rotation = linear_velocity.normalized().angle()
+	if(linear_velocity.x > 0):
+		$barco.flip_v = false
+	elif(linear_velocity.x < 0):
+		$barco.flip_v = true
 	else:
 		pass
 
-func AddForce(direction : Vector2) -> void:
-	_acelleration += direction
+func FSM() -> void:
+	
+	if(currentState == States.Acelerando):
+		linear_damp = -1
+		target = get_global_mouse_position()
+		add_central_force((target - global_position).normalized() * HorizontalAcelleration)
+	
+	elif(currentState == States.Desacelerando):
+		linear_damp = 1.5
+		if linear_velocity.length() < 10:
+			linear_velocity = linear_velocity.normalized() / 10
+			currentState = States.Parado
+			linear_damp = -1
+	
+	else:
+		pass
