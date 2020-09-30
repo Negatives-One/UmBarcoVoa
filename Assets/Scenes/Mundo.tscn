@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Scripts/Mundo.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -15,41 +15,48 @@
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem1.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem2.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Sol.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Scenes/BGInfinito.tscn" type="PackedScene" id=16]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="BG" type="Sprite" parent="."]
+visible = false
 position = Vector2( 479.26, 172.313 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 3 )
 region_rect = Rect2( 1331, 901, 310, 34 )
 
 [node name="BG2" type="Sprite" parent="."]
+visible = false
 position = Vector2( -1392.6, 172.313 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 3 )
 region_rect = Rect2( 1331, 901, 310, 34 )
 
 [node name="BG3" type="Sprite" parent="."]
+visible = false
 position = Vector2( 2392.9, 172.313 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 3 )
 region_rect = Rect2( 1331, 901, 310, 34 )
 
 [node name="BG4" type="Sprite" parent="."]
+visible = false
 position = Vector2( 479.26, -667.289 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 3 )
 region_rect = Rect2( 1331, 901, 310, 34 )
 
 [node name="BG5" type="Sprite" parent="."]
+visible = false
 position = Vector2( -1392.6, -667.289 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 3 )
 region_rect = Rect2( 1331, 901, 310, 34 )
 
 [node name="BG6" type="Sprite" parent="."]
+visible = false
 position = Vector2( 2392.9, -667.289 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 3 )
@@ -58,9 +65,10 @@ region_rect = Rect2( 1331, 901, 310, 34 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-visible = false
 margin_right = 40.0
 margin_bottom = 14.0
+rect_scale = Vector2( 3.68, 3.68 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "TExtooooooooooooosdasdasd"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -87,8 +95,9 @@ __meta__ = {
 }
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( -2231, -116.249 )
+position = Vector2( -1207.11, 20.8947 )
 z_index = 6
+MaxSpeed = 500.0
 
 [node name="Area2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( -608.34, -610.794 )
@@ -163,9 +172,12 @@ texture = ExtResource( 7 )
 
 [node name="Sol" type="Sprite" parent="."]
 position = Vector2( -699.573, -349.739 )
-rotation = -0.261799
-scale = Vector2( 0.9, 0.9 )
+rotation = -0.0189317
+scale = Vector2( 0.945006, 0.945006 )
 texture = ExtResource( 15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
+
+[node name="Node2D" parent="." instance=ExtResource( 16 )]
+position = Vector2( -1207.11, 20.8946 )

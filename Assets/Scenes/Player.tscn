@@ -46,7 +46,6 @@ texture = ExtResource( 5 )
 current = true
 limit_left = -2350
 limit_top = -1075
-limit_right = 3350
 limit_bottom = 600
 limit_smoothed = true
 smoothing_enabled = true
