@@ -35,7 +35,7 @@ func _ready() -> void:
 	else:
 		magnitude = PotenciaFraco
 		duration = DuracaoFraco
-	$Sprite.rotation = angle;
+	rotation = angle;
 	if !isStrong:
 		$Sprite.self_modulate = Color(1,1,1, 0.5)
 

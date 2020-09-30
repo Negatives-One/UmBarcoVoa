@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Images/AssetsEduardo/vela.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Scripts/PlayerController.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 69.0527
 
 [node name="RigidBody2D" type="RigidBody2D" groups=[
 "Player",
@@ -19,13 +22,8 @@ script = ExtResource( 2 )
 VerticalAcelleration = 200.0
 HorizontalAcelleration = 300.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( -4.40973, -62.3661 )
-scale = Vector2( 0.5, 0.5 )
-polygon = PoolVector2Array( 26.4932, -144.08, 76.5966, -67.8929, 120.644, 50.878, 139.7, 117.9, 186.111, 89.921, 197, 102.2, 153.862, 169.364, -116.274, 190.412, -143.48, 160.507, -168.452, 196.092, -192.175, 207.329, -196.545, 198.589, -134.74, 115.558, -85.7342, 93.9712, -30.1392, 30.5371, -10.4752, -42.6132, -18.3408, -113.404, -31.7123, -175.542, -22.2736, -183.408 )
-
 [node name="Jangada" type="Node2D" parent="."]
-position = Vector2( 0, -46.3772 )
+position = Vector2( 0, -46 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Vela" type="Sprite" parent="Jangada"]
@@ -52,3 +50,14 @@ limit_right = 3350
 limit_bottom = 600
 limit_smoothed = true
 smoothing_enabled = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, -46 )
+scale = Vector2( 0.5, 0.5 )
+polygon = PoolVector2Array( -35.4366, -213.386, 28.4716, -159.568, 89.857, -42.6839, 125.175, 85.9732, 181.515, 63.269, 144.515, 131.382, -126.253, 154.927, -152.321, 121.291, -124.571, 95.223, -82.6545, 60.1218, -36.2774, -5.68455, -16.096, -75.4788, -21.9822, -158.728 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -28.696 )
+shape = SubResource( 2 )
+disabled = true

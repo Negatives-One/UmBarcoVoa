@@ -4,6 +4,8 @@ func _ready():
 	$AnimationPlayer.play("AnimacaoSol")
 
 func _process(delta):
+	if Input.is_action_pressed("ui_cancel"):
+		OS.window_fullscreen = !OS.window_fullscreen
 	$CanvasLayer/Label.text = str($RigidBody2D.currentState)
 	$CanvasLayer/Label2.text = str($RigidBody2D.linear_velocity.length())
 	$CanvasLayer/Label3.text = str($RigidBody2D.boostState)

@@ -52,12 +52,15 @@ func _physics_process(delta : float) -> void:
 func _process(delta : float) -> void:
 	
 	$Jangada.rotation = linear_velocity.normalized().angle()
+	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
 	if(linear_velocity.x > 0):
 		$Jangada.scale.y = 0.5
+		$CollisionPolygon2D.scale.y = 0.5
 #		for i in range(len(Sprites)):
 #			Sprites[i].flip_v = false
 	elif(linear_velocity.x < 0):
 		$Jangada.scale.y = -0.5
+		$CollisionPolygon2D.scale.y = -0.5
 #		for i in range(len(Sprites)):
 #			Sprites[i].flip_v = true
 	else:
