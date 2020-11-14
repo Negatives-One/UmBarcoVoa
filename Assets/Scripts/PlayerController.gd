@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 class_name Player
-
+ 
 export(float) var VerticalAcelleration : float = 10
 export(float) var HorizontalAcelleration : float = 10
 export(float, 0, 9999) var MaxSpeed : float = 300

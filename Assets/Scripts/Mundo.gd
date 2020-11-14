@@ -12,4 +12,5 @@ func _process(delta : float) -> void:
 	$CanvasLayer/Label.text = str($RigidBody2D.currentState)
 	$CanvasLayer/Label2.text = str($RigidBody2D.linear_velocity.length())
 	$CanvasLayer/Label3.text = str($RigidBody2D.boostState)
+	$CanvasLayer/Label4.text = str(Performance.get_monitor(Performance.TIME_FPS))
 	$Sol.global_position = Vector2($RigidBody2D.global_position.x + 720, -700)
