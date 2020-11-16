@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Scripts/Mundo.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -16,11 +16,16 @@
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem2.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Sol.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Scenes/BGInfinito.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/Verlet/Verlet.tscn" type="PackedScene" id=17]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 540.125 ]
+}
 
 [node name="Background" parent="." instance=ExtResource( 16 )]
+xAdjust = 640.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -70,10 +75,16 @@ z_index = 6
 MaxSpeed = 500.0
 
 [node name="Camera2D2" type="Camera2D" parent="RigidBody2D"]
+position = Vector2( 640, 0 )
 current = true
+limit_top = -540
+limit_bottom = 540
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="String" parent="." instance=ExtResource( 17 )]
+length = 500.0
 
 [node name="Area2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( -608.34, -610.794 )
@@ -130,26 +141,27 @@ texture = ExtResource( 10 )
 position = Vector2( -1116.66, -425.997 )
 texture = ExtResource( 11 )
 
-[node name="Predio1" type="Sprite" parent="."]
-position = Vector2( -348.132, 442.002 )
+[node name="Predios" type="Node2D" parent="."]
+position = Vector2( -348.132, 382.605 )
+
+[node name="Predio1" type="Sprite" parent="Predios"]
 texture = ExtResource( 9 )
 
-[node name="Predio2" type="Sprite" parent="."]
-position = Vector2( 2621.38, 412.973 )
+[node name="Predio2" type="Sprite" parent="Predios"]
+position = Vector2( 2966.99, -30.0901 )
 texture = ExtResource( 8 )
 
-[node name="Predio3" type="Sprite" parent="."]
-position = Vector2( 1564.3, 490.015 )
+[node name="Predio3" type="Sprite" parent="Predios"]
+position = Vector2( 1912.43, 47.6595 )
 texture = ExtResource( 6 )
 
-[node name="Predio4" type="Sprite" parent="."]
-position = Vector2( 455.032, 199.055 )
+[node name="Predio4" type="Sprite" parent="Predios"]
+position = Vector2( 803.164, -242.947 )
 texture = ExtResource( 7 )
 
 [node name="Sol" type="Sprite" parent="."]
 position = Vector2( -699.573, -349.739 )
-rotation = -0.0189317
-scale = Vector2( 0.945006, 0.945006 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
