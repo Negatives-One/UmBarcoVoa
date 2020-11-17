@@ -19,21 +19,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Assets/Scripts/PlayerController.gd"
 }, {
-"base": "Node2D",
-"class": "Vento",
-"language": "GDScript",
-"path": "res://Assets/Scripts/PrimeiroVento.gd"
-}, {
 "base": "Area2D",
-"class": "Vento2",
+"class": "Wind",
 "language": "GDScript",
 "path": "res://Assets/Scripts/Vento.gd"
 } ]
 _global_script_class_icons={
 "Obstacle": "",
 "Player": "",
-"Vento": "",
-"Vento2": ""
+"Wind": ""
 }
 
 [application]
@@ -54,7 +48,7 @@ window/size/height=1080
 window/size/test_width=1024
 window/size/test_height=600
 window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/stretch/aspect="keep_height"
 
 [input]
 

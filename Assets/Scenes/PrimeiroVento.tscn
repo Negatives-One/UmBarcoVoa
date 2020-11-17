@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Assets/Scripts/PrimeiroVento.gd" type="Script" id=1]
 
-
 [node name="Node" type="Node2D"]
 script = ExtResource( 1 )
 

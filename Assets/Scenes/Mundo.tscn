@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Assets/Scripts/Mundo.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scenes/Obstacle.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/Scenes/Vento.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=4]
 [ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Predio3.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Predio4.png" type="Texture" id=7]
@@ -18,54 +18,93 @@
 [ext_resource path="res://Assets/Scenes/BGInfinito.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/Verlet/Verlet.tscn" type="PackedScene" id=17]
 
-[node name="Node2D" type="Node2D"]
+[node name="StageController" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 540.125 ]
 }
+windSpawnRatio = 400.0
 
 [node name="Background" parent="." instance=ExtResource( 16 )]
 xAdjust = 640.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-margin_right = 40.0
-margin_bottom = 14.0
-rect_scale = Vector2( 3.68, 3.68 )
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Panel"]
+margin_right = 264.0
+margin_bottom = 163.0
+color = Color( 1, 1, 1, 0.890196 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -91.0
+margin_bottom = 53.0
+color = Color( 1, 1, 1, 0.890196 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarcoState" type="Label" parent="CanvasLayer/Panel"]
+margin_top = 50.9692
+margin_right = 605.0
+margin_bottom = 102.969
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Boat State"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarcoVelocity" type="Label" parent="CanvasLayer/Panel"]
+margin_right = 219.0
+margin_bottom = 52.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Velocity"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Location" type="Label" parent="CanvasLayer/Panel"]
+margin_top = 101.938
+margin_right = 219.0
+margin_bottom = 153.938
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Location"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoostState" type="Label" parent="CanvasLayer/Panel"]
+visible = false
+margin_top = 97.0003
+margin_right = 605.0
+margin_bottom = 149.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "TExtooooooooooooosdasdasd"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="CanvasLayer"]
-margin_top = 22.247
-margin_right = 189.0
-margin_bottom = 36.247
+[node name="FPS" type="Label" parent="CanvasLayer/Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -79.0
+margin_bottom = 52.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "TExtooooooooooooosdasdasd"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label3" type="Label" parent="CanvasLayer"]
-margin_top = 46.0311
-margin_right = 189.0
-margin_bottom = 60.0311
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "TExtooooooooooooosdasdasd"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label4" type="Label" parent="CanvasLayer"]
-margin_left = 1798.0
-margin_top = 22.0311
-margin_right = 1987.0
-margin_bottom = 36.0311
-rect_scale = Vector2( 3.72, 3.72 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "FPS"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -85,33 +124,8 @@ __meta__ = {
 
 [node name="String" parent="." instance=ExtResource( 17 )]
 length = 500.0
-
-[node name="Area2D" parent="." instance=ExtResource( 4 )]
-position = Vector2( -608.34, -610.794 )
-
-[node name="Area2D2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 2427.67, -702.93 )
-
-[node name="Area2D3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1907.88, -106.652 )
-
-[node name="Area2D4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 3105.2, 144.046 )
-
-[node name="Area2D5" parent="." instance=ExtResource( 4 )]
-position = Vector2( -1862.37, -219.872 )
-
-[node name="Area2D6" parent="." instance=ExtResource( 4 )]
-position = Vector2( -1129.97, 114.047 )
-
-[node name="Area2D7" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1081.45, -64.2899 )
-
-[node name="Area2D8" parent="." instance=ExtResource( 4 )]
-position = Vector2( 863.594, -698.143 )
-
-[node name="Area2D9" parent="." instance=ExtResource( 4 )]
-position = Vector2( 189.341, -213.115 )
+end_pin = false
+firstPointNode = NodePath("../../StageController/RigidBody2D")
 
 [node name="Nuvem1" type="Sprite" parent="."]
 position = Vector2( 210.982, -609.661 )
@@ -169,3 +183,5 @@ anims/AnimacaoSol = ExtResource( 5 )
 
 [node name="Area2D10" parent="." instance=ExtResource( 3 )]
 position = Vector2( -302.718, 30.2078 )
+
+[node name="Ventos" type="Node2D" parent="."]

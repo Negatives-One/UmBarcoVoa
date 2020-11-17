@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name Vento
-
 var player : Player
 
 export(float) var PotenciaForte : float = 2.0

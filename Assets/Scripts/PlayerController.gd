@@ -33,6 +33,8 @@ func _unhandled_input(event : InputEvent) -> void:
 			currentState = States.Desacelerando
 		else:
 			pass
+		if event.pressed and event.button_index == BUTTON_RIGHT:
+			apply_central_impulse(Vector2(-1,0)*5000)
 
 func _physics_process(delta : float) -> void:
 	applied_force = Vector2.ZERO

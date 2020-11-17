@@ -9,8 +9,8 @@ height = 79.6628
 
 [node name="Area2D" type="Area2D"]
 script = ExtResource( 2 )
-PotenciaForte = 400.0
-PotenciaFraco = 200.0
+PotenciaForte = 600.0
+PotenciaFraco = 400.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( -0.4, 0.4 )
@@ -20,5 +20,10 @@ texture = ExtResource( 1 )
 position = Vector2( 0, -1.695 )
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 1.33484, -1.90735e-06 )
+scale = Vector2( 9.20927, 7.34049 )
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Area2D_body_exited"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
