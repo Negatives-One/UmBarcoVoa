@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Assets/Images/AssetsEduardo/Sol.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Scenes/BGInfinito.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/Verlet/Verlet.tscn" type="PackedScene" id=17]
+[ext_resource path="res://icon.png" type="Texture" id=18]
 
 [node name="StageController" type="Node2D"]
 script = ExtResource( 1 )
@@ -27,6 +28,7 @@ windSpawnRatio = 400.0
 
 [node name="Background" parent="." instance=ExtResource( 16 )]
 xAdjust = 640.0
+basedNodePath = NodePath("../RigidBody2D/Camera2D2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -41,7 +43,7 @@ __meta__ = {
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Panel"]
 margin_right = 264.0
-margin_bottom = 163.0
+margin_bottom = 205.0
 color = Color( 1, 1, 1, 0.890196 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -50,7 +52,8 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -91.0
+margin_left = -170.37
+margin_right = -0.370117
 margin_bottom = 53.0
 color = Color( 1, 1, 1, 0.890196 )
 __meta__ = {
@@ -86,6 +89,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Distance" type="Label" parent="CanvasLayer/Panel"]
+margin_top = 149.132
+margin_right = 219.0
+margin_bottom = 201.132
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Distance"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="BoostState" type="Label" parent="CanvasLayer/Panel"]
 visible = false
 margin_top = 97.0003
@@ -100,21 +113,22 @@ __meta__ = {
 [node name="FPS" type="Label" parent="CanvasLayer/Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -79.0
+margin_left = -161.545
+margin_right = 8.45508
 margin_bottom = 52.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "FPS"
-align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
 z_index = 6
-MaxSpeed = 500.0
+VerticalAcelleration = 500.0
+HorizontalAcelleration = 500.0
+MaxSpeed = 9999.0
 
 [node name="Camera2D2" type="Camera2D" parent="RigidBody2D"]
-position = Vector2( 640, 0 )
 current = true
 limit_top = -540
 limit_bottom = 540
@@ -122,21 +136,46 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="icon" type="Sprite" parent="RigidBody2D/Camera2D2"]
+visible = false
+texture = ExtResource( 18 )
+
+[node name="icons" type="Node2D" parent="RigidBody2D/Camera2D2"]
+visible = false
+
+[node name="icon2" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
+position = Vector2( 960, -229.779 )
+texture = ExtResource( 18 )
+
+[node name="icon3" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
+position = Vector2( -752.616, -229.779 )
+texture = ExtResource( 18 )
+
+[node name="icon4" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
+position = Vector2( -752.616, -229.779 )
+texture = ExtResource( 18 )
+
+[node name="icon5" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
+position = Vector2( -752.616, -229.779 )
+texture = ExtResource( 18 )
+
 [node name="String" parent="." instance=ExtResource( 17 )]
+z_index = 5
 length = 500.0
+gravity = Vector2( 0, 0 )
 end_pin = false
 firstPointNode = NodePath("../../StageController/RigidBody2D")
 
 [node name="Nuvem1" type="Sprite" parent="."]
-position = Vector2( 210.982, -609.661 )
+position = Vector2( 1698.98, -609.661 )
 texture = ExtResource( 13 )
 
 [node name="Nuvem2" type="Sprite" parent="."]
-position = Vector2( 2834.72, -273.003 )
+position = Vector2( 4322.72, -273.003 )
 texture = ExtResource( 14 )
 
 [node name="Nuvem3" type="Sprite" parent="."]
-position = Vector2( 1433.58, -635.358 )
+position = Vector2( 2921.58, -635.358 )
 texture = ExtResource( 12 )
 
 [node name="Chuva" type="Sprite" parent="Nuvem3"]
@@ -152,11 +191,11 @@ scale = Vector2( 1, 0.8 )
 texture = ExtResource( 10 )
 
 [node name="Nuvem4" type="Sprite" parent="."]
-position = Vector2( -1116.66, -425.997 )
+position = Vector2( 371.34, -425.997 )
 texture = ExtResource( 11 )
 
 [node name="Predios" type="Node2D" parent="."]
-position = Vector2( -348.132, 382.605 )
+position = Vector2( 1139.87, 382.605 )
 
 [node name="Predio1" type="Sprite" parent="Predios"]
 texture = ExtResource( 9 )
@@ -183,5 +222,7 @@ anims/AnimacaoSol = ExtResource( 5 )
 
 [node name="Area2D10" parent="." instance=ExtResource( 3 )]
 position = Vector2( -302.718, 30.2078 )
+currentSize = 3
 
 [node name="Ventos" type="Node2D" parent="."]
+[connection signal="resized" from="CanvasLayer/Panel/Location" to="." method="_on_Location_resized"]

@@ -19,8 +19,18 @@ var target : Vector2
 
 onready var Sprites = $Jangada.get_children()
 
+export(float, 0.0, 0.5, 0.01) var cameraPositionRatio : float = 0.38
+
+
 func _ready() -> void:
 	currentState = States.Parado
+	var tam = get_viewport_rect().size
+	$Camera2D2.position.x = tam.x * 0.38
+	var a = $Camera2D2/icons.get_children()
+	a[0].position = Vector2(tam.x/2, tam.y/2)
+	a[1].position = Vector2(tam.x/2, -tam.y/2)
+	a[2].position = Vector2(-tam.x/2, tam.y/2)
+	a[3].position = Vector2(-tam.x/2, -tam.y/2)
 
 func _integrate_forces(state : Physics2DDirectBodyState):
 	pass

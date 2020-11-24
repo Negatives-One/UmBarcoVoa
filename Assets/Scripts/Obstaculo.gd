@@ -20,9 +20,9 @@ var velocityNerf : Vector2 = Vector2.ZERO
 
 var player : Player
 
-var isIn : bool = false
 
-func _ready():
+func _ready() -> void:
+	set_physics_process(false)
 	if currentSize != Size.Pequeno:
 		$Sprite.scale = $Sprite.scale * (currentSize - 1)
 		textureSize = Vector2($Sprite.texture.get_width() * $Sprite.scale.x, $Sprite.texture.get_height() * $Sprite.scale.y)
@@ -31,16 +31,19 @@ func _ready():
 	$CollisionShape2D.shape.extents = Vector2(textureSize.x/2, textureSize.y/2)
 
 func _physics_process(delta):
-	if isIn:
-		velocityNerf = Vector2(player.linear_velocity.x - (player.linear_velocity.x * baseSlowScale * currentSize), player.linear_velocity.y - (player.linear_velocity.y * baseSlowScale * currentSize))
-		player.add_central_force(velocityNerf)
+	NerfVelocity()
+	set_physics_process(false)
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(body) -> void:
 	if body.is_in_group("Player"):
+		print(body)
 		player = body
-		isIn = true
+		set_physics_process(true)
 
-
-func _on_Area2D_body_exited(body):
+func _on_Area2D_body_exited(body) -> void:
 	if body.is_in_group("Player"):
-		isIn = false
+		pass
+
+func NerfVelocity() -> void:
+	var velocityNerf : Vector2 = Vector2(player.linear_velocity.x - (player.linear_velocity.x * baseSlowScale * currentSize), player.linear_velocity.y - (player.linear_velocity.y * baseSlowScale * currentSize))
+	player.apply_central_impulse(-velocityNerf)
