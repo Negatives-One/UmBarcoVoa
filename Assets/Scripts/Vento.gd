@@ -4,10 +4,10 @@ class_name Wind
 
 var player : Player
 
-export(float) var PotenciaForte : float = 100
-export(float) var DuracaoForte : float = 4.0
-export(float) var PotenciaFraco : float = 50
-export(float) var DuracaoFraco : float = 2.0
+export(float) var PotenciaForte : float = 300
+export(float) var PotenciaFraco : float = 150
+
+var index : int = 0
 
 var isStrong : bool
 var isIn : bool = false
@@ -25,7 +25,6 @@ func GetDirection() -> float:
 
 func _ready() -> void:
 	randomize()
-	set_physics_process(false)
 	var rand = int(rand_range(0, 2))
 	
 	if rand == 0:
@@ -35,29 +34,27 @@ func _ready() -> void:
 		
 	if isStrong:
 		magnitude = PotenciaForte
+		gravity = PotenciaForte
 	else:
 		magnitude = PotenciaFraco
+		gravity = PotenciaFraco
 	if !isStrong:
 		$Sprite.self_modulate = Color(1,1,1, 0.5)
-
-func _physics_process(delta):
-	player.add_central_force(direction * magnitude)
+	gravity_vec = direction.normalized()
 
 func SetDirection(angulo : float) -> void:
 	direction = Vector2(cos(angulo), sin(angulo))
 	rotation = angulo
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(body : RigidBody2D):
 	if body.is_in_group("Player"):
 		player = body
 		player.boostState = player.BoostStates.Usando
-		set_physics_process(true)
 
 
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("Player"):
 		player.boostState = player.BoostStates.Acabou
-		set_physics_process(false)
 
 
 func _on_VisibilityNotifier2D_screen_exited():

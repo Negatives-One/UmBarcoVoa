@@ -12,7 +12,7 @@ enum BoostStates {Usando, Acabou, Estavel}
 var boostState : int = BoostStates.Estavel
 
 var velocity : Vector2
-var acelleration : Vector2
+var acelleration : Vector2 = Vector2.ZERO
 
 var currentState : int
 var target : Vector2
@@ -20,6 +20,8 @@ var target : Vector2
 onready var Sprites = $Jangada.get_children()
 
 export(float, 0.0, 0.5, 0.01) var cameraPositionRatio : float = 0.38
+
+var physicsState : Physics2DDirectBodyState
 
 
 func _ready() -> void:
@@ -33,7 +35,19 @@ func _ready() -> void:
 	a[3].position = Vector2(-tam.x/2, -tam.y/2)
 
 func _integrate_forces(state : Physics2DDirectBodyState):
-	pass
+	physicsState = state
+	FSM()
+	linear_velocity = linear_velocity.normalized() * linear_velocity.length()
+	if boostState == BoostStates.Usando:
+		pass
+	elif boostState == BoostStates.Acabou:
+		linear_damp = 1.5
+		if linear_velocity.length() <= linear_velocity.clamped(MaxSpeed).length():
+			boostState = BoostStates.Estavel
+			linear_damp = -1
+	else:
+		linear_velocity = linear_velocity.clamped(MaxSpeed)
+	set_applied_force(acelleration + state.total_gravity)
 
 func _unhandled_input(event : InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -47,22 +61,9 @@ func _unhandled_input(event : InputEvent) -> void:
 			apply_central_impulse(Vector2(-1,0)*5000)
 
 func _physics_process(delta : float) -> void:
-	applied_force = Vector2.ZERO
-	FSM()
-	linear_velocity = linear_velocity.normalized() * linear_velocity.length()
-	if boostState == BoostStates.Usando:
-		pass
-	elif boostState == BoostStates.Acabou:
-		linear_damp = 1.5
-		if linear_velocity.length() <= linear_velocity.clamped(MaxSpeed).length():
-			boostState = BoostStates.Estavel
-			linear_damp = -1
-	else:
-		linear_velocity = linear_velocity.clamped(MaxSpeed)
-		
+	pass
 
 func _process(delta : float) -> void:
-	
 	$Jangada.rotation = linear_velocity.normalized().angle()
 	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
 	if(linear_velocity.x > 0):
@@ -83,14 +84,20 @@ func FSM() -> void:
 	if(currentState == States.Acelerando):
 		linear_damp = -1
 		target = get_global_mouse_position()
-		add_central_force((target - global_position).normalized() * HorizontalAcelleration)
-	
+		target = Vector2($Camera2D2.global_position.x, target.y)
+		acelleration = (target - global_position).normalized() * HorizontalAcelleration
+		#add_central_force((target - global_position).normalized() * HorizontalAcelleration)
+		
 	elif(currentState == States.Desacelerando):
+		acelleration = Vector2.ZERO
 		linear_damp = 1.5
 		if linear_velocity.length() < 10:
 			linear_velocity = linear_velocity.normalized() / 10
 			currentState = States.Parado
 			linear_damp = -1
-	
+		
 	else:
 		pass
+
+func ApplyImpulse(Impulse : Vector2):
+	physicsState.apply_central_impulse(Impulse)
