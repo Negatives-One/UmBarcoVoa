@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Assets/Scripts/PlayerController.gd"
 }, {
+"base": "Node2D",
+"class": "StageController",
+"language": "GDScript",
+"path": "res://Assets/Scripts/StageController.gd"
+}, {
+"base": "Node2D",
+"class": "StageSpawner",
+"language": "GDScript",
+"path": "res://Assets/Scripts/StageSpawner.gd"
+}, {
 "base": "Area2D",
 "class": "Wind",
 "language": "GDScript",
@@ -27,6 +37,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Obstacle": "",
 "Player": "",
+"StageController": "",
+"StageSpawner": "",
 "Wind": ""
 }
 

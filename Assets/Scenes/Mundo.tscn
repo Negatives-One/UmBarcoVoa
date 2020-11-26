@@ -25,12 +25,15 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 540.125 ]
 }
-obstacleSpawnDistance = 500.0
 
 [node name="StageSpawner" type="Node2D" parent="."]
 script = ExtResource( 19 )
+__meta__ = {
+"_editor_description_": "Linhas Horizontais igual a 0 significa infinitas linhas"
+}
+horizontalLines = 8
 WindsNode = NodePath("../Ventos")
-windSpawnDistance = 500.0
+StageControllerPath = NodePath("..")
 
 [node name="Background" parent="." instance=ExtResource( 16 )]
 position = Vector2( 0, -540 )
@@ -132,7 +135,6 @@ __meta__ = {
 [node name="String" parent="." instance=ExtResource( 17 )]
 z_index = 5
 length = 500.0
-gravity = Vector2( 0, 0 )
 end_pin = false
 firstPointNode = NodePath("../../StageController/RigidBody2D")
 
@@ -189,6 +191,7 @@ anims/AnimacaoSol = ExtResource( 5 )
 position = Vector2( 904.808, 30.2078 )
 
 [node name="Ventos" type="Node2D" parent="."]
+z_index = 4
 
 [node name="Sol" type="Sprite" parent="."]
 position = Vector2( -699.573, -349.739 )
@@ -197,12 +200,12 @@ scale = Vector2( 0.945006, 0.945006 )
 texture = ExtResource( 15 )
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, -540 )
+position = Vector2( -100, -540 )
 z_index = 6
 gravity_scale = 1.0
 VerticalAcelleration = 300.0
 HorizontalAcelleration = 300.0
-MaxSpeed = 500.0
+MaxSpeed = 1000.0
 
 [node name="Camera2D2" type="Camera2D" parent="RigidBody2D"]
 current = true

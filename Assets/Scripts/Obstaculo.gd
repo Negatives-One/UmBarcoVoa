@@ -35,5 +35,4 @@ func _on_Area2D_body_exited(body) -> void:
 func NerfVelocity() -> Vector2:
 	#var velocityNerf : Vector2 = Vector2(player.linear_velocity.x - (player.linear_velocity.x * baseSlowScale * currentSize), player.linear_velocity.y - (player.linear_velocity.y * baseSlowScale * currentSize))
 	var velocityNerf : Vector2 = Vector2(player.physicsState.linear_velocity.x * slow[currentSize], player.physicsState.linear_velocity.y * slow[currentSize])
-	print(velocityNerf)
 	return -velocityNerf

@@ -61,6 +61,8 @@ func _unhandled_input(event : InputEvent) -> void:
 			apply_central_impulse(Vector2(-1,0)*5000)
 
 func _physics_process(delta : float) -> void:
+	if Input.is_action_just_pressed("ui_accept"):
+		self.global_position = Vector2(-100, -540)
 	pass
 
 func _process(delta : float) -> void:
