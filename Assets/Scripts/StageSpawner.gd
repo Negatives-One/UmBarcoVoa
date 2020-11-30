@@ -2,8 +2,9 @@ extends Node2D
 
 class_name StageSpawner
 
-export(int) var horizontalLines : float = 0
+export(int, 1, 9999) var horizontalLines : float = 0
 export(NodePath) var WindsNode : NodePath
+export(NodePath) var ObstaclesNode : NodePath
 
 onready var screenSize : Vector2 = get_viewport_rect().size
 
@@ -13,31 +14,47 @@ export(float) var MinHeight = 0
 export(NodePath) var StageControllerPath : NodePath
 onready var StageController : StageController = get_node(StageControllerPath)
 
+var CapPos : float = 0
+var spawnPosition : Vector2 = Vector2.ZERO
+
 var timer : Timer = Timer.new()
 #region Wind
 export(PackedScene) var wind : PackedScene = preload("res://Assets/Scenes/Vento.tscn")
 export(float) var verticalLinesDistance : float = 500
 export(int) var windAmmount : int = 1
-var spawnPosition : Vector2 = Vector2.ZERO
-var CapPos : float = 0
-var previousWind : Wind = Wind.new()
+var previousWind : Wind
 var repeatedDirection : int = 0
-var windCount : int = 0
+var windCountIndex : int = 0
 #endregion Wind
 
 #region Obstacle
 export(PackedScene) var obstacle : PackedScene = preload("res://Assets/Scenes/Obstacle.tscn")
 export(float) var obstacleSpawnDistance : float = 100
 export(int) var obstacleAmmount : int = 1
+var obstacleCountIndex : int = 0
+var previousObstacle : Obstacle
+var repeatedSkin : int = 0
 #endregion Obstacle
 
+var openSpaces : Array = []
+
 func _ready() -> void:
+	if obstacleAmmount + windAmmount > horizontalLines:
+		obstacleAmmount = horizontalLines/2
+		windAmmount = horizontalLines/2
+	FillArray()
+	print(openSpaces)
 #	timer.connect("timeout",self,"_on_timer_timeout") 
 #	add_child(timer)
 #	timer.autostart = true
 #	timer.wait_time = 0.1
 #	timer.start()
 	pass
+
+func FillArray() -> void:
+	openSpaces.clear()
+	for i in range(horizontalLines):
+		openSpaces.append((screenSize.y / horizontalLines * (i + 1)) - 80)
 
 func _process(delta: float) -> void:
 	match(StageController.currentEvent):
@@ -51,13 +68,18 @@ func CheckCollumnSpawner() -> void:
 	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 + 100 > CapPos:
 		for _i in range(windAmmount):
 			PlaceWinds()
-		windCount += 1
+		windCountIndex += 1
+		for _i in range(obstacleAmmount):
+			PlaceObstacles()
+		obstacleCountIndex += 1
+	FillArray()
+	CapPos = spawnPosition.x + verticalLinesDistance
 
 #func _on_timer_timeout():
 #	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 + 100 > CapPos:
 #		for _i in range(windAmmount):
 #			PlaceWinds()
-#		windCount += 1
+#		windCountIndex += 1
 
 func PlaceWinds() -> void:
 	randomize()
@@ -69,17 +91,19 @@ func PlaceWinds() -> void:
 			print("opa")
 			PlaceWinds()
 	elif horizontalLines > 0:
-		var midNum : float = screenSize.y / (horizontalLines+1)
-		var possiblePos : Array = []
-		for i in range(1, horizontalLines+1):
-			possiblePos.append(midNum * i)
-		spawnPosition = Vector2(($"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2) + 100, -possiblePos[randi() % int(horizontalLines)])
+		var selectedPos : int = randi() % openSpaces.size()
+#		var midNum : float = screenSize.y / (horizontalLines+1)
+#		var possiblePos : Array = []
+#		for i in range(1, horizontalLines+1):
+#			possiblePos.append(midNum * i)
+		spawnPosition = Vector2(($"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2) + 100, -openSpaces[selectedPos])
+		openSpaces.remove(selectedPos)
 		CreateWind(spawnPosition)
 
 func CreateWind(pos : Vector2) -> void:
 	var newWind : Wind = wind.instance()
 	get_node(WindsNode).call_deferred('add_child', newWind)
-	newWind.index = windCount
+	newWind.index = windCountIndex
 	newWind.global_position = pos
 	randomize()
 	var randIndex : int = randi() % newWind.possibleAngles.size()
@@ -97,15 +121,47 @@ func CreateWind(pos : Vector2) -> void:
 				randIndex = 0
 			newWind.SetDirection(deg2rad(newWind.possibleAngles[randIndex]))
 			
-	CapPos = pos.x + verticalLinesDistance
+	#CapPos = pos.x + verticalLinesDistance
 	previousWind = newWind
 
 func CheckNear(pos : Vector2) -> bool:
 	var nearWind : Array = []
 	for i in range(get_node(WindsNode).get_child_count()):
-		if get_node(WindsNode).get_children()[i].index + 1 == windCount:
+		if get_node(WindsNode).get_children()[i].index + 1 == windCountIndex:
 			nearWind.append(get_node(WindsNode).get_children()[i])
 	for i in range(nearWind.size()):
 		if nearWind[i].global_position.distance_to(pos) < 300:
 			return true
 	return false
+
+func PlaceObstacles() -> void:
+	if horizontalLines > 0:
+		var selectedPos : int = randi() % openSpaces.size()
+		spawnPosition = Vector2(($"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2) + 100, -openSpaces[selectedPos])
+		openSpaces.remove(selectedPos)
+		CreateObstacle(spawnPosition)
+	else:
+		pass
+
+func CreateObstacle(pos : Vector2) -> void:
+	var newObstacle : Obstacle = obstacle.instance()
+	newObstacle.index = obstacleCountIndex
+	newObstacle.global_position = pos
+	newObstacle.currentSize = randi() % 3
+	randomize()
+	var randIndex : int = randi() % newObstacle.possibleSkins.size()
+	
+	if is_instance_valid(newObstacle) and is_instance_valid(previousObstacle):
+		if newObstacle.GetSkin() == previousObstacle.GetSkin():
+			repeatedSkin += 1
+		else:
+			print("opa")
+			repeatedSkin = 0
+		if repeatedDirection >= 3:
+			randIndex += 1
+			if randIndex >= newObstacle.possibleSkins.size(): 
+				randIndex = 0
+			newObstacle.SetSkin(newObstacle.possibleSkins[randIndex])
+			
+	get_node(ObstaclesNode).call_deferred('add_child', newObstacle)
+	previousObstacle = newObstacle

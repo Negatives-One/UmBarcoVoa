@@ -60,11 +60,6 @@ func _unhandled_input(event : InputEvent) -> void:
 		if event.pressed and event.button_index == BUTTON_RIGHT:
 			apply_central_impulse(Vector2(-1,0)*5000)
 
-func _physics_process(delta : float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		self.global_position = Vector2(-100, -540)
-	pass
-
 func _process(delta : float) -> void:
 	$Jangada.rotation = linear_velocity.normalized().angle()
 	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
@@ -87,7 +82,9 @@ func FSM() -> void:
 		linear_damp = -1
 		target = get_global_mouse_position()
 		target = Vector2($Camera2D2.global_position.x, target.y)
-		acelleration = (target - global_position).normalized() * HorizontalAcelleration
+		acelleration = (target - global_position).normalized() 
+		acelleration.x *= HorizontalAcelleration
+		acelleration.y *= VerticalAcelleration
 		#add_central_force((target - global_position).normalized() * HorizontalAcelleration)
 		
 	elif(currentState == States.Desacelerando):

@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Obstacle",
 "language": "GDScript",
-"path": "res://Assets/Scripts/Obstaculo.gd"
+"path": "res://Assets/Scripts/Obstacle.gd"
 }, {
 "base": "RigidBody2D",
 "class": "Player",
@@ -46,7 +46,7 @@ _global_script_class_icons={
 
 config/name="Um_Barco_Voa"
 run/main_scene="res://Assets/Scenes/Mundo.tscn"
-config/icon="res://icon.png"
+config/icon="res://icon0.png"
 
 [autoload]
 
