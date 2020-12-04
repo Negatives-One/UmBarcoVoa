@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Scripts/Camera.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=4]
 [ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Predio3.png" type="Texture" id=6]
@@ -209,6 +210,7 @@ MaxSpeed = 750.0
 current = true
 limit_top = -1080
 limit_bottom = 0
+script = ExtResource( 3 )
 __meta__ = {
 "_editor_description_": ""
 }

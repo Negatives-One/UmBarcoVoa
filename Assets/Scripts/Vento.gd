@@ -18,7 +18,7 @@ var duration : float
 
 var possibleAngles : Array = [0, 45, 90, 135, 180, 225, 270, 315]
 
-var angle : float = 0 setget SetDirection, GetDirection
+var angle : float setget SetDirection, GetDirection
 
 func GetDirection() -> float:
 	return angle

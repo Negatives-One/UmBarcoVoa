@@ -23,8 +23,11 @@ export(float, 0.0, 0.5, 0.01) var cameraPositionRatio : float = 0.38
 
 var physicsState : Physics2DDirectBodyState
 
+var camera : MyCamera
+
 
 func _ready() -> void:
+	camera = $Camera2D2
 	currentState = States.Parado
 	var tam = get_viewport_rect().size
 	$Camera2D2.position.x = tam.x * 0.38
@@ -81,7 +84,9 @@ func FSM() -> void:
 	if(currentState == States.Acelerando):
 		linear_damp = -1
 		target = get_global_mouse_position()
-		target = Vector2($Camera2D2.global_position.x, target.y)
+		var verticalDiference : float = (get_viewport_rect().size.y * 1.2) - get_viewport_rect().size.y
+		target.y = Map(target.y, 0, -get_viewport_rect().size.y, verticalDiference, -get_viewport_rect().size.y)
+		target = Vector2($Camera2D2.global_position.x, target.y * 1.2)
 		acelleration = (target - global_position).normalized() 
 		acelleration.x *= HorizontalAcelleration
 		acelleration.y *= VerticalAcelleration
@@ -100,3 +105,7 @@ func FSM() -> void:
 
 func ApplyImpulse(Impulse : Vector2):
 	physicsState.apply_central_impulse(Impulse)
+
+func Map(value : float, start1 : float, stop1 : float, start2 : float, stop2 : float) -> float:
+	var outgoing : float = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
+	return outgoing;

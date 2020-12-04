@@ -22,7 +22,8 @@ var timer : Timer = Timer.new()
 export(PackedScene) var wind : PackedScene = preload("res://Assets/Scenes/Vento.tscn")
 export(float) var verticalLinesDistance : float = 500
 export(int) var windAmmount : int = 1
-var previousWind : Wind
+var previousWindDirection : float = 0
+var previousWindPlace : int = 0
 var repeatedDirection : int = 0
 var windCountIndex : int = 0
 #endregion Wind
@@ -32,7 +33,8 @@ export(PackedScene) var obstacle : PackedScene = preload("res://Assets/Scenes/Ob
 export(float) var obstacleSpawnDistance : float = 100
 export(int) var obstacleAmmount : int = 1
 var obstacleCountIndex : int = 0
-var previousObstacle : Obstacle
+var previousObstacleSize : int = 10
+var repeatedObstacleSize : int = 0
 var repeatedSkin : int = 0
 #endregion Obstacle
 
@@ -43,13 +45,11 @@ func _ready() -> void:
 		obstacleAmmount = horizontalLines/2
 		windAmmount = horizontalLines/2
 	FillArray()
-	print(openSpaces)
 #	timer.connect("timeout",self,"_on_timer_timeout") 
 #	add_child(timer)
 #	timer.autostart = true
 #	timer.wait_time = 0.1
 #	timer.start()
-	pass
 
 func FillArray() -> void:
 	openSpaces.clear()
@@ -88,17 +88,17 @@ func PlaceWinds() -> void:
 		if !CheckNear(spawnPosition):
 			CreateWind(spawnPosition)
 		else:
-			print("opa")
+			print('opa')
 			PlaceWinds()
 	elif horizontalLines > 0:
 		var selectedPos : int = randi() % openSpaces.size()
-#		var midNum : float = screenSize.y / (horizontalLines+1)
-#		var possiblePos : Array = []
-#		for i in range(1, horizontalLines+1):
-#			possiblePos.append(midNum * i)
+		while selectedPos == previousWindPlace:
+			print('a')
+			selectedPos = randi() % openSpaces.size()
 		spawnPosition = Vector2(($"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2) + 100, -openSpaces[selectedPos])
 		openSpaces.remove(selectedPos)
 		CreateWind(spawnPosition)
+		previousWindPlace = selectedPos
 
 func CreateWind(pos : Vector2) -> void:
 	var newWind : Wind = wind.instance()
@@ -107,22 +107,20 @@ func CreateWind(pos : Vector2) -> void:
 	newWind.global_position = pos
 	randomize()
 	var randIndex : int = randi() % newWind.possibleAngles.size()
-	newWind.SetDirection(deg2rad(newWind.possibleAngles[randIndex]))
-	
-	if is_instance_valid(newWind) and is_instance_valid(previousWind):
-		if newWind.GetDirection() == previousWind.GetDirection():
-			repeatedDirection += 1
-		else:
-			print("opa")
-			repeatedDirection = 0
-		if repeatedDirection >= 3:
-			randIndex += 1
-			if randIndex >= newWind.possibleAngles.size():
-				randIndex = 0
-			newWind.SetDirection(deg2rad(newWind.possibleAngles[randIndex]))
+	var newWindDirection : float = deg2rad(newWind.possibleAngles[randIndex])
+	newWind.SetDirection(newWindDirection)
+	if newWindDirection == previousWindDirection:
+		repeatedDirection += 1
+	else:
+		repeatedDirection = 0
+	if repeatedDirection >= 3:
+		randIndex += 1
+		if randIndex >= newWind.possibleAngles.size():
+			randIndex = 0
+		newWind.SetDirection(deg2rad(newWind.possibleAngles[randIndex]))
 			
 	#CapPos = pos.x + verticalLinesDistance
-	previousWind = newWind
+	previousWindDirection = newWindDirection
 
 func CheckNear(pos : Vector2) -> bool:
 	var nearWind : Array = []
@@ -147,21 +145,30 @@ func CreateObstacle(pos : Vector2) -> void:
 	var newObstacle : Obstacle = obstacle.instance()
 	newObstacle.index = obstacleCountIndex
 	newObstacle.global_position = pos
-	newObstacle.currentSize = randi() % 3
+	var newObstacleSize : int = randi() % (newObstacle.Size.Grande+1)
+	if newObstacleSize == previousObstacleSize:
+		repeatedObstacleSize += 1
+	else:
+		repeatedObstacleSize = 0
+	if repeatedObstacleSize >= 3:
+		var sizes : Array = [0, 1, 2]
+		sizes.erase(previousObstacleSize)
+		newObstacleSize = randi() % (sizes.size()+1)
+	newObstacle.currentSize = newObstacleSize
 	randomize()
 	var randIndex : int = randi() % newObstacle.possibleSkins.size()
 	
-	if is_instance_valid(newObstacle) and is_instance_valid(previousObstacle):
-		if newObstacle.GetSkin() == previousObstacle.GetSkin():
-			repeatedSkin += 1
-		else:
-			print("opa")
-			repeatedSkin = 0
-		if repeatedDirection >= 3:
-			randIndex += 1
-			if randIndex >= newObstacle.possibleSkins.size(): 
-				randIndex = 0
-			newObstacle.SetSkin(newObstacle.possibleSkins[randIndex])
+#	if is_instance_valid(newObstacle) and is_instance_valid(previousObstacleSize):
+#		if newObstacle.GetSkin() == previousObstacleSize.GetSkin():
+#			repeatedSkin += 1
+#		else:
+#			print("opa")
+#			repeatedSkin = 0
+#		if repeatedDirection >= 3:
+#			randIndex += 1
+#			if randIndex >= newObstacle.possibleSkins.size(): 
+#				randIndex = 0
+#			newObstacle.SetSkin(newObstacle.possibleSkins[randIndex])
 			
 	get_node(ObstaclesNode).call_deferred('add_child', newObstacle)
-	previousObstacle = newObstacle
+	previousObstacleSize = newObstacleSize
