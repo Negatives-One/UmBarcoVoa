@@ -1,6 +1,8 @@
 extends RigidBody2D
 
 class_name Player
+
+var receivingInputs : bool = true
  
 export(float) var VerticalAcelleration : float = 10
 export(float) var HorizontalAcelleration : float = 10
@@ -53,15 +55,16 @@ func _integrate_forces(state : Physics2DDirectBodyState):
 	set_applied_force(acelleration + state.total_gravity)
 
 func _unhandled_input(event : InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == BUTTON_LEFT:
-			currentState = States.Acelerando
-		elif event.is_action_released("LClick"):
-			currentState = States.Desacelerando
-		else:
-			pass
-		if event.pressed and event.button_index == BUTTON_RIGHT:
-			apply_central_impulse(Vector2(-1,0)*5000)
+	if receivingInputs:
+		if event is InputEventMouseButton:
+			if event.pressed and event.button_index == BUTTON_LEFT:
+				currentState = States.Acelerando
+			elif event.is_action_released("LClick"):
+				currentState = States.Desacelerando
+			else:
+				pass
+			if event.pressed and event.button_index == BUTTON_RIGHT:
+				apply_central_impulse(Vector2(1,0)*5000)
 
 func _process(delta : float) -> void:
 	$Jangada.rotation = linear_velocity.normalized().angle()

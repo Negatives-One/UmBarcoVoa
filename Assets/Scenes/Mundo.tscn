@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -19,6 +19,102 @@
 [ext_resource path="res://Assets/Verlet/Verlet.tscn" type="PackedScene" id=17]
 [ext_resource path="res://icon0.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Scripts/StageSpawner.gd" type="Script" id=19]
+[ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=20]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+use_filter = true
+font_data = ExtResource( 20 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeIn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "PrepareToChangeLocation"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "FadeOut"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "NextLocation"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "ShowName"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "NameTransitionLabel"
+} ]
+}
 
 [node name="StageController" type="Node2D"]
 script = ExtResource( 1 )
@@ -133,6 +229,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -196.0
+margin_top = -50.0
+margin_right = 196.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 1 )
+text = "Fortaleza"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="String" parent="." instance=ExtResource( 17 )]
 z_index = 5
 length = 500.0
@@ -185,7 +308,7 @@ texture = ExtResource( 6 )
 position = Vector2( 803.164, -242.947 )
 texture = ExtResource( 7 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="SunPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
 
 [node name="Obstaculos" type="Node2D" parent="."]
@@ -200,11 +323,11 @@ scale = Vector2( 0.945006, 0.945006 )
 texture = ExtResource( 15 )
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( -100, -540 )
+position = Vector2( 0, -540 )
 z_index = 6
 gravity_scale = 1.0
 VerticalAcelleration = 300.0
-MaxSpeed = 750.0
+MaxSpeed = 3000.0
 
 [node name="Camera2D2" type="Camera2D" parent="RigidBody2D"]
 current = true
@@ -233,4 +356,10 @@ texture = ExtResource( 18 )
 [node name="icon5" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
 position = Vector2( -752.616, -229.779 )
 texture = ExtResource( 18 )
+
+[node name="ScenePlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 2 )
+anims/FadeOut = SubResource( 4 )
+anims/ShowName = SubResource( 3 )
 [connection signal="resized" from="CanvasLayer/Panel/Location" to="." method="_on_Location_resized"]
+[connection signal="animation_finished" from="ScenePlayer" to="." method="_on_ScenePlayer_animation_finished"]
