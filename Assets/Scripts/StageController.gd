@@ -33,7 +33,7 @@ func _ready() -> void:
 	for i in range(len(predios)):
 		var textureHeight : int = predios[i].texture.get_height()
 		predios[i].global_position.y = MinHeight - float(textureHeight)/2
-	timer.connect("timeout", self, "_on_timer_timeout") 
+	var _error : int = timer.connect("timeout", self, "_on_timer_timeout") 
 	add_child(timer)
 	timer.autostart = true
 	timer.wait_time = rand_range(minTimeToChangeEvent, maxTimeToChangeEvent)
@@ -43,7 +43,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		OS.window_fullscreen = !OS.window_fullscreen
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false
@@ -64,9 +64,11 @@ func ChangeEvent(event : int) -> void:
 	previousEvent = currentEvent
 	currentEvent = event
 	if currentEvent == events.FreeStyle:
-		$StageSpawner.set_process(true)
+		$StageSpawner.Enable()
+		$CorrentesDeVento.Disable()
 	elif currentEvent == events.WindCurrents:
-		$StageSpawner.set_process(true)
+		$StageSpawner.Disable()
+		$CorrentesDeVento.Enable()
 
 func NextLocation() -> void:
 	$RigidBody2D.receivingInputs = true

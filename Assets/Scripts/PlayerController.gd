@@ -66,7 +66,7 @@ func _unhandled_input(event : InputEvent) -> void:
 			if event.pressed and event.button_index == BUTTON_RIGHT:
 				apply_central_impulse(Vector2(1,0)*5000)
 
-func _process(delta : float) -> void:
+func _process(_delta : float) -> void:
 	$Jangada.rotation = linear_velocity.normalized().angle()
 	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
 	if(linear_velocity.x > 0):

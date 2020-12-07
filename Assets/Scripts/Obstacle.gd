@@ -57,6 +57,7 @@ func GetSkin() -> int:
 	return 1;
 
 func SetSkin(skin : int) -> void:
+	var _a = skin
 	pass
 
 

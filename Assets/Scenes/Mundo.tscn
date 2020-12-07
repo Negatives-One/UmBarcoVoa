@@ -16,7 +16,7 @@
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem2.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Sol.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Scenes/BGInfinito.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Assets/Verlet/Verlet.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Assets/Scripts/WindCurrents.gd" type="Script" id=17]
 [ext_resource path="res://icon0.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Scripts/StageSpawner.gd" type="Script" id=19]
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=20]
@@ -56,7 +56,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "FadeOut"
 length = 1.5
 tracks/0/type = "value"
@@ -86,8 +86,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "ShowName"
+[sub_resource type="Animation" id=4]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:self_modulate")
@@ -256,12 +255,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="String" parent="." instance=ExtResource( 17 )]
-z_index = 5
-length = 500.0
-end_pin = false
-firstPointNode = NodePath("../../StageController/RigidBody2D")
-
 [node name="Nuvem1" type="Sprite" parent="."]
 position = Vector2( 1698.98, -922.122 )
 texture = ExtResource( 13 )
@@ -316,6 +309,9 @@ anims/AnimacaoSol = ExtResource( 5 )
 [node name="Ventos" type="Node2D" parent="."]
 z_index = 4
 
+[node name="CorrentesDeVento" type="Node2D" parent="."]
+script = ExtResource( 17 )
+
 [node name="Sol" type="Sprite" parent="."]
 position = Vector2( -699.573, -349.739 )
 rotation = -0.0189317
@@ -359,7 +355,7 @@ texture = ExtResource( 18 )
 
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 2 )
-anims/FadeOut = SubResource( 4 )
-anims/ShowName = SubResource( 3 )
+anims/FadeOut = SubResource( 3 )
+anims/ShowName = SubResource( 4 )
 [connection signal="resized" from="CanvasLayer/Panel/Location" to="." method="_on_Location_resized"]
 [connection signal="animation_finished" from="ScenePlayer" to="." method="_on_ScenePlayer_animation_finished"]

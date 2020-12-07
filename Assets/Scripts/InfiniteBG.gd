@@ -23,13 +23,9 @@ export(int) var verticalNum = 2
 func _ready():
 	basedNode = get_node(basedNodePath)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	ManageBG()
 	ManageArray()
-	var b : Array
-	for i in range(images.size()):
-		for j in range(images[0].size()):
-			b.append(images[i][j].name)
 
 func InvertVertical() -> void:
 	var second : Array = images[1];

@@ -51,7 +51,7 @@ func FillArray() -> void:
 	for i in range(horizontalLines):
 		openSpaces.append((screenSize.y / horizontalLines * (i + 1)) - 80)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	CheckCollumnSpawner()
 
 func CheckCollumnSpawner() -> void:
@@ -122,7 +122,7 @@ func CreateObstacle(pos : Vector2) -> void:
 		newObstacleSize = randi() % (sizes.size()+1)
 	newObstacle.currentSize = newObstacleSize
 	randomize()
-	var randIndex : int = randi() % newObstacle.possibleSkins.size()
+	######var randIndex : int = randi() % newObstacle.possibleSkins.size()
 	
 #	if is_instance_valid(newObstacle) and is_instance_valid(previousObstacleSize):
 #		if newObstacle.GetSkin() == previousObstacleSize.GetSkin():
@@ -138,3 +138,10 @@ func CreateObstacle(pos : Vector2) -> void:
 			
 	get_node(ObstaclesNode).call_deferred('add_child', newObstacle)
 	previousObstacleSize = newObstacleSize
+
+
+func Enable() -> void:
+	set_process(true)
+
+func Disable() -> void:
+	set_process(false)

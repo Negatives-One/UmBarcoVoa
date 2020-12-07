@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "Wind",
 "language": "GDScript",
 "path": "res://Assets/Scripts/Vento.gd"
+}, {
+"base": "Node2D",
+"class": "WindCurrents",
+"language": "GDScript",
+"path": "res://Assets/Scripts/WindCurrents.gd"
 } ]
 _global_script_class_icons={
 "MyCamera": "",
@@ -45,7 +50,8 @@ _global_script_class_icons={
 "Player": "",
 "StageController": "",
 "StageSpawner": "",
-"Wind": ""
+"Wind": "",
+"WindCurrents": ""
 }
 
 [application]
