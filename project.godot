@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Current",
+"language": "GDScript",
+"path": "res://Assets/Scripts/Current.gd"
+}, {
 "base": "Camera2D",
 "class": "MyCamera",
 "language": "GDScript",
@@ -45,6 +50,7 @@ _global_script_classes=[ {
 "path": "res://Assets/Scripts/WindCurrents.gd"
 } ]
 _global_script_class_icons={
+"Current": "",
 "MyCamera": "",
 "Obstacle": "",
 "Player": "",

@@ -120,6 +120,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 540.125 ]
 }
+initialEvent = 2
 
 [node name="StageSpawner" type="Node2D" parent="."]
 script = ExtResource( 19 )
@@ -311,6 +312,8 @@ z_index = 4
 
 [node name="CorrentesDeVento" type="Node2D" parent="."]
 script = ExtResource( 17 )
+targetPath = NodePath("../RigidBody2D/Camera2D2")
+timeBetweenSpawns = 7.0
 
 [node name="Sol" type="Sprite" parent="."]
 position = Vector2( -699.573, -349.739 )
