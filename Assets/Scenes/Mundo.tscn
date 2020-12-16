@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -26,8 +26,55 @@ size = 100
 use_filter = true
 font_data = ExtResource( 20 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "FadeIn"
+[sub_resource type="Animation" id=7]
+resource_name = "alert0"
+length = 2.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Warnings/0:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "alert1"
+length = 2.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Warnings/1:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "alert2"
+length = 2.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Warnings/2:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
@@ -56,8 +103,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "FadeOut"
+[sub_resource type="Animation" id=5]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
@@ -86,7 +132,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:self_modulate")
@@ -310,16 +356,36 @@ anims/AnimacaoSol = ExtResource( 5 )
 [node name="Ventos" type="Node2D" parent="."]
 z_index = 4
 
-[node name="CorrentesDeVento" type="Node2D" parent="."]
-script = ExtResource( 17 )
-targetPath = NodePath("../RigidBody2D/Camera2D2")
-timeBetweenSpawns = 7.0
-
 [node name="Sol" type="Sprite" parent="."]
 position = Vector2( -699.573, -349.739 )
 rotation = -0.0189317
 scale = Vector2( 0.945006, 0.945006 )
 texture = ExtResource( 15 )
+
+[node name="CorrentesDeVento" type="Node2D" parent="."]
+script = ExtResource( 17 )
+targetPath = NodePath("../RigidBody2D/Camera2D2")
+animationWarningPath = NodePath("WarningsPlayer")
+timeBetweenSpawns = 7.0
+
+[node name="Warnings" type="Node2D" parent="CorrentesDeVento"]
+
+[node name="0" type="Sprite" parent="CorrentesDeVento/Warnings"]
+self_modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 18 )
+
+[node name="1" type="Sprite" parent="CorrentesDeVento/Warnings"]
+self_modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 18 )
+
+[node name="2" type="Sprite" parent="CorrentesDeVento/Warnings"]
+self_modulate = Color( 1, 0, 0, 0 )
+texture = ExtResource( 18 )
+
+[node name="WarningsPlayer" type="AnimationPlayer" parent="CorrentesDeVento"]
+anims/alert0 = SubResource( 7 )
+anims/alert1 = SubResource( 8 )
+anims/alert2 = SubResource( 9 )
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -540 )
@@ -357,8 +423,9 @@ position = Vector2( -752.616, -229.779 )
 texture = ExtResource( 18 )
 
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 2 )
-anims/FadeOut = SubResource( 3 )
-anims/ShowName = SubResource( 4 )
+anims/FadeIn = SubResource( 4 )
+anims/FadeOut = SubResource( 5 )
+anims/ShowName = SubResource( 6 )
 [connection signal="resized" from="CanvasLayer/Panel/Location" to="." method="_on_Location_resized"]
+[connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer" to="CorrentesDeVento" method="_on_WarningsPlayer_animation_finished"]
 [connection signal="animation_finished" from="ScenePlayer" to="." method="_on_ScenePlayer_animation_finished"]
