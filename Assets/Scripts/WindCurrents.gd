@@ -5,8 +5,10 @@ class_name WindCurrents
 export(NodePath) var targetPath : NodePath
 var target : Node
 
-export(NodePath) var animationWarningPath : NodePath
-var animationPlayer : AnimationPlayer
+var animationPlayer : String = "WarningsPlayer"
+
+export(NodePath) var playerPath : NodePath
+var player : Player
 
 var current : PackedScene = preload("res://Assets/Scenes/Current.tscn")
 
@@ -27,8 +29,6 @@ var timer : Timer = Timer.new()
 
 var openSpaces : Array = []
 
-var alertRotation : int = 0
-
 #instantiating vars
 var dirCurrent : Array = [0, 0, 0]
 var selectedSpace : Array = [0, 0, 0]
@@ -40,7 +40,7 @@ func _ready() -> void:
 	for i in range(screenDivisions):
 		openSpaces.append((i) * screenDivisionValue)
 	target = get_node(targetPath)
-	animationPlayer = get_node(animationWarningPath)
+	player = get_node(playerPath)
 	var _error : int = timer.connect("timeout", self, "_on_timer_timeout") 
 	add_child(timer)
 	timer.autostart = false
@@ -58,42 +58,74 @@ func Disable() -> void:
 	timer.stop()
 
 func _on_timer_timeout():
-	if activeWindsCurrents < 3:
-		#PlayWarning()
+	if activeWindsCurrents > 2:
+		return
+	var quantity : int = 0
+	if activeWindsCurrents == 0:
+		quantity = randi() % 3 + 1
+		for i in range(quantity):
+			CreateCurrent()
+	elif activeWindsCurrents == 1:
+		quantity = randi() % 2 + 1
+		for i in range(quantity):
+			CreateCurrent()
+	elif activeWindsCurrents == 2:
 		CreateCurrent()
+	openSpaces.clear()
+	for i in range(screenDivisions):
+		openSpaces.append((i) * screenDivisionValue)
 
 func CreateCurrent() -> void:
 	randomize()
 	var warnings : Array = $Warnings.get_children()
-	dirCurrent.append(pow(-1, randi() % 2))
-	selectedSpace.append(randi() % openSpaces.size())
-	print(warnings[activeWindsCurrents].name)
+	dirCurrent[int(warnings[activeWindsCurrents].name)] = pow(-1, randi() % 2)
+	var randomSpace : int = randi() % openSpaces.size()
+	selectedSpace[int(warnings[activeWindsCurrents].name)] = openSpaces[randomSpace]
+	
 	if dirCurrent[activeWindsCurrents] == 1: 
-		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.05, -openSpaces[selectedSpace[activeWindsCurrents]] - screenDivisionValue/2)
+		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.05, -openSpaces[randomSpace] - screenDivisionValue/2)
 	else:
-		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.95, -openSpaces[selectedSpace[activeWindsCurrents]] - screenDivisionValue/2)
-	animationPlayer.play("alert" + str(activeWindsCurrents))
+		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.95, -openSpaces[randomSpace] - screenDivisionValue/2)
+	get_node("WarningsPlayer" + str(activeWindsCurrents)).play("alert" + str(activeWindsCurrents))
 	activeWindsCurrents += 1
+	openSpaces.remove(randomSpace)
 
-#func PlayWarning() -> void:
-#	var direction : int = pow(-1, randi() % 2)
-#	var selectedSpace : int = randi() % openSpaces.size()
-#	if direction == 1:
-#		newCurrent.global_position = Vector2(target.global_position.x - screenSize.x*1.5, -openSpaces[selectedSpace])
-#	else:
-#		newCurrent.position = Vector2(target.global_position.x + screenSize.x/2, -openSpaces[selectedSpace])
-
-
-func _on_WarningsPlayer_animation_finished(_anim_name: String) -> void:
+func _o(anim_name) -> void:
 	var newCurrent : Current = current.instance()
-	newCurrent.direction = dirCurrent.pop_front()
-	newCurrent.currentSpace = selectedSpace.pop_front()
+	newCurrent.direction = dirCurrent[int(anim_name[anim_name.length()-1])]
+	newCurrent.currentSpace = selectedSpace[int(anim_name[anim_name.length()-1])]
+	newCurrent.currentController = self
+	newCurrent.player = self.player
 	newCurrent.isStrong = true
 	if randi() % 2:
 		newCurrent.isStrong = false
-	call_deferred('add_child', newCurrent)
+	$"../Node2D".call_deferred('add_child', newCurrent)
 	if newCurrent.direction == 1:
-		newCurrent.global_position = Vector2(position.x - screenSize.x, -openSpaces[newCurrent.currentSpace])
+		newCurrent.global_position = Vector2(global_position.x - screenSize.x, -openSpaces[newCurrent.currentSpace])
 	else:
-		newCurrent.global_position = Vector2(position.x + screenSize.x, -openSpaces[newCurrent.currentSpace])
+		newCurrent.global_position = Vector2(global_position.x + screenSize.x, -openSpaces[newCurrent.currentSpace])
 	openSpaces.remove(newCurrent.currentSpace)
+
+func _on_WarningsPlayer1_animation_finished(anim_name: String) -> void:
+	SpawnCurrent(int(anim_name[anim_name.length()-1]))
+	
+
+
+func _on_WarningsPlayer2_animation_finished(anim_name: String) -> void:
+	SpawnCurrent(int(anim_name[anim_name.length()-1]))
+
+
+func _on_WarningsPlayer0_animation_finished(anim_name: String) -> void:
+	SpawnCurrent(int(anim_name[anim_name.length()-1]))
+
+func SpawnCurrent(animNumber : int):
+	var newCurrent : Current = current.instance()
+	newCurrent.direction = dirCurrent[animNumber]#int(anim_name[anim_name.length()-1])]
+	newCurrent.currentSpace = selectedSpace[animNumber]#int(anim_name[anim_name.length()-1])]
+	newCurrent.currentController = self
+	newCurrent.player = self.player
+	newCurrent.isStrong = true
+	$"../Node2D".call_deferred('add_child', newCurrent)
+	if randi() % 2:
+		newCurrent.isStrong = false
+	newCurrent.global_position = Vector2(global_position.x + (screenSize.x * -newCurrent.direction), -selectedSpace[animNumber])

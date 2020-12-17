@@ -55,7 +55,7 @@ func _process(_delta: float) -> void:
 	CheckCollumnSpawner()
 
 func CheckCollumnSpawner() -> void:
-	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 + 100 > CapPos:
+	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 + 100 > CapPos and $"../CorrentesDeVento".activeWindsCurrents == 0:
 		for _i in range(windAmmount):
 			PlaceWinds()
 		windCountIndex += 1

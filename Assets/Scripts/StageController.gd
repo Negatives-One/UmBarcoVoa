@@ -5,7 +5,7 @@ class_name StageController
 enum Locations {Fortaleza, Caucaia, Sobral, BaixaDaEgua, Messejana}
 export(Locations) var currentLocation : int = Locations.Fortaleza
 
-enum events {Nothing, FreeStyle, WindCurrents}
+enum events {Nothing, FreeStyle, WindCurrent}
 export(events) var initialEvent : int = events.FreeStyle
 var currentEvent : int = events.Nothing
 var previousEvent : int = events.Nothing
@@ -49,8 +49,8 @@ func _physics_process(_delta: float) -> void:
 			canChange = false
 			$ScenePlayer.play("FadeIn")
 			counting = false
-	$CanvasLayer/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
-	$CanvasLayer/Panel/BarcoVelocity.text = "Velocity: " + str(int($RigidBody2D.linear_velocity.length()))
+	$CanvasLayer/Panel/BarcoState.text = str($CorrentesDeVento.activeWindsCurrents)#str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
+	$CanvasLayer/Panel/BarcoVelocity.text = "Velocity: " + str(int($RigidBody2D.linear_velocity.x))
 	$CanvasLayer/Panel/Location.text = "Location: " + GetStringLocation()
 	if counting:
 		$CanvasLayer/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance + 100))
@@ -66,7 +66,7 @@ func ChangeEvent(event : int) -> void:
 	if currentEvent == events.FreeStyle:
 		$StageSpawner.Enable()
 		$CorrentesDeVento.Disable()
-	elif currentEvent == events.WindCurrents:
+	elif currentEvent == events.WindCurrent:
 		$StageSpawner.Disable()
 		$CorrentesDeVento.Enable()
 
@@ -92,7 +92,10 @@ func _on_Location_resized():
 	$CanvasLayer/Panel/ColorRect2.rect_size.x = $CanvasLayer/Panel/Location.rect_size.x
 
 func _on_timer_timeout():
-	pass
+	if currentEvent == events.FreeStyle:
+		ChangeEvent(events.WindCurrent)
+	elif currentEvent == events.WindCurrent:
+		ChangeEvent(events.FreeStyle)
 
 
 func _on_ScenePlayer_animation_finished(anim_name : String) -> void:
