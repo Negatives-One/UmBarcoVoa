@@ -44,7 +44,7 @@ func _ready() -> void:
 	var _error : int = timer.connect("timeout", self, "_on_timer_timeout") 
 	add_child(timer)
 	timer.autostart = false
-	timer.wait_time = timeBetweenSpawns
+	timer.wait_time = 1
 
 func _process(delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2
@@ -54,10 +54,12 @@ func Enable() -> void:
 	timer.start()
 
 func Disable() -> void:
+	timer.wait_time = 1
 	timer.autostart = false
 	timer.stop()
 
 func _on_timer_timeout():
+	timer.wait_time = timeBetweenSpawns
 	if activeWindsCurrents > 2:
 		return
 	var quantity : int = 0

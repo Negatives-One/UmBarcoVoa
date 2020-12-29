@@ -69,7 +69,7 @@ func PlaceWinds() -> void:
 	randomize()
 	var selectedPos : int = randi() % openSpaces.size()
 	while selectedPos == previousWindPlace:
-		print('a')
+
 		selectedPos = randi() % openSpaces.size()
 	spawnPosition = Vector2(($"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2) + 100, -openSpaces[selectedPos])
 	openSpaces.remove(selectedPos)

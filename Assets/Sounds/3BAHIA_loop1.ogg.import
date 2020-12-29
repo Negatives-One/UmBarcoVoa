@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/3BAHIA_loop1.ogg-9319c78d707f4b3980306a0663a366a3.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/3BAHIA_loop1.ogg"
+dest_files=[ "res://.import/3BAHIA_loop1.ogg-9319c78d707f4b3980306a0663a366a3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

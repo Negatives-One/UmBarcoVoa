@@ -2,7 +2,7 @@ extends Node2D
 
 class_name StageController
 
-enum Locations {Fortaleza, Caucaia, Sobral, BaixaDaEgua, Messejana}
+enum Locations {Fortaleza, Paraiba, Pernambuco, Bahia}
 export(Locations) var currentLocation : int = Locations.Fortaleza
 
 enum events {Nothing, FreeStyle, WindCurrent}
@@ -26,7 +26,10 @@ var canChange : bool = true
 var preservedLinearVelocity : Vector2
 var preservedYPosition : float
 
+var once : bool = true
+
 func _ready() -> void:
+	MusicController.stageController = self
 	ChangeEvent(initialEvent)
 	$SunPlayer.play("AnimacaoSol")
 	var predios : Array = $Predios.get_children()
@@ -44,12 +47,16 @@ func _unhandled_input(event):
 		OS.window_fullscreen = !OS.window_fullscreen
 
 func _physics_process(_delta: float) -> void:
+	print(currentLocation, GetStringLocation())
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false
 			$ScenePlayer.play("FadeIn")
+			if once:
+				MusicController.ChangeMusic()
+				once = false
 			counting = false
-	$CanvasLayer/Panel/BarcoState.text = str($CorrentesDeVento.activeWindsCurrents)#str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
+	$CanvasLayer/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
 	$CanvasLayer/Panel/BarcoVelocity.text = "Velocity: " + str(int($RigidBody2D.linear_velocity.x))
 	$CanvasLayer/Panel/Location.text = "Location: " + GetStringLocation()
 	if counting:
@@ -79,9 +86,13 @@ func NextLocation() -> void:
 	$RigidBody2D.linear_velocity = preservedLinearVelocity
 	$StageSpawner.spawnPosition = Vector2.ZERO
 	$StageSpawner.CapPos = 0
+	once = true
 
 func PrepareToChangeLocation() -> void:
-	currentLocation += 1
+	if currentLocation < Locations.Bahia:
+		currentLocation += 1
+	else:
+		currentLocation = 0
 	#$RigidBody2D.currentState = $RigidBody2D.States.Acelerando
 	preservedLinearVelocity = $RigidBody2D.linear_velocity
 	preservedYPosition = $RigidBody2D.global_position.y
@@ -108,14 +119,12 @@ func GetStringLocation() -> String:
 	match currentLocation:
 		Locations.Fortaleza:
 			return "Fortaleza"
-		Locations.Caucaia:
-			return "Caucaia"
-		Locations.Sobral:
-			return "Sobral"
-		Locations.BaixaDaEgua:
-			return "Baixa da Égua"
-		Locations.Messejana:
-			return "Messejana"
+		Locations.Paraiba:
+			return "Paraíba"
+		Locations.Pernambuco:
+			return "Pernambuco"
+		Locations.Bahia:
+			return "Bahia"
 	return "?"
 
 func NameTransitionLabel() -> void:

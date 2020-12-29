@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/1PARAIBA_loop1.ogg-e73b939834ba9c2fdaecd56a6ce94d31.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/1PARAIBA_loop1.ogg"
+dest_files=[ "res://.import/1PARAIBA_loop1.ogg-e73b939834ba9c2fdaecd56a6ce94d31.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

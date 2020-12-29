@@ -63,13 +63,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Um_Barco_Voa"
-run/main_scene="res://Assets/Scenes/Mundo.tscn"
+run/main_scene="res://Assets/Scenes/Menu.tscn"
 config/icon="res://icon0.png"
 
 [autoload]
 
-ThemeMusic="*res://Assets/Sounds/ThemeMusic.tscn"
 GameManager="*res://Assets/Scripts/GameManager.gd"
+MusicController="*res://Assets/Scenes/MusicController.tscn"
 
 [display]
 

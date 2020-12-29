@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Scripts/MusicController.gd" type="Script" id=1]
+
+[node name="Node" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Current" type="AudioStreamPlayer" parent="."]
+
+[node name="Next" type="AudioStreamPlayer" parent="."]
+
+[node name="TweenCurrent" type="Tween" parent="."]
+
+[node name="TweenNext" type="Tween" parent="."]
+[connection signal="tween_completed" from="TweenCurrent" to="." method="_on_TweenCurrent_tween_completed"]
+[connection signal="tween_completed" from="TweenNext" to="." method="_on_TweenNext_tween_completed"]
