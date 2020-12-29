@@ -23,8 +23,8 @@ func _ready() -> void:
 func GetFiles(path) -> Array:
 	var files : Array = []
 	var dir : Directory = Directory.new()
-	dir.open(path)
-	dir.list_dir_begin(true)
+	var _openError = dir.open(path)
+	var _dirError = dir.list_dir_begin(true)
 	var file : String = dir.get_next()
 	while file != '':
 		if file[file.length() -1 ] == 'g':
@@ -33,10 +33,6 @@ func GetFiles(path) -> Array:
 			pass
 		file = dir.get_next()
 	return files
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_up"):
-		ChangeMusic()
 
 func ChangeMusic() -> void:
 	var locationNumber = stageController.currentLocation
@@ -53,18 +49,18 @@ func ChangeMusic() -> void:
 	
 
 func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween):
-	tween.interpolate_property(streamPlayer, "volume_db", 0, -80, transitionDuration, transitionType, Tween.EASE_IN, 0)
-	tween.start()
+	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", 0, -80, transitionDuration, transitionType, Tween.EASE_IN, 0)
+	var _startBool : bool = tween.start()
 
 func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween):
 	streamPlayer.play()
-	tween.interpolate_property(streamPlayer, "volume_db", -80, 0, transitionDuration, transitionType, Tween.EASE_IN, 0)
-	tween.start()
+	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", -80, 0, transitionDuration, transitionType, Tween.EASE_IN, 0)
+	var _startBool : bool = tween.start()
 
-func _on_TweenCurrent_tween_completed(object: Object, key: NodePath) -> void:
+func _on_TweenCurrent_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Current.volume_db < -79:
 		$Current.playing = false
 
-func _on_TweenNext_tween_completed(object: Object, key: NodePath) -> void:
+func _on_TweenNext_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Next.volume_db < -79:
 		$Next.playing = false

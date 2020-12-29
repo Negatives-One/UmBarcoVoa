@@ -12,8 +12,6 @@ var currentState : int = states.Idle
 
 var currentSpace : int = 0
 
-signal currentEnded
-
 var direction : int = 0
 
 var targetXPosition : float

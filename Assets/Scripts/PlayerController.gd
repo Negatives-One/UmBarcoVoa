@@ -75,7 +75,7 @@ func _process(_delta : float) -> void:
 #		for i in range(len(Sprites)):
 #			Sprites[i].flip_v = false
 	elif(linear_velocity.x < -0.1):
-		get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
+		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
 		$Jangada.scale.y = -0.5
 		$CollisionPolygon2D.scale.y = -0.5
 #		for i in range(len(Sprites)):

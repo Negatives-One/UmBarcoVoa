@@ -47,7 +47,6 @@ func _unhandled_input(event):
 		OS.window_fullscreen = !OS.window_fullscreen
 
 func _physics_process(_delta: float) -> void:
-	print(currentLocation, GetStringLocation())
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false

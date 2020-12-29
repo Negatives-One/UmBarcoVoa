@@ -46,7 +46,7 @@ func _ready() -> void:
 	timer.autostart = false
 	timer.wait_time = 1
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2
 
 func Enable() -> void:
@@ -65,11 +65,11 @@ func _on_timer_timeout():
 	var quantity : int = 0
 	if activeWindsCurrents == 0:
 		quantity = randi() % 3 + 1
-		for i in range(quantity):
+		for _i in range(quantity):
 			CreateCurrent()
 	elif activeWindsCurrents == 1:
 		quantity = randi() % 2 + 1
-		for i in range(quantity):
+		for _i in range(quantity):
 			CreateCurrent()
 	elif activeWindsCurrents == 2:
 		CreateCurrent()
