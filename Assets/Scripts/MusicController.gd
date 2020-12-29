@@ -1,6 +1,7 @@
 extends Node
 
-var musicas : Array
+var musicas : Array = ["aFORTALEZA_loop1.ogg", "bPARAIBA_loop1.ogg", "cPERNAMBUCO_loop1.ogg", "dBAHIA_loop1.ogg"]
+
 
 var stageController : StageController
 
@@ -15,7 +16,8 @@ var transitionDuration : float = 4.5
 var transitionType : int = Tween.TRANS_LINEAR
 
 func _ready() -> void:
-	musicas = GetFiles(MusicFolder)
+	#musicas = GetFiles(MusicFolder)
+	print(musicas)
 	$Current.stream = load(MusicFolder + musicas[Locations.Fortaleza])
 	$Current.play()
 	$Next.stream = load(MusicFolder + musicas[Locations.Paraiba])

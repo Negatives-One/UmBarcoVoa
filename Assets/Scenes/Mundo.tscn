@@ -476,8 +476,9 @@ anims/alert2 = SubResource( 7 )
 position = Vector2( 0, -540 )
 z_index = 6
 gravity_scale = 1.0
-VerticalAcelleration = 300.0
-MaxSpeed = 9828.59
+VerticalAcelleration = 900.0
+HorizontalAcelleration = 400.0
+MaxSpeed = 3000.0
 
 [node name="Camera2D2" type="Camera2D" parent="RigidBody2D"]
 current = true

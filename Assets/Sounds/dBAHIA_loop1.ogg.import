@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/dBAHIA_loop1.ogg-0a78ee21b6c42752271f043a8f851947.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/dBAHIA_loop1.ogg"
+dest_files=[ "res://.import/dBAHIA_loop1.ogg-0a78ee21b6c42752271f043a8f851947.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

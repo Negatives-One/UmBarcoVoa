@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/cPERNAMBUCO_loop1.ogg-a47531090d77ea4831d8800c02226fd8.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/cPERNAMBUCO_loop1.ogg"
+dest_files=[ "res://.import/cPERNAMBUCO_loop1.ogg-a47531090d77ea4831d8800c02226fd8.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
