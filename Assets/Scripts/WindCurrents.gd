@@ -111,12 +111,9 @@ func _o(anim_name) -> void:
 
 func _on_WarningsPlayer1_animation_finished(anim_name: String) -> void:
 	SpawnCurrent(int(anim_name[anim_name.length()-1]))
-	
-
 
 func _on_WarningsPlayer2_animation_finished(anim_name: String) -> void:
 	SpawnCurrent(int(anim_name[anim_name.length()-1]))
-
 
 func _on_WarningsPlayer0_animation_finished(anim_name: String) -> void:
 	SpawnCurrent(int(anim_name[anim_name.length()-1]))

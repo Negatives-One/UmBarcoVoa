@@ -393,6 +393,9 @@ anims/alert1 = SubResource( 3 )
 [node name="WarningsPlayer2" type="AnimationPlayer" parent="CorrentesDeVento"]
 anims/alert2 = SubResource( 4 )
 
+[node name="CurrentsTween" type="Tween" parent="CorrentesDeVento"]
+playback_process_mode = 0
+
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]

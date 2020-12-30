@@ -23,25 +23,23 @@ export(transitions) var transitionTypeFadeOut : int = Tween.TRANS_LINEAR
 export(easings) var easingTypeFadeOut : int = Tween.EASE_IN
 
 func _ready() -> void:
-	#musicas = GetFiles(MusicFolder)
-	print(musicas)
 	$Current.stream = load(MusicFolder + musicas[Locations.Fortaleza])
 	$Current.play()
 	$Next.stream = load(MusicFolder + musicas[Locations.Paraiba])
 
-func GetFiles(path) -> Array:
-	var files : Array = []
-	var dir : Directory = Directory.new()
-	var _openError = dir.open(path)
-	var _dirError = dir.list_dir_begin(true)
-	var file : String = dir.get_next()
-	while file != '':
-		if file[file.length() -1 ] == 'g':
-			files += [file]
-		else:
-			pass
-		file = dir.get_next()
-	return files
+#func GetFiles(path) -> Array:
+#	var files : Array = []
+#	var dir : Directory = Directory.new()
+#	var _openError = dir.open(path)
+#	var _dirError = dir.list_dir_begin(true)
+#	var file : String = dir.get_next()
+#	while file != '':
+#		if file[file.length() -1 ] == 'g':
+#			files += [file]
+#		else:
+#			pass
+#		file = dir.get_next()
+#	return files
 
 func ChangeMusic() -> void:
 	var locationNumber = stageController.currentLocation
@@ -55,7 +53,6 @@ func ChangeMusic() -> void:
 		fadeOut($Next, $TweenNext)
 		$Current.stream = load(MusicFolder + musicas[locationNumber + 1])
 		fadeIn($Current, $TweenCurrent)
-	
 
 func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween):
 	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
