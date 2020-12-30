@@ -54,6 +54,12 @@ func _integrate_forces(state : Physics2DDirectBodyState):
 		linear_velocity = linear_velocity.clamped(MaxSpeed)
 	set_applied_force(acelleration + state.total_gravity)
 
+func _physics_process(delta: float) -> void:
+	if global_position.y < -1040:
+		physicsState.linear_velocity.y = 10
+	elif global_position.y > -40:
+		physicsState.linear_velocity.y = -10
+
 func _unhandled_input(event : InputEvent) -> void:
 	if receivingInputs:
 		if event is InputEventMouseButton:
@@ -67,34 +73,26 @@ func _unhandled_input(event : InputEvent) -> void:
 				apply_central_impulse(Vector2(1,0)*5000)
 
 func _process(_delta : float) -> void:
-	$Jangada.rotation = linear_velocity.normalized().angle()
-	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
-	if(linear_velocity.x > 0):
-		$Jangada.scale.y = 0.5
-		$CollisionPolygon2D.scale.y = 0.5
-#		for i in range(len(Sprites)):
-#			Sprites[i].flip_v = false
-	elif(linear_velocity.x < -0.1):
+	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, linear_velocity.normalized().angle(), 0.05,Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
+	$Tween.interpolate_property($CollisionPolygon2D, "rotation", $CollisionPolygon2D.rotation, linear_velocity.normalized().angle(), 0.05, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
+#	$Jangada.rotation = linear_velocity.normalized().angle()
+#	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
+	if(linear_velocity.x < -0.1):
 		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
-		$Jangada.scale.y = -0.5
-		$CollisionPolygon2D.scale.y = -0.5
-#		for i in range(len(Sprites)):
-#			Sprites[i].flip_v = true
-	else:
-		pass
 
 func FSM() -> void:
 	
 	if(currentState == States.Acelerando):
 		linear_damp = -1
 		target = get_global_mouse_position()
-		var verticalDiference : float = (get_viewport_rect().size.y * 1.2) - get_viewport_rect().size.y
-		target.y = Map(target.y, 0, -get_viewport_rect().size.y, verticalDiference, -get_viewport_rect().size.y)
-		target = Vector2($Camera2D2.global_position.x, target.y * 1.2)
-		acelleration = (target - global_position).normalized() 
+#		var verticalDiference : float = (get_viewport_rect().size.y * 1.2) - get_viewport_rect().size.y
+#		target.y = Map(target.y, 0, -get_viewport_rect().size.y, verticalDiference, -get_viewport_rect().size.y)
+#		target = Vector2($Camera2D2.global_position.x, target.y * 1.2)
+		acelleration = (target - global_position).normalized()
 		acelleration.x *= HorizontalAcelleration
 		acelleration.y *= VerticalAcelleration
-		#add_central_force((target - global_position).normalized() * HorizontalAcelleration)
 		
 	elif(currentState == States.Desacelerando):
 		acelleration = Vector2.ZERO

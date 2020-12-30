@@ -46,7 +46,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		OS.window_fullscreen = !OS.window_fullscreen
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false

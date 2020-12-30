@@ -2,18 +2,25 @@ extends Node
 
 var musicas : Array = ["aFORTALEZA_loop1.ogg", "bPARAIBA_loop1.ogg", "cPERNAMBUCO_loop1.ogg", "dBAHIA_loop1.ogg"]
 
-
 var stageController : StageController
 
 var MusicFolder : String = "res://Assets/Sounds/"
 
-var Alternador : bool = false
-
 enum Locations {Fortaleza, Paraiba, Pernambuco, Bahia}
 
-var transitionDuration : float = 4.5
+export(float) var transitionDuration : float = 4.5
 
-var transitionType : int = Tween.TRANS_LINEAR
+enum transitions {TRANS_LINEAR, TRANS_SINE, TRANS_QUINT, TRANS_QUART, TRANS_QUAD, TRANS_EXPO, TRANS_ELASTIC, TRANS_CUBIC, TRANS_CIRC, TRANS_BOUNCE, TRANS_BACK}
+
+enum easings {EASE_IN, EASE_OUT, EASE_IN_OUT, EASE_OUT_IN}
+
+export(transitions) var transitionTypeFadeIn : int = Tween.TRANS_LINEAR
+
+export(easings) var easingTypeFadeIn : int = Tween.EASE_IN
+
+export(transitions) var transitionTypeFadeOut : int = Tween.TRANS_LINEAR
+
+export(easings) var easingTypeFadeOut : int = Tween.EASE_IN
 
 func _ready() -> void:
 	#musicas = GetFiles(MusicFolder)
@@ -51,12 +58,12 @@ func ChangeMusic() -> void:
 	
 
 func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween):
-	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", 0, -80, transitionDuration, transitionType, Tween.EASE_IN, 0)
+	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
 	var _startBool : bool = tween.start()
 
 func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween):
 	streamPlayer.play()
-	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", -80, 0, transitionDuration, transitionType, Tween.EASE_IN, 0)
+	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn, 0)
 	var _startBool : bool = tween.start()
 
 func _on_TweenCurrent_tween_completed(_object: Object, _key: NodePath) -> void:
