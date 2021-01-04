@@ -18,6 +18,8 @@ var screenDivisionValue : float
 
 export(float) var timeBetweenSpawns : float = 3.0
 
+export(float) var timeToCrossScreen : float = 4.0
+
 export(float) var magnitudeStrong : float = 300.0
 export(float) var durationStrong : float = 1.0
 export(float) var magnitudeWeak : float = 150.0
@@ -93,22 +95,6 @@ func CreateCurrent() -> void:
 	activeWindsCurrents += 1
 	openSpaces.remove(randomSpace)
 
-func _o(anim_name) -> void:
-	var newCurrent : Current = current.instance()
-	newCurrent.direction = dirCurrent[int(anim_name[anim_name.length()-1])]
-	newCurrent.currentSpace = selectedSpace[int(anim_name[anim_name.length()-1])]
-	newCurrent.currentController = self
-	newCurrent.player = self.player
-	newCurrent.isStrong = true
-	if randi() % 2:
-		newCurrent.isStrong = false
-	$"../Node2D".call_deferred('add_child', newCurrent)
-	if newCurrent.direction == 1:
-		newCurrent.global_position = Vector2(global_position.x - screenSize.x, -openSpaces[newCurrent.currentSpace])
-	else:
-		newCurrent.global_position = Vector2(global_position.x + screenSize.x, -openSpaces[newCurrent.currentSpace])
-	openSpaces.remove(newCurrent.currentSpace)
-
 func _on_WarningsPlayer1_animation_finished(anim_name: String) -> void:
 	SpawnCurrent(int(anim_name[anim_name.length()-1]))
 
@@ -125,7 +111,15 @@ func SpawnCurrent(animNumber : int):
 	newCurrent.currentController = self
 	newCurrent.player = self.player
 	newCurrent.isStrong = true
-	$"../Node2D".call_deferred('add_child', newCurrent)
+	self.call_deferred('add_child', newCurrent)
 	if randi() % 2:
 		newCurrent.isStrong = false
-	newCurrent.global_position = Vector2(global_position.x + (screenSize.x * -newCurrent.direction), -selectedSpace[animNumber])
+	#newCurrent.global_position = Vector2(global_position.x + (screenSize.x * -newCurrent.direction), -selectedSpace[animNumber])
+	newCurrent.position = Vector2(screenSize.x * -newCurrent.direction, -selectedSpace[animNumber])
+	$CurrentsTween.interpolate_property(newCurrent, "position", newCurrent.position, Vector2(screenSize.x * newCurrent.direction, newCurrent.position.y), timeToCrossScreen, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$CurrentsTween.start()
+
+
+func _on_CurrentsTween_tween_completed(object: Object, key: NodePath) -> void:
+	object.call_deferred("queue_free")
+	activeWindsCurrents -= 1
