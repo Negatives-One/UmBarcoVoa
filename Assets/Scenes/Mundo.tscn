@@ -409,6 +409,7 @@ MaxSpeed = 9999.0
 
 [node name="Camera2D2" type="Camera2D" parent="RigidBody2D"]
 current = true
+process_mode = 0
 limit_top = -1080
 limit_bottom = 0
 script = ExtResource( 3 )

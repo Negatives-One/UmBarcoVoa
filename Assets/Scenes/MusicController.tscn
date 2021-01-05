@@ -4,6 +4,9 @@
 
 [node name="Node" type="Node"]
 script = ExtResource( 1 )
+transitionTypeFadeIn = 8
+easingTypeFadeIn = 1
+transitionTypeFadeOut = 4
 
 [node name="Current" type="AudioStreamPlayer" parent="."]
 

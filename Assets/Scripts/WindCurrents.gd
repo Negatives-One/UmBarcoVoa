@@ -48,8 +48,9 @@ func _ready() -> void:
 	timer.autostart = false
 	timer.wait_time = 1
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2
+	print(openSpaces)
 	pass
 
 func Enable() -> void:
@@ -76,9 +77,9 @@ func _on_timer_timeout():
 			CreateCurrent()
 	elif activeWindsCurrents == 2:
 		CreateCurrent()
-	openSpaces.clear()
-	for i in range(screenDivisions):
-		openSpaces.append((i) * screenDivisionValue)
+#	openSpaces.clear()
+#	for i in range(screenDivisions):
+#		openSpaces.append((i) * screenDivisionValue)
 
 func CreateCurrent() -> void:
 	randomize()
@@ -121,5 +122,9 @@ func SpawnCurrent(animNumber : int):
 
 
 func _on_CurrentsTween_tween_completed(object: Object, key: NodePath) -> void:
+	var current : Current = object
+	var atual : Array = openSpaces
+	var next : Array = [0, 0, 0, 0]
+	openSpaces.append(current.currentSpace)
 	object.call_deferred("queue_free")
 	activeWindsCurrents -= 1

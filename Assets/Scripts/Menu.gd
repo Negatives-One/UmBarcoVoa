@@ -14,7 +14,8 @@ func _on_OptionsButton_pressed() -> void:
 
 func _on_ApplyOptions_pressed() -> void:
 	$OptionsPanel.visible = false
+	GameManager.saveSettings()
 
 
-func _on_HSlider_value_changed(value: float) -> void:
+func _on_HSlider_value_changed(_value: float) -> void:
 	GameManager.SetVolume(linear2db($"OptionsPanel/ColorRect3/HSlider".value))
