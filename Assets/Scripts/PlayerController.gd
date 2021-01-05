@@ -89,7 +89,7 @@ func FSM() -> void:
 		target = get_global_mouse_position()
 #		var verticalDiference : float = (get_viewport_rect().size.y * 1.2) - get_viewport_rect().size.y
 #		target.y = Map(target.y, 0, -get_viewport_rect().size.y, verticalDiference, -get_viewport_rect().size.y)
-		target = Vector2($Camera2D2.global_position.x, target.y)
+		target = Vector2($Camera2D2.global_position.x - 400, target.y)
 		acelleration = (target - global_position).normalized()
 		acelleration.x *= HorizontalAcelleration
 		acelleration.y *= VerticalAcelleration

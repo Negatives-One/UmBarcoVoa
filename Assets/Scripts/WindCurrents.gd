@@ -50,8 +50,6 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2
-	print(openSpaces)
-	pass
 
 func Enable() -> void:
 	timer.autostart = true

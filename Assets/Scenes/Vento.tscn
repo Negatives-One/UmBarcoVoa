@@ -11,6 +11,8 @@ height = 79.6628
 space_override = 1
 gravity_vec = Vector2( 1, 0 )
 script = ExtResource( 2 )
+PotenciaForte = 600.0
+PotenciaFraco = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( -0.4, 0.4 )

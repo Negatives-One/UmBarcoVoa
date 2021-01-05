@@ -5,7 +5,7 @@ export(Script) var gameSave : Script
 
 var soundMaster : float = 0
 
-func _ready() -> void:
+func _init() -> void:
 	if not loadSettings():
 		saveSettings()
 	SetVolume(soundMaster)
@@ -21,7 +21,7 @@ func saveSettings() -> void:
 	saveSystem.masterVolume = soundMaster
 	var dir : Directory = Directory.new()
 	if not dir.dir_exists("res://Saves/"):
-		var error : int = dir.make_dir_recursive("res://Saves/")
+		var _error : int = dir.make_dir_recursive("res://Saves/")
 	var _error : int = ResourceSaver.save("res://Saves/Save.tres", saveSystem)
 
 func loadSettings() -> bool:

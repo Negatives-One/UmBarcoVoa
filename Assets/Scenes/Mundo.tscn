@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://icon0.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Scripts/StageSpawner.gd" type="Script" id=19]
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=20]
+[ext_resource path="res://Assets/Scripts/Sol.gd" type="Script" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -166,7 +167,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 540.125 ]
 }
-initialEvent = 2
 minTimeToChangeEvent = 15.0
 maxTimeToChangeEvent = 20.0
 
@@ -268,11 +268,10 @@ __meta__ = {
 [node name="FPS" type="Label" parent="CanvasLayer/Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -161.545
-margin_right = 8.45508
+margin_left = -212.0
 margin_bottom = 52.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "FPS"
+text = "FPS: 9999"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -363,12 +362,21 @@ position = Vector2( -699.573, -349.739 )
 rotation = -0.0189317
 scale = Vector2( 0.945006, 0.945006 )
 texture = ExtResource( 15 )
+script = ExtResource( 21 )
+maxWaitTime = 5
+minWaitTime = 3
+playerPath = NodePath("../RigidBody2D")
+targetPath = NodePath("../RigidBody2D/Camera2D2")
+
+[node name="Timer" type="Timer" parent="Sol"]
 
 [node name="CorrentesDeVento" type="Node2D" parent="."]
 script = ExtResource( 17 )
 targetPath = NodePath("../RigidBody2D/Camera2D2")
 playerPath = NodePath("../RigidBody2D")
 timeBetweenSpawns = 7.0
+magnitudeStrong = 600.0
+magnitudeWeak = 300.0
 
 [node name="Warnings" type="Node2D" parent="CorrentesDeVento"]
 
@@ -441,6 +449,7 @@ anims/FadeIn = SubResource( 5 )
 anims/FadeOut = SubResource( 6 )
 anims/ShowName = SubResource( 7 )
 [connection signal="resized" from="CanvasLayer/Panel/Location" to="." method="_on_Location_resized"]
+[connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer0" to="CorrentesDeVento" method="_on_WarningsPlayer0_animation_finished"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer1" to="CorrentesDeVento" method="_on_WarningsPlayer1_animation_finished"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer2" to="CorrentesDeVento" method="_on_WarningsPlayer2_animation_finished"]

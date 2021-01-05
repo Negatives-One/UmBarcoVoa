@@ -62,7 +62,6 @@ func _process(_delta: float) -> void:
 		$CanvasLayer/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance + 100))
 	$CanvasLayer/Panel/BoostState.text = str($RigidBody2D.boostState)
 	$CanvasLayer/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
-	$Sol.global_position = Vector2($RigidBody2D/Camera2D2.global_position.x + 720, -850)
 	if Input.is_action_just_pressed("ui_down"):
 		$RigidBody2D.sleeping = true
 
@@ -71,9 +70,11 @@ func ChangeEvent(event : int) -> void:
 	currentEvent = event
 	if currentEvent == events.FreeStyle:
 		$StageSpawner.Enable()
+		$Sol.Enable()
 		$CorrentesDeVento.Disable()
 	elif currentEvent == events.WindCurrent:
 		$StageSpawner.Disable()
+		$Sol.Disable()
 		$CorrentesDeVento.Enable()
 
 func NextLocation() -> void:
