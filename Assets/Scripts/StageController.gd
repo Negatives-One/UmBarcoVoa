@@ -32,10 +32,6 @@ func _ready() -> void:
 	MusicController.stageController = self
 	ChangeEvent(initialEvent)
 	$SunPlayer.play("AnimacaoSol")
-	var predios : Array = $Predios.get_children()
-	for i in range(len(predios)):
-		var textureHeight : int = predios[i].texture.get_height()
-		predios[i].global_position.y = MinHeight - float(textureHeight)/2
 	var _error : int = timer.connect("timeout", self, "_on_timer_timeout") 
 	add_child(timer)
 	timer.autostart = true

@@ -1,10 +1,14 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scripts/Camera.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=4]
 [ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
+[ext_resource path="res://Assets/Scripts/ParallaxManager.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Images/Ceara/Fortaleza/catedral.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Images/Ceara/Fortaleza/teatro jose de alencar.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Images/Ceara/Fortaleza/estatua de iracema.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Chuva.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem4.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem3.png" type="Texture" id=12]
@@ -301,11 +305,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ParallaxManager" type="Node" parent="."]
+script = ExtResource( 6 )
+
 [node name="Parallax" type="CanvasLayer" parent="."]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Parallax"]
 
 [node name="BackgroundLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
 motion_mirroring = Vector2( 1920, 0 )
 
 [node name="BG" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
@@ -314,10 +322,27 @@ texture = ExtResource( 22 )
 centered = false
 
 [node name="BackLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+motion_scale = Vector2( 0.6, 1 )
 
 [node name="MidLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+motion_scale = Vector2( 0.75, 1 )
+motion_mirroring = Vector2( 2000, 0 )
+
+[node name="catedral" type="Sprite" parent="Parallax/ParallaxBackground/MidLayer"]
+position = Vector2( 0, -780.12 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="estatua de iracema" type="Sprite" parent="Parallax/ParallaxBackground/MidLayer"]
+position = Vector2( 955.67, -388.389 )
+texture = ExtResource( 9 )
+
+[node name="teatro jose de alencar" type="Sprite" parent="Parallax/ParallaxBackground/MidLayer"]
+position = Vector2( 1622.38, -182.026 )
+texture = ExtResource( 8 )
 
 [node name="FrontLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+motion_scale = Vector2( 0.9, 1 )
 
 [node name="Nuvem1" type="Sprite" parent="."]
 visible = false
