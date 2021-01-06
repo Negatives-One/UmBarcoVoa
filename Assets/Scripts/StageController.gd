@@ -55,13 +55,13 @@ func _process(_delta: float) -> void:
 				MusicController.ChangeMusic()
 				once = false
 			counting = false
-	$CanvasLayer/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
-	$CanvasLayer/Panel/BarcoVelocity.text = "Velocity: " + str(int($RigidBody2D.linear_velocity.x))
-	$CanvasLayer/Panel/Location.text = "Location: " + GetStringLocation()
+	$HUD/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
+	$HUD/Panel/BarcoVelocity.text = "Velocity: " + str(int($RigidBody2D.linear_velocity.x))
+	$HUD/Panel/Location.text = "Location: " + GetStringLocation()
 	if counting:
-		$CanvasLayer/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance + 100))
-	$CanvasLayer/Panel/BoostState.text = str($RigidBody2D.boostState)
-	$CanvasLayer/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
+		$HUD/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance + 100))
+	$HUD/Panel/BoostState.text = str($RigidBody2D.boostState)
+	$HUD/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
 	if Input.is_action_just_pressed("ui_down"):
 		$RigidBody2D.sleeping = true
 
@@ -100,7 +100,7 @@ func PrepareToChangeLocation() -> void:
 	$RigidBody2D.receivingInputs = false
 
 func _on_Location_resized():
-	$CanvasLayer/Panel/ColorRect2.rect_size.x = $CanvasLayer/Panel/Location.rect_size.x
+	$HUD/Panel/ColorRect2.rect_size.x = $HUD/Panel/Location.rect_size.x
 
 func _on_timer_timeout():
 	if currentEvent == events.FreeStyle:
@@ -128,4 +128,4 @@ func GetStringLocation() -> String:
 	return "?"
 
 func NameTransitionLabel() -> void:
-	$CanvasLayer/ColorRect/Label.text = GetStringLocation()
+	$HUD/ColorRect/Label.text = GetStringLocation()

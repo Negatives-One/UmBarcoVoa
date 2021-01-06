@@ -1,14 +1,10 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scripts/Camera.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=4]
 [ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
-[ext_resource path="res://Assets/Images/AssetsEduardo/Predio3.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Images/AssetsEduardo/Predio4.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Images/AssetsEduardo/Predio2.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Images/AssetsEduardo/Predio1.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Chuva.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem4.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem3.png" type="Texture" id=12]
@@ -21,6 +17,7 @@
 [ext_resource path="res://Assets/Scripts/StageSpawner.gd" type="Script" id=19]
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=20]
 [ext_resource path="res://Assets/Scripts/Sol.gd" type="Script" id=21]
+[ext_resource path="res://Assets/Images/AssetsEduardo/BG.png" type="Texture" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -78,7 +75,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=5]
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/path = NodePath("HUD/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -107,7 +104,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=6]
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/path = NodePath("HUD/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -136,7 +133,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=7]
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:self_modulate")
+tracks/0/path = NodePath("HUD/ColorRect/Label:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -181,13 +178,14 @@ ObstaclesNode = NodePath("../Obstaculos")
 StageControllerPath = NodePath("..")
 
 [node name="Background" parent="." instance=ExtResource( 16 )]
+visible = false
 position = Vector2( 0, -540 )
 xAdjust = 640.0
 basedNodePath = NodePath("../RigidBody2D/Camera2D2")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -196,7 +194,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Panel"]
+[node name="ColorRect2" type="ColorRect" parent="HUD/Panel"]
 margin_right = 264.0
 margin_bottom = 205.0
 color = Color( 1, 1, 1, 0.890196 )
@@ -204,7 +202,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Panel"]
+[node name="ColorRect" type="ColorRect" parent="HUD/Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -170.37
@@ -215,7 +213,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BarcoState" type="Label" parent="CanvasLayer/Panel"]
+[node name="BarcoState" type="Label" parent="HUD/Panel"]
 margin_top = 50.9692
 margin_right = 605.0
 margin_bottom = 102.969
@@ -225,7 +223,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BarcoVelocity" type="Label" parent="CanvasLayer/Panel"]
+[node name="BarcoVelocity" type="Label" parent="HUD/Panel"]
 margin_right = 219.0
 margin_bottom = 52.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -234,7 +232,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Location" type="Label" parent="CanvasLayer/Panel"]
+[node name="Location" type="Label" parent="HUD/Panel"]
 margin_top = 101.938
 margin_right = 219.0
 margin_bottom = 153.938
@@ -244,7 +242,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Distance" type="Label" parent="CanvasLayer/Panel"]
+[node name="Distance" type="Label" parent="HUD/Panel"]
 margin_top = 149.132
 margin_right = 219.0
 margin_bottom = 201.132
@@ -254,7 +252,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BoostState" type="Label" parent="CanvasLayer/Panel"]
+[node name="BoostState" type="Label" parent="HUD/Panel"]
 visible = false
 margin_top = 97.0003
 margin_right = 605.0
@@ -265,7 +263,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FPS" type="Label" parent="CanvasLayer/Panel"]
+[node name="FPS" type="Label" parent="HUD/Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -212.0
@@ -276,7 +274,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -285,7 +283,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+[node name="Label" type="Label" parent="HUD/ColorRect"]
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -303,15 +301,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Parallax" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Parallax"]
+
+[node name="BackgroundLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="BG" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
+position = Vector2( 0, -1080 )
+texture = ExtResource( 22 )
+centered = false
+
+[node name="BackLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+
+[node name="MidLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+
+[node name="FrontLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+
 [node name="Nuvem1" type="Sprite" parent="."]
+visible = false
 position = Vector2( 1698.98, -922.122 )
 texture = ExtResource( 13 )
 
 [node name="Nuvem2" type="Sprite" parent="."]
+visible = false
 position = Vector2( 4322.72, -585.464 )
 texture = ExtResource( 14 )
 
 [node name="Nuvem3" type="Sprite" parent="."]
+visible = false
 position = Vector2( 2921.58, -947.819 )
 texture = ExtResource( 12 )
 
@@ -328,26 +347,9 @@ scale = Vector2( 1, 0.8 )
 texture = ExtResource( 10 )
 
 [node name="Nuvem4" type="Sprite" parent="."]
+visible = false
 position = Vector2( 371.34, -738.458 )
 texture = ExtResource( 11 )
-
-[node name="Predios" type="Node2D" parent="."]
-position = Vector2( 1139.87, 382.605 )
-
-[node name="Predio1" type="Sprite" parent="Predios"]
-texture = ExtResource( 9 )
-
-[node name="Predio2" type="Sprite" parent="Predios"]
-position = Vector2( 2966.99, -30.0901 )
-texture = ExtResource( 8 )
-
-[node name="Predio3" type="Sprite" parent="Predios"]
-position = Vector2( 1912.43, 47.6595 )
-texture = ExtResource( 6 )
-
-[node name="Predio4" type="Sprite" parent="Predios"]
-position = Vector2( 803.164, -242.947 )
-texture = ExtResource( 7 )
 
 [node name="SunPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
@@ -425,30 +427,11 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="icons" type="Node2D" parent="RigidBody2D/Camera2D2"]
-visible = false
-
-[node name="icon2" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
-position = Vector2( 960, -229.779 )
-texture = ExtResource( 18 )
-
-[node name="icon3" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
-position = Vector2( -752.616, -229.779 )
-texture = ExtResource( 18 )
-
-[node name="icon4" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
-position = Vector2( -752.616, -229.779 )
-texture = ExtResource( 18 )
-
-[node name="icon5" type="Sprite" parent="RigidBody2D/Camera2D2/icons"]
-position = Vector2( -752.616, -229.779 )
-texture = ExtResource( 18 )
-
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 5 )
 anims/FadeOut = SubResource( 6 )
 anims/ShowName = SubResource( 7 )
-[connection signal="resized" from="CanvasLayer/Panel/Location" to="." method="_on_Location_resized"]
+[connection signal="resized" from="HUD/Panel/Location" to="." method="_on_Location_resized"]
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer0" to="CorrentesDeVento" method="_on_WarningsPlayer0_animation_finished"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer1" to="CorrentesDeVento" method="_on_WarningsPlayer1_animation_finished"]
