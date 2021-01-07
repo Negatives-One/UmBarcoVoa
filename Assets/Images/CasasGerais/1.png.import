@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Elevador Lacerda.png-a86d19870fdf081649801d6f3b29ebe3.stex"
+path="res://.import/1.png-3df4febecd75e6df99a481c75b08a527.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Bahia/Salvador/Elevador Lacerda.png"
-dest_files=[ "res://.import/Elevador Lacerda.png-a86d19870fdf081649801d6f3b29ebe3.stex" ]
+source_file="res://Assets/Images/CasasGerais/1.png"
+dest_files=[ "res://.import/1.png-3df4febecd75e6df99a481c75b08a527.stex" ]
 
 [params]
 

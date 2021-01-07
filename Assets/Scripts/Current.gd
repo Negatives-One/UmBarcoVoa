@@ -29,7 +29,7 @@ func _ready() -> void:
 	$pixel.scale.x = get_viewport_rect().size.x #d(Vector2(get_viewport_rect().size.x, 270))
 	#$VisibilityNotifier2D.rect = Rect2(0, 0, get_viewport_rect().size.x, -270)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	pass
 #	if direction == 1:
 #		position.x += (direction * (speed + player.linear_velocity.x)) * delta

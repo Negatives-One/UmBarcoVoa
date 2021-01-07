@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/teatro jose de alencar.png-e95c0884ac936f69fafc3c178a2f955d.stex"
+path="res://.import/GalinhaChoca.png-ce3573150d649639939a5e3d960fbd9d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Ceara/Fortaleza/teatro jose de alencar.png"
-dest_files=[ "res://.import/teatro jose de alencar.png-e95c0884ac936f69fafc3c178a2f955d.stex" ]
+source_file="res://Assets/Images/Ceara/Quixada/GalinhaChoca.png"
+dest_files=[ "res://.import/GalinhaChoca.png-ce3573150d649639939a5e3d960fbd9d.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tortura Nunca Mais.png-f94c596233ce356ee8e8c0f71ff43e6d.stex"
+path="res://.import/TorturaNuncaMais.png-97d9e61306d158b91370d30fe253658a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Pernambuco/Recife/Tortura Nunca Mais.png"
-dest_files=[ "res://.import/Tortura Nunca Mais.png-f94c596233ce356ee8e8c0f71ff43e6d.stex" ]
+source_file="res://Assets/Images/Pernambuco/Recife/TorturaNuncaMais.png"
+dest_files=[ "res://.import/TorturaNuncaMais.png-97d9e61306d158b91370d30fe253658a.stex" ]
 
 [params]
 

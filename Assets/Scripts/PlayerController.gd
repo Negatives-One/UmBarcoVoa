@@ -49,7 +49,7 @@ func _integrate_forces(state : Physics2DDirectBodyState):
 		linear_velocity = linear_velocity.clamped(MaxSpeed)
 	set_applied_force(acelleration + state.total_gravity)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	print(global_position)
 	if global_position.y < -1040:
 		physicsState.linear_velocity.y = 10

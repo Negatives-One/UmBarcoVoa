@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/museu-do-eclipse.png-9c8bbd5cb7a12e7a24bf6f22d6c9a597.stex"
+path="res://.import/6.png-78be16a155dda15aed28ad7ef2197bdb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Ceara/Sobral/museu-do-eclipse.png"
-dest_files=[ "res://.import/museu-do-eclipse.png-9c8bbd5cb7a12e7a24bf6f22d6c9a597.stex" ]
+source_file="res://Assets/Images/CasasGerais/6.png"
+dest_files=[ "res://.import/6.png-78be16a155dda15aed28ad7ef2197bdb.stex" ]
 
 [params]
 

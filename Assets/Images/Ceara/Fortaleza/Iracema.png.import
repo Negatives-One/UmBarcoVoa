@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/praça padre cicero.png-f2593dfffeb864192313fb84171247b8.stex"
+path="res://.import/Iracema.png-67774889cb4e87f33636223d13cf1689.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Ceara/Juazeiro/praça padre cicero.png"
-dest_files=[ "res://.import/praça padre cicero.png-f2593dfffeb864192313fb84171247b8.stex" ]
+source_file="res://Assets/Images/Ceara/Fortaleza/Iracema.png"
+dest_files=[ "res://.import/Iracema.png-67774889cb4e87f33636223d13cf1689.stex" ]
 
 [params]
 

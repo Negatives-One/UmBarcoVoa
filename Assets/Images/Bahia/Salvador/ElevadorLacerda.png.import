@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/luzeiro da fé.png-43fabd41114288d39b332ea7d6cc7c2f.stex"
+path="res://.import/ElevadorLacerda.png-6edc96e5aa38f164fe7a200931466149.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Ceara/Juazeiro/luzeiro da fé.png"
-dest_files=[ "res://.import/luzeiro da fé.png-43fabd41114288d39b332ea7d6cc7c2f.stex" ]
+source_file="res://Assets/Images/Bahia/Salvador/ElevadorLacerda.png"
+dest_files=[ "res://.import/ElevadorLacerda.png-6edc96e5aa38f164fe7a200931466149.stex" ]
 
 [params]
 

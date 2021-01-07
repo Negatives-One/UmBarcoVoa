@@ -4,18 +4,22 @@ export(NodePath) var cameraPath : NodePath
 onready var camera : MyCamera = get_node(cameraPath)
 
 var Cores : Array = [Color(0, 0.72549, 0.95294, 1), Color(0.97647, 0.34510, 0.62745, 1), Color(1.00000, 0.95686, 0.29020, 1), Color(0.34510, 0.34902, 0.35686, 1)]
-var Ceara : Array = [["res://Assets/Images/Ceara/Fortaleza/catedral.png", "res://Assets/Images/Ceara/Fortaleza/estatua de iracema.png", "res://Assets/Images/Ceara/Fortaleza/teatro jose de alencar.png"],
-	["res://Assets/Images/Ceara/Juazeiro/luzeiro da fé.png", "res://Assets/Images/Ceara/Juazeiro/padre cicero.png", "res://Assets/Images/Ceara/Juazeiro/praça padre cicero.png"],
-	["res://Assets/Images/Ceara/Quixada/pedra da galinha choca.png", "0", "0"]]
 
-var Paraiba : Array = ["0"]
+var CasasGerais : String = "res://Assets/Images/CasasGerais/"
 
-var Pernambuco : Array = [["res://Assets/Images/Pernambuco/Olinda/bonecos.png", "res://Assets/Images/Pernambuco/Olinda/Farol de Olinda.png", "res://Assets/Images/Pernambuco/Olinda/ruinas do senado.png"],
-	["res://Assets/Images/Pernambuco/Recife/circuito de poesia.png", "res://Assets/Images/Pernambuco/Recife/mercado sao jose.png", "res://Assets/Images/Pernambuco/Recife/Tortura Nunca Mais.png"]]
+var Ceara : Array = [["res://Assets/Images/Ceara/Fortaleza/Catedral.png", "res://Assets/Images/Ceara/Fortaleza/Iracema.png", "res://Assets/Images/Ceara/Fortaleza/TeatroJoseAlencar.png"],
+	["res://Assets/Images/Ceara/Juazeiro/LuzeiroDaFe.png", "res://Assets/Images/Ceara/Juazeiro/PadreCicero.png", "res://Assets/Images/Ceara/Juazeiro/PracaCicero.png"],
+	["res://Assets/Images/Ceara/Quixada/GalinhaChoca.png", "0", "0"],
+	["res://Assets/Images/Ceara/Sobral/Arco.png", "res://Assets/Images/Ceara/Sobral/LuziaHomem.png", "res://Assets/Images/Ceara/Sobral/MuseuDoEclipse.png"]]
 
-var Bahia : Array = [["res://Assets/Images/Bahia/FeiraDeSantana/caminhoneiro.png", "res://Assets/Images/Bahia/FeiraDeSantana/Tropeiro.png", "0"],
-	["res://Assets/Images/Bahia/Salvador/Elevador Lacerda.png","res://Assets/Images/Bahia/Salvador/pelourinho1.png", "res://Assets/Images/Bahia/Salvador/pelourinho2.png"],
-	["res://Assets/Images/Bahia/VitoriaDaConquista/monumento ao indio.png", "0", "0"]]
+var Paraiba : Array = [["0"],["0"]]
+
+var Pernambuco : Array = [["res://Assets/Images/Pernambuco/Olinda/Bonecos.png", "res://Assets/Images/Pernambuco/Olinda/FarolDeOlinda.png", "res://Assets/Images/Pernambuco/Olinda/RuinasDoSenado.png"],
+	["res://Assets/Images/Pernambuco/Recife/CircuitoDePoesia.png", "res://Assets/Images/Pernambuco/Recife/MercadoSaoJose.png", "res://Assets/Images/Pernambuco/Recife/TorturaNuncaMais.png"]]
+
+var Bahia : Array = [["res://Assets/Images/Bahia/FeiraDeSantana/Caminhoneiro.png", "res://Assets/Images/Bahia/FeiraDeSantana/Tropeiro.png", "0"],
+	["res://Assets/Images/Bahia/Salvador/ElevadorLacerda.png","res://Assets/Images/Bahia/Salvador/Pelourinho1.png", "res://Assets/Images/Bahia/Salvador/Pelourinho2.png"],
+	["res://Assets/Images/Bahia/VitoriaDaConquista/MonumentoIndio.png", "0", "0"]]
 
 var shader = "res://Assets/Shaders/ColorReplacement.shader"
 
@@ -24,15 +28,7 @@ onready var midLayerCoeficient = $"../Parallax/ParallaxBackground/MidLayer".moti
 onready var distanceBuildings : float
 
 func _ready() -> void:
-	UpdateDistanceBuilding(Ceara)
-	var cont = 1
-	for i in range(Ceara.size()):
-		for j in range(Ceara[i].size()):
-			if Ceara[i][j] != "0":
-				PlaceBuilding(Ceara[i][j], distanceBuildings * cont)
-				cont += 1
-	#PlaceBuilding(Ceara[0][0], distanceBuildings)
-	
+	DeployCities()
 	
 	$"../Parallax/ParallaxBackground/BackgroundLayer".motion_mirroring.x = $"../StageSpawner".screenSize.x
 	$"../Parallax/ParallaxBackground/BackgroundLayer/BG".scale.x = $"../StageSpawner".screenSize.x / $"../Parallax/ParallaxBackground/BackgroundLayer/BG".texture.get_size().x
@@ -54,11 +50,29 @@ func UpdateDistanceBuilding(array : Array) -> void:
 				cont += 1
 	distanceBuildings = ($"..".distancePerRegion - 3700) / cont
 
-func PlaceMainPlaces() -> void:
+func DeployCities() -> void:
 	if $"..".currentLocation == $"..".Locations.Ceara:
-		pass
+		UpdateDistanceBuilding(Ceara)
+		ShuffleMatrix(Ceara)
+		var cont = 1
+		for i in range(Ceara.size()):
+			for j in range(Ceara[i].size()):
+				if Ceara[i][j] != "0":
+					PlaceBuilding(Ceara[i][j], distanceBuildings * cont)
+					cont += 1
+	
+	elif $"..".currentLocation == $"..".Locations.Paraiba:
+		UpdateDistanceBuilding(Paraiba)
+		ShuffleMatrix(Paraiba)
+		var cont = 1
+		for i in range(Paraiba.size()):
+			for j in range(Paraiba[i].size()):
+				if Paraiba[i][j] != "0":
+					PlaceBuilding(Paraiba[i][j], distanceBuildings * cont)
+					cont += 1
 
-func VerifyPassPoint(camera) -> void:
+
+func VerifyPassPoint(target) -> void:
 	pass
 
 func PlaceBuilding(texture : String, positionX : float) -> void:
@@ -71,3 +85,14 @@ func PlaceBuilding(texture : String, positionX : float) -> void:
 func GetCorrectYPosition(sprite : Sprite) -> float:
 	var sizeY : float = -(sprite.texture.get_size().y / 2) + 20
 	return sizeY
+
+func ClearBuildings() -> void:
+	var buildings : Array = $"../Parallax/ParallaxBackground/MidLayer".get_children()
+	for i in buildings:
+		i.queue_free()
+
+func ShuffleMatrix(matrix : Array) -> void:
+	randomize()
+	for i in matrix:
+		i.shuffle()
+	matrix.shuffle()

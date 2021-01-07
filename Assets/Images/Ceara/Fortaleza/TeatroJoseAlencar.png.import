@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/padre cicero.png-e5309e012392bc333b707377c560a407.stex"
+path="res://.import/TeatroJoseAlencar.png-b1f62c8e8eab9ff19a67326e8e931bfd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Ceara/Juazeiro/padre cicero.png"
-dest_files=[ "res://.import/padre cicero.png-e5309e012392bc333b707377c560a407.stex" ]
+source_file="res://Assets/Images/Ceara/Fortaleza/TeatroJoseAlencar.png"
+dest_files=[ "res://.import/TeatroJoseAlencar.png-b1f62c8e8eab9ff19a67326e8e931bfd.stex" ]
 
 [params]
 

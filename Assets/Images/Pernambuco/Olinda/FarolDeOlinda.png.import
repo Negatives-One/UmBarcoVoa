@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Farol de Olinda.png-ea50a02aa96ef62dd3e2c0457a4ea705.stex"
+path="res://.import/FarolDeOlinda.png-0a63a7adbbd8d437442bf517e7d73ae0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Pernambuco/Olinda/Farol de Olinda.png"
-dest_files=[ "res://.import/Farol de Olinda.png-ea50a02aa96ef62dd3e2c0457a4ea705.stex" ]
+source_file="res://Assets/Images/Pernambuco/Olinda/FarolDeOlinda.png"
+dest_files=[ "res://.import/FarolDeOlinda.png-0a63a7adbbd8d437442bf517e7d73ae0.stex" ]
 
 [params]
 

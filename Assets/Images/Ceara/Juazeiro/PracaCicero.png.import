@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/luzia homem.png-746c06278362a5792000c88e16fa2550.stex"
+path="res://.import/PracaCicero.png-3bc2533e7e6c780fa8e38477896f5544.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Ceara/Sobral/luzia homem.png"
-dest_files=[ "res://.import/luzia homem.png-746c06278362a5792000c88e16fa2550.stex" ]
+source_file="res://Assets/Images/Ceara/Juazeiro/PracaCicero.png"
+dest_files=[ "res://.import/PracaCicero.png-3bc2533e7e6c780fa8e38477896f5544.stex" ]
 
 [params]
 

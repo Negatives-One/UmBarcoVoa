@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pelourinho2.png-4e8b2b5b5a7d556ebb474621001cbcb1.stex"
+path="res://.import/Pelourinho2.png-f2b64e1ad7bfb2f121263c5537793430.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Bahia/Salvador/pelourinho2.png"
-dest_files=[ "res://.import/pelourinho2.png-4e8b2b5b5a7d556ebb474621001cbcb1.stex" ]
+source_file="res://Assets/Images/Bahia/Salvador/Pelourinho2.png"
+dest_files=[ "res://.import/Pelourinho2.png-f2b64e1ad7bfb2f121263c5537793430.stex" ]
 
 [params]
 

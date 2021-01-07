@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mercado sao jose.png-f69a13a6d76c238fa429a441f23300d9.stex"
+path="res://.import/5.png-0746a5cab36020dfe267f181eb5a2b51.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Pernambuco/Recife/mercado sao jose.png"
-dest_files=[ "res://.import/mercado sao jose.png-f69a13a6d76c238fa429a441f23300d9.stex" ]
+source_file="res://Assets/Images/CasasGerais/5.png"
+dest_files=[ "res://.import/5.png-0746a5cab36020dfe267f181eb5a2b51.stex" ]
 
 [params]
 

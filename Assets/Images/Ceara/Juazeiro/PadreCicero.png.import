@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/monumento ao indio.png-be1d7cb4cf6bf747bcc8aaa18f140410.stex"
+path="res://.import/PadreCicero.png-dce4f560696e0e50fb8c7c0cced851d7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Bahia/VitoriaDaConquista/monumento ao indio.png"
-dest_files=[ "res://.import/monumento ao indio.png-be1d7cb4cf6bf747bcc8aaa18f140410.stex" ]
+source_file="res://Assets/Images/Ceara/Juazeiro/PadreCicero.png"
+dest_files=[ "res://.import/PadreCicero.png-dce4f560696e0e50fb8c7c0cced851d7.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pelourinho1.png-32bb447653ade2db7137dcd717872693.stex"
+path="res://.import/MonumentoIndio.png-46de5df4c7ecdb19367facabdf773735.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Bahia/Salvador/Pelourinho1.png"
-dest_files=[ "res://.import/Pelourinho1.png-32bb447653ade2db7137dcd717872693.stex" ]
+source_file="res://Assets/Images/Bahia/VitoriaDaConquista/MonumentoIndio.png"
+dest_files=[ "res://.import/MonumentoIndio.png-46de5df4c7ecdb19367facabdf773735.stex" ]
 
 [params]
 

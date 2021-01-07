@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pelourinho1.png-32bb447653ade2db7137dcd717872693.stex"
+path="res://.import/LuziaHomem.png-aa244ebd36b13efd315b054ee356fd6a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Bahia/Salvador/Pelourinho1.png"
-dest_files=[ "res://.import/Pelourinho1.png-32bb447653ade2db7137dcd717872693.stex" ]
+source_file="res://Assets/Images/Ceara/Sobral/LuziaHomem.png"
+dest_files=[ "res://.import/LuziaHomem.png-aa244ebd36b13efd315b054ee356fd6a.stex" ]
 
 [params]
 

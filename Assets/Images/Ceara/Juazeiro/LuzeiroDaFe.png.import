@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pedra da galinha choca.png-17fa40bca2da9373682c077367faf5ec.stex"
+path="res://.import/LuzeiroDaFe.png-a8b9f5c3e55e47a1ac662f5a47509e9f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Ceara/Quixada/pedra da galinha choca.png"
-dest_files=[ "res://.import/pedra da galinha choca.png-17fa40bca2da9373682c077367faf5ec.stex" ]
+source_file="res://Assets/Images/Ceara/Juazeiro/LuzeiroDaFe.png"
+dest_files=[ "res://.import/LuzeiroDaFe.png-a8b9f5c3e55e47a1ac662f5a47509e9f.stex" ]
 
 [params]
 
