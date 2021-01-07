@@ -50,6 +50,7 @@ func _integrate_forces(state : Physics2DDirectBodyState):
 	set_applied_force(acelleration + state.total_gravity)
 
 func _physics_process(delta: float) -> void:
+	print(global_position)
 	if global_position.y < -1040:
 		physicsState.linear_velocity.y = 10
 	elif global_position.y > -40:

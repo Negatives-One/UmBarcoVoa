@@ -8,7 +8,7 @@ export(NodePath) var ObstaclesNode : NodePath
 
 onready var screenSize : Vector2 = get_viewport_rect().size
 
-export(float) var MaxHeight = -1080
+export onready var MaxHeight = $"..".MaxHeight
 export(float) var MinHeight = 0
 
 export(NodePath) var StageControllerPath : NodePath

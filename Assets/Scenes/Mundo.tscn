@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,9 +6,6 @@
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=4]
 [ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
 [ext_resource path="res://Assets/Scripts/ParallaxManager.gd" type="Script" id=6]
-[ext_resource path="res://Assets/Images/Ceara/Fortaleza/catedral.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Images/Ceara/Fortaleza/teatro jose de alencar.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Images/Ceara/Fortaleza/estatua de iracema.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Chuva.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem4.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem3.png" type="Texture" id=12]
@@ -22,6 +19,7 @@
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=20]
 [ext_resource path="res://Assets/Scripts/Sol.gd" type="Script" id=21]
 [ext_resource path="res://Assets/Images/AssetsEduardo/BG.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Scripts/InGameUI.gd" type="Script" id=23]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -78,25 +76,13 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("HUD/ColorRect:color")
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 1.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -104,28 +90,40 @@ tracks/1/keys = {
 "method": "PrepareToChangeLocation"
 } ]
 }
-
-[sub_resource type="Animation" id=6]
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("HUD/ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
+tracks/1/type = "value"
+tracks/1/path = NodePath("HUD/ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HUD/Panel/PauseButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 1.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -133,34 +131,58 @@ tracks/1/keys = {
 "method": "NextLocation"
 } ]
 }
-
-[sub_resource type="Animation" id=7]
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("HUD/ColorRect/Label:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
+tracks/1/type = "value"
+tracks/1/path = NodePath("HUD/ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HUD/Panel/PauseButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 1.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "NameTransitionLabel"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HUD/ColorRect/Label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="StageController" type="Node2D"]
@@ -190,10 +212,12 @@ basedNodePath = NodePath("../RigidBody2D/Camera2D2")
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="HUD"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource( 4 )
+script = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -212,7 +236,7 @@ anchor_right = 1.0
 margin_left = -170.37
 margin_right = -0.370117
 margin_bottom = 53.0
-color = Color( 1, 1, 1, 0.890196 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -278,6 +302,65 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PauseButton" type="Button" parent="HUD/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -69.5
+margin_right = 69.5
+margin_bottom = 58.0
+text = "Pause"
+
+[node name="Panel" type="Panel" parent="HUD/Panel"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 562.0
+margin_top = 131.0
+margin_right = -562.0
+margin_bottom = -131.0
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Panel/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.45098, 0.45098, 0.45098, 1 )
+
+[node name="ResumePause" type="Button" parent="HUD/Panel/Panel"]
+anchor_top = 0.301
+anchor_right = 1.0
+anchor_bottom = 0.422
+margin_left = 311.0
+margin_top = -0.0894165
+margin_right = -310.0
+margin_bottom = 0.932587
+text = "Resume"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quitgame" type="Button" parent="HUD/Panel/Panel"]
+anchor_top = 0.488
+anchor_right = 1.0
+anchor_bottom = 0.631
+margin_left = 311.0
+margin_top = -0.18399
+margin_right = -310.0
+margin_bottom = -17.158
+text = "Quit"
+
+[node name="Paused" type="Label" parent="HUD/Panel/Panel"]
+anchor_top = 0.066
+anchor_right = 1.0
+anchor_bottom = 0.13
+margin_left = 322.5
+margin_top = -0.0489731
+margin_right = -322.5
+margin_bottom = -0.400986
+text = "Paused"
+align = 1
+valign = 1
+
 [node name="ColorRect" type="ColorRect" parent="HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -307,6 +390,7 @@ __meta__ = {
 
 [node name="ParallaxManager" type="Node" parent="."]
 script = ExtResource( 6 )
+cameraPath = NodePath("../RigidBody2D/Camera2D2")
 
 [node name="Parallax" type="CanvasLayer" parent="."]
 
@@ -314,67 +398,51 @@ script = ExtResource( 6 )
 
 [node name="BackgroundLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
-motion_mirroring = Vector2( 1920, 0 )
+motion_mirroring = Vector2( 2520, 0 )
 
 [node name="BG" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
 position = Vector2( 0, -1080 )
+scale = Vector2( 1.312, 1 )
 texture = ExtResource( 22 )
 centered = false
 
 [node name="BackLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 motion_scale = Vector2( 0.6, 1 )
+motion_mirroring = Vector2( 5000, 0 )
 
-[node name="MidLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
-motion_scale = Vector2( 0.75, 1 )
-motion_mirroring = Vector2( 2000, 0 )
-
-[node name="catedral" type="Sprite" parent="Parallax/ParallaxBackground/MidLayer"]
-position = Vector2( 0, -780.12 )
-texture = ExtResource( 7 )
-centered = false
-
-[node name="estatua de iracema" type="Sprite" parent="Parallax/ParallaxBackground/MidLayer"]
-position = Vector2( 955.67, -388.389 )
-texture = ExtResource( 9 )
-
-[node name="teatro jose de alencar" type="Sprite" parent="Parallax/ParallaxBackground/MidLayer"]
-position = Vector2( 1622.38, -182.026 )
-texture = ExtResource( 8 )
-
-[node name="FrontLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
-motion_scale = Vector2( 0.9, 1 )
-
-[node name="Nuvem1" type="Sprite" parent="."]
-visible = false
+[node name="Nuvem1" type="Sprite" parent="Parallax/ParallaxBackground/BackLayer"]
 position = Vector2( 1698.98, -922.122 )
 texture = ExtResource( 13 )
 
-[node name="Nuvem2" type="Sprite" parent="."]
-visible = false
+[node name="Nuvem2" type="Sprite" parent="Parallax/ParallaxBackground/BackLayer"]
 position = Vector2( 4322.72, -585.464 )
 texture = ExtResource( 14 )
 
-[node name="Nuvem3" type="Sprite" parent="."]
-visible = false
+[node name="Nuvem3" type="Sprite" parent="Parallax/ParallaxBackground/BackLayer"]
 position = Vector2( 2921.58, -947.819 )
 texture = ExtResource( 12 )
 
-[node name="Chuva" type="Sprite" parent="Nuvem3"]
+[node name="Chuva" type="Sprite" parent="Parallax/ParallaxBackground/BackLayer/Nuvem3"]
 show_behind_parent = true
 position = Vector2( 51.3107, 393.945 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 10 )
 
-[node name="Chuva2" type="Sprite" parent="Nuvem3"]
+[node name="Chuva2" type="Sprite" parent="Parallax/ParallaxBackground/BackLayer/Nuvem3"]
 show_behind_parent = true
 position = Vector2( 126.134, 1074.76 )
 scale = Vector2( 1, 0.8 )
 texture = ExtResource( 10 )
 
-[node name="Nuvem4" type="Sprite" parent="."]
-visible = false
+[node name="Nuvem4" type="Sprite" parent="Parallax/ParallaxBackground/BackLayer"]
 position = Vector2( 371.34, -738.458 )
 texture = ExtResource( 11 )
+
+[node name="MidLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+motion_scale = Vector2( 0.75, 1 )
+
+[node name="FrontLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+motion_scale = Vector2( 0.9, 1 )
 
 [node name="SunPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
@@ -457,6 +525,9 @@ anims/FadeIn = SubResource( 5 )
 anims/FadeOut = SubResource( 6 )
 anims/ShowName = SubResource( 7 )
 [connection signal="resized" from="HUD/Panel/Location" to="." method="_on_Location_resized"]
+[connection signal="button_down" from="HUD/Panel/PauseButton" to="HUD/Panel" method="_on_PauseButton_button_down"]
+[connection signal="pressed" from="HUD/Panel/Panel/ResumePause" to="HUD/Panel" method="_on_ResumePause_pressed"]
+[connection signal="pressed" from="HUD/Panel/Panel/Quitgame" to="HUD/Panel" method="_on_Quitgame_pressed"]
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer0" to="CorrentesDeVento" method="_on_WarningsPlayer0_animation_finished"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer1" to="CorrentesDeVento" method="_on_WarningsPlayer1_animation_finished"]

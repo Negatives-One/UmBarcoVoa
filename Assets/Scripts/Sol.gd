@@ -36,7 +36,9 @@ func _on_Timer_timeout() -> void:
 func CreateShot() -> void:
 	var lastShot = obstacle.instance()
 	shots.append(lastShot)
-	directions.append((player.global_position - self.global_position).normalized())
+	var dir : Vector2 = player.global_position - self.global_position
+	dir.x += player.linear_velocity.x * 1.3
+	directions.append(dir.normalized())
 	$"..".add_child(lastShot)
 	lastShot.global_position = self.global_position
 	lastShot.currentSize = lastShot.Size.Medio

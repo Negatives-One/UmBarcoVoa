@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/barco.png-817d26c1b604a25a5cd292479b2c5f73.stex"
+path="res://.import/luzia homem.png-746c06278362a5792000c88e16fa2550.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/barco.png"
-dest_files=[ "res://.import/barco.png-817d26c1b604a25a5cd292479b2c5f73.stex" ]
+source_file="res://Assets/Images/Ceara/Sobral/luzia homem.png"
+dest_files=[ "res://.import/luzia homem.png-746c06278362a5792000c88e16fa2550.stex" ]
 
 [params]
 

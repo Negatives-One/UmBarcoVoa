@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/unknown.png-dadc3c18020967050a9952e52b29c399.stex"
+path="res://.import/Arco.png-0464a3a9ae9be5aed52e191f9202a2ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/unknown.png"
-dest_files=[ "res://.import/unknown.png-dadc3c18020967050a9952e52b29c399.stex" ]
+source_file="res://Assets/Images/Ceara/Sobral/Arco.png"
+dest_files=[ "res://.import/Arco.png-0464a3a9ae9be5aed52e191f9202a2ca.stex" ]
 
 [params]
 

@@ -2,8 +2,8 @@ extends Node2D
 
 class_name StageController
 
-enum Locations {Fortaleza, Paraiba, Pernambuco, Bahia}
-export(Locations) var currentLocation : int = Locations.Fortaleza
+enum Locations {Ceara, Paraiba, Pernambuco, Bahia}
+export(Locations) var currentLocation : int = Locations.Ceara
 
 enum events {Nothing, FreeStyle, WindCurrent}
 export(events) var initialEvent : int = events.FreeStyle
@@ -13,8 +13,8 @@ var previousEvent : int = events.Nothing
 var totalDistance : int = 0
 export(int) var distancePerRegion : int = 50000
 
-export(float) var MaxHeight = -1080
-export(float) var MinHeight = 0
+export onready var MaxHeight : int = -ProjectSettings.get_setting("display/window/size/height")
+export(float) var MinHeight : int = 0
 
 export(float) var minTimeToChangeEvent : float = 7
 export(float) var maxTimeToChangeEvent : float = 10
@@ -55,7 +55,7 @@ func _process(_delta: float) -> void:
 	$HUD/Panel/BarcoVelocity.text = "Velocity: " + str(int($RigidBody2D.linear_velocity.x))
 	$HUD/Panel/Location.text = "Location: " + GetStringLocation()
 	if counting:
-		$HUD/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance + 100))
+		$HUD/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance))
 	$HUD/Panel/BoostState.text = str($RigidBody2D.boostState)
 	$HUD/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
 	if Input.is_action_just_pressed("ui_down"):
@@ -113,8 +113,8 @@ func _on_ScenePlayer_animation_finished(anim_name : String) -> void:
 
 func GetStringLocation() -> String:
 	match currentLocation:
-		Locations.Fortaleza:
-			return "Fortaleza"
+		Locations.Ceara:
+			return "Ceará"
 		Locations.Paraiba:
 			return "Paraíba"
 		Locations.Pernambuco:
