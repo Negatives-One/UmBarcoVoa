@@ -171,6 +171,41 @@ text = "Apply"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Loading" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Loading"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Loading"]
+anchor_top = 0.414
+anchor_right = 1.0
+anchor_bottom = 0.568
+margin_left = 159.0
+margin_top = -0.120026
+margin_right = -158.0
+margin_bottom = -0.440002
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Loading"]
+anchor_top = 0.341
+anchor_right = 1.0
+anchor_bottom = 0.389
+margin_left = 626.5
+margin_top = -0.280029
+margin_right = -626.5
+margin_bottom = -0.120026
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "TÁ CARREGANDO,  FULERAGI!"
+align = 1
+valign = 1
 [connection signal="pressed" from="Panel/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="Panel/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="value_changed" from="OptionsPanel/ColorRect3/HSlider" to="." method="_on_HSlider_value_changed"]

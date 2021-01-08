@@ -1,4 +1,4 @@
-extends Node
+extends CanvasLayer
 
 export(NodePath) var cameraPath : NodePath
 onready var camera : MyCamera = get_node(cameraPath)
@@ -6,6 +6,12 @@ onready var camera : MyCamera = get_node(cameraPath)
 var Cores : Array = [Color(0, 0.72549, 0.95294, 1), Color(0.97647, 0.34510, 0.62745, 1), Color(1.00000, 0.95686, 0.29020, 1), Color(0.34510, 0.34902, 0.35686, 1)]
 
 var CasasGerais : String = "res://Assets/Images/CasasGerais/"
+
+var distanceHouses : int = 280
+var start = 0
+
+var houses : Array = []
+var numHouses : int = 0
 
 var Ceara : Array = [["res://Assets/Images/Ceara/Fortaleza/Catedral.png", "res://Assets/Images/Ceara/Fortaleza/Iracema.png", "res://Assets/Images/Ceara/Fortaleza/TeatroJoseAlencar.png"],
 	["res://Assets/Images/Ceara/Juazeiro/LuzeiroDaFe.png", "res://Assets/Images/Ceara/Juazeiro/PadreCicero.png", "res://Assets/Images/Ceara/Juazeiro/PracaCicero.png"],
@@ -21,19 +27,31 @@ var Bahia : Array = [["res://Assets/Images/Bahia/FeiraDeSantana/Caminhoneiro.png
 	["res://Assets/Images/Bahia/Salvador/ElevadorLacerda.png","res://Assets/Images/Bahia/Salvador/Pelourinho1.png", "res://Assets/Images/Bahia/Salvador/Pelourinho2.png"],
 	["res://Assets/Images/Bahia/VitoriaDaConquista/MonumentoIndio.png", "0", "0"]]
 
+var DontShader : Array = ["res://Assets/Images/Bahia/Salvador/Pelourinho1.png", "res://Assets/Images/Bahia/Salvador/Pelourinho2.png", "res://Assets/Images/Pernambuco/Olinda/Bonecos.png", "res://Assets/Images/Pernambuco/Recife/CircuitoDePoesia.png"] 
+
 var shader = "res://Assets/Shaders/ColorReplacement.shader"
 
-onready var midLayerCoeficient = $"../Parallax/ParallaxBackground/MidLayer".motion_scale.x
+onready var midLayerCoeficient = $ParallaxBackground/MidLayer.motion_scale.x
 
 onready var distanceBuildings : float
 
 func _ready() -> void:
 	DeployCities()
-	
-	$"../Parallax/ParallaxBackground/BackgroundLayer".motion_mirroring.x = $"../StageSpawner".screenSize.x
-	$"../Parallax/ParallaxBackground/BackgroundLayer/BG".scale.x = $"../StageSpawner".screenSize.x / $"../Parallax/ParallaxBackground/BackgroundLayer/BG".texture.get_size().x
+	while camera.global_position.x + $"../StageSpawner".screenSize.x/2 > start:
+		DeployHouses(camera)
+	$ParallaxBackground/BackgroundLayer.motion_mirroring.x = $"../StageSpawner".screenSize.x
+	$ParallaxBackground/BackgroundLayer/BG.scale.x = $"../StageSpawner".screenSize.x / $ParallaxBackground/BackgroundLayer/BG.texture.get_size().x
 
-func setShader(sprite : Sprite) -> void:
+func _process(delta: float) -> void:
+	DeployHouses(camera)
+	if !houses.empty():
+		if is_instance_valid(houses[0]):
+			if (houses[0].position.x / $ParallaxBackground/MidLayer.motion_scale.x) + 100 < camera.global_position.x - $"../StageSpawner".screenSize.x /2:
+				houses[0].queue_free()
+				numHouses -= 1
+				houses.remove(0)
+
+func SetShader(sprite : Sprite) -> void:
 	var shaderMaterial : ShaderMaterial = ShaderMaterial.new()
 	shaderMaterial.shader = load(shader)
 	shaderMaterial.set_shader_param("color", Color(0.45, 0.45, 0.45, 1))
@@ -51,6 +69,7 @@ func UpdateDistanceBuilding(array : Array) -> void:
 	distanceBuildings = ($"..".distancePerRegion - 3700) / cont
 
 func DeployCities() -> void:
+	ClearBuildings()
 	if $"..".currentLocation == $"..".Locations.Ceara:
 		UpdateDistanceBuilding(Ceara)
 		ShuffleMatrix(Ceara)
@@ -60,8 +79,8 @@ func DeployCities() -> void:
 				if Ceara[i][j] != "0":
 					PlaceBuilding(Ceara[i][j], distanceBuildings * cont)
 					cont += 1
-	
 	elif $"..".currentLocation == $"..".Locations.Paraiba:
+		return
 		UpdateDistanceBuilding(Paraiba)
 		ShuffleMatrix(Paraiba)
 		var cont = 1
@@ -70,26 +89,62 @@ func DeployCities() -> void:
 				if Paraiba[i][j] != "0":
 					PlaceBuilding(Paraiba[i][j], distanceBuildings * cont)
 					cont += 1
+	elif $"..".currentLocation == $"..".Locations.Pernambuco:
+		UpdateDistanceBuilding(Pernambuco)
+		ShuffleMatrix(Pernambuco)
+		var cont = 1
+		for i in range(Pernambuco.size()):
+			for j in range(Pernambuco[i].size()):
+				if Pernambuco[i][j] != "0":
+					PlaceBuilding(Pernambuco[i][j], distanceBuildings * cont)
+					cont += 1
+	elif $"..".currentLocation == $"..".Locations.Bahia:
+		UpdateDistanceBuilding(Bahia)
+		ShuffleMatrix(Bahia)
+		var cont = 1
+		for i in range(Bahia.size()):
+			for j in range(Bahia[i].size()):
+				if Bahia[i][j] != "0":
+					PlaceBuilding(Bahia[i][j], distanceBuildings * cont)
+					cont += 1
 
 
-func VerifyPassPoint(target) -> void:
-	pass
+func DeployHouses(target) -> void:
+	if target.global_position.x + $"../StageSpawner".screenSize.x/2 > start:
+		var sprite : Sprite = Sprite.new()
+		sprite.texture = load(CasasGerais + str(randi() % 6 +1) + ".png")
+		$ParallaxBackground/FrontLayer.add_child(sprite)
+		SetShader(sprite)
+		houses.append(sprite)
+		sprite.position = Vector2((start + distanceHouses) * $ParallaxBackground/FrontLayer.motion_scale.x, GetCorrectYPosition(sprite) + 25)
+		start += distanceHouses
+		numHouses += 1
 
 func PlaceBuilding(texture : String, positionX : float) -> void:
+	var isGray : bool = true
 	var sprite : Sprite = Sprite.new()
 	sprite.texture = load(texture)
-	setShader(sprite)
-	$"../Parallax/ParallaxBackground/MidLayer".add_child(sprite)
+	for i in DontShader:
+		if texture == i:
+			isGray = false
+	if isGray:
+		SetShader(sprite)
+	$ParallaxBackground/MidLayer.add_child(sprite)
 	sprite.position = Vector2(positionX * midLayerCoeficient, GetCorrectYPosition(sprite))
 
 func GetCorrectYPosition(sprite : Sprite) -> float:
-	var sizeY : float = -(sprite.texture.get_size().y / 2) + 20
+	var sizeY : float = -(sprite.texture.get_size().y / 2)
 	return sizeY
 
 func ClearBuildings() -> void:
-	var buildings : Array = $"../Parallax/ParallaxBackground/MidLayer".get_children()
-	for i in buildings:
-		i.queue_free()
+	var buildings : Array = $ParallaxBackground/MidLayer.get_children()
+	if buildings.size() > 0:
+		for i in buildings:
+			i.queue_free()
+	var casinhas : Array = $ParallaxBackground/FrontLayer.get_children()
+	for j in casinhas:
+		j.queue_free()
+	start = 0
 
 func ShuffleMatrix(matrix : Array) -> void:
 	randomize()

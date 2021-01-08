@@ -37,7 +37,7 @@ func CreateShot() -> void:
 	var lastShot = obstacle.instance()
 	shots.append(lastShot)
 	var dir : Vector2 = player.global_position - self.global_position
-	dir.x += player.linear_velocity.x * 1.3
+	dir += player.linear_velocity
 	directions.append(dir.normalized())
 	$"..".add_child(lastShot)
 	lastShot.global_position = self.global_position
@@ -47,5 +47,10 @@ func Enable() -> void:
 	$Timer.start(randi() % maxWaitTime + minWaitTime)
 
 func Disable() -> void:
+	for i in shots:
+		if is_instance_valid(i):
+			i.queue_free()
+	shots.clear()
+	directions.clear()
 	$Timer.stop()
 	$Timer.wait_time = randi() % maxWaitTime + minWaitTime

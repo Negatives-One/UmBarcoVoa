@@ -1,9 +1,20 @@
 extends Control
 
+var loading : ResourceInteractiveLoader
 
+func _process(_delta: float) -> void:
+	if $Loading.visible:
+		loading.poll()
+		$Loading/ProgressBar.value = loading.get_stage()
+		if loading.get_resource() != null:
+			$Loading/ProgressBar.value = $Loading/ProgressBar.max_value
+			get_tree().change_scene_to(loading.get_resource())
 
 func _on_PlayButton_pressed() -> void:
-	var _error : int = get_tree().change_scene("res://Assets/Scenes/Mundo.tscn")
+	loading = ResourceLoader.load_interactive("res://Assets/Scenes/Mundo.tscn")
+	$Loading/ProgressBar.max_value = loading.get_stage_count()
+	$Loading.visible = true
+	#var _error : int = get_tree().change_scene("res://Assets/Scenes/Mundo.tscn")
 
 
 func _on_OptionsButton_pressed() -> void:

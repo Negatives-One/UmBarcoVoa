@@ -114,6 +114,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath("Parallax")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "DeployCities"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
 length = 1.5
@@ -190,6 +204,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 540.125 ]
 }
+initialEvent = 0
 minTimeToChangeEvent = 15.0
 maxTimeToChangeEvent = 20.0
 
@@ -388,11 +403,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ParallaxManager" type="Node" parent="."]
+[node name="Parallax" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
 cameraPath = NodePath("../RigidBody2D/Camera2D2")
-
-[node name="Parallax" type="CanvasLayer" parent="."]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Parallax"]
 
