@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem1.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem2.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Sol.png" type="Texture" id=15]
-[ext_resource path="res://Assets/Scenes/BGInfinito.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/Scripts/WindCurrents.gd" type="Script" id=17]
 [ext_resource path="res://icon0.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Scripts/StageSpawner.gd" type="Script" id=19]
@@ -217,12 +216,6 @@ horizontalLines = 6
 WindsNode = NodePath("../Ventos")
 ObstaclesNode = NodePath("../Obstaculos")
 StageControllerPath = NodePath("..")
-
-[node name="Background" parent="." instance=ExtResource( 16 )]
-visible = false
-position = Vector2( 0, -540 )
-xAdjust = 640.0
-basedNodePath = NodePath("../RigidBody2D/Camera2D2")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

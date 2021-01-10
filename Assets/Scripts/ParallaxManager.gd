@@ -7,7 +7,9 @@ var Cores : Array = [Color(0, 0.72549, 0.95294, 1), Color(0.97647, 0.34510, 0.62
 
 var CasasGerais : String = "res://Assets/Images/CasasGerais/"
 
+
 var distanceHouses : int = 280
+var maxDistanceHouses : int = 600
 var start = 0
 
 var houses : Array = []
@@ -151,3 +153,7 @@ func ShuffleMatrix(matrix : Array) -> void:
 	for i in matrix:
 		i.shuffle()
 	matrix.shuffle()
+
+func UpdateCurve(firstSprite : Sprite, secondSprite : Sprite) -> float:
+	#minDistance = (secondSprite.position.x - secondSprite.texture.get_size().x/2) - (firstSprite.position.x + firstSprite.texture.get_size().x/2)
+	return 0.0

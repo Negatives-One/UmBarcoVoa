@@ -4,11 +4,11 @@ var loading : ResourceInteractiveLoader
 
 func _process(_delta: float) -> void:
 	if $Loading.visible:
-		loading.poll()
+		var _error : int = loading.poll()
 		$Loading/ProgressBar.value = loading.get_stage()
 		if loading.get_resource() != null:
 			$Loading/ProgressBar.value = $Loading/ProgressBar.max_value
-			get_tree().change_scene_to(loading.get_resource())
+			var _changeError : int = get_tree().change_scene_to(loading.get_resource())
 
 func _on_PlayButton_pressed() -> void:
 	loading = ResourceLoader.load_interactive("res://Assets/Scenes/Mundo.tscn")
