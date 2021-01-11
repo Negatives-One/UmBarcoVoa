@@ -65,6 +65,7 @@ func _unhandled_input(event : InputEvent) -> void:
 			else:
 				pass
 			if event.pressed and event.button_index == BUTTON_RIGHT:
+				Batida()
 				apply_central_impulse(Vector2(1,0)*5000)
 
 func _process(_delta : float) -> void:
@@ -106,3 +107,12 @@ func ApplyImpulse(Impulse : Vector2):
 func Map(value : float, start1 : float, stop1 : float, start2 : float, stop2 : float) -> float:
 	var outgoing : float = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
 	return outgoing;
+
+func Batida() -> void:
+	$SFX/Batida.play()
+
+func VentoLoop(value : bool) -> void:
+	if value:
+		$SFX/VentoLoop.play()
+	else:
+		$SFX/VentoLoop.stop()

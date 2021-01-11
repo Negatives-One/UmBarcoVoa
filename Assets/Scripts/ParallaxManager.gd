@@ -9,11 +9,9 @@ var CasasGerais : String = "res://Assets/Images/CasasGerais/"
 
 
 var distanceHouses : int = 280
-var maxDistanceHouses : int = 600
+export(float) var maxDistanceHouses : float = 800
 var start = 0
 
-var houses : Array = []
-var numHouses : int = 0
 
 var Ceara : Array = [["res://Assets/Images/Ceara/Fortaleza/Catedral.png", "res://Assets/Images/Ceara/Fortaleza/Iracema.png", "res://Assets/Images/Ceara/Fortaleza/TeatroJoseAlencar.png"],
 	["res://Assets/Images/Ceara/Juazeiro/LuzeiroDaFe.png", "res://Assets/Images/Ceara/Juazeiro/PadreCicero.png", "res://Assets/Images/Ceara/Juazeiro/PracaCicero.png"],
@@ -46,12 +44,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	DeployHouses(camera)
-	if !houses.empty():
-		if is_instance_valid(houses[0]):
-			if (houses[0].position.x / $ParallaxBackground/MidLayer.motion_scale.x) + 100 < camera.global_position.x - $"../StageSpawner".screenSize.x /2:
-				houses[0].queue_free()
-				numHouses -= 1
-				houses.remove(0)
+	for i in $ParallaxBackground/FrontLayer.get_children():
+		if i.position.x / $ParallaxBackground/FrontLayer.motion_scale.x + 500 < camera.global_position.x - $"../StageSpawner".screenSize.x /2:
+			i.queue_free()
 
 func SetShader(sprite : Sprite) -> void:
 	var shaderMaterial : ShaderMaterial = ShaderMaterial.new()
@@ -71,6 +66,7 @@ func UpdateDistanceBuilding(array : Array) -> void:
 	distanceBuildings = ($"..".distancePerRegion - 3700) / cont
 
 func DeployCities() -> void:
+	start = 0
 	ClearBuildings()
 	if $"..".currentLocation == $"..".Locations.Ceara:
 		UpdateDistanceBuilding(Ceara)
@@ -117,10 +113,23 @@ func DeployHouses(target) -> void:
 		sprite.texture = load(CasasGerais + str(randi() % 6 +1) + ".png")
 		$ParallaxBackground/FrontLayer.add_child(sprite)
 		SetShader(sprite)
-		houses.append(sprite)
 		sprite.position = Vector2((start + distanceHouses) * $ParallaxBackground/FrontLayer.motion_scale.x, GetCorrectYPosition(sprite) + 25)
-		start += distanceHouses
-		numHouses += 1
+		start += int(UpdateHouseDistance($ParallaxBackground/FrontLayer.get_children()[$ParallaxBackground/FrontLayer.get_child_count() - 1], sprite))
+		var line : Line2D = Line2D.new()
+		sprite.add_child(line)
+		line.default_color = Color(randf(),randf(),randf(),0.75)
+		line.add_point(Vector2(-sprite.texture.get_size().x/2, -500))
+		line.add_point(Vector2(sprite.texture.get_size().x/2, -500))
+
+func UpdateHouseDistance(oldSprite : Sprite, newSprite : Sprite) -> float:
+	if !is_instance_valid(oldSprite):
+		return maxDistanceHouses
+	var percentage : float = abs(($"../RigidBody2D".global_position.x - $"..".distancePerRegion/2) / ($"..".distancePerRegion/2))
+	var minDistance = (newSprite.texture.get_size().x/2 + oldSprite.texture.get_size().x/2) + 40
+	if(maxDistanceHouses * percentage > minDistance):
+		return maxDistanceHouses * percentage
+	else:
+		return minDistance
 
 func PlaceBuilding(texture : String, positionX : float) -> void:
 	var isGray : bool = true
@@ -146,14 +155,9 @@ func ClearBuildings() -> void:
 	var casinhas : Array = $ParallaxBackground/FrontLayer.get_children()
 	for j in casinhas:
 		j.queue_free()
-	start = 0
 
 func ShuffleMatrix(matrix : Array) -> void:
 	randomize()
 	for i in matrix:
 		i.shuffle()
 	matrix.shuffle()
-
-func UpdateCurve(firstSprite : Sprite, secondSprite : Sprite) -> float:
-	#minDistance = (secondSprite.position.x - secondSprite.texture.get_size().x/2) - (firstSprite.position.x + firstSprite.texture.get_size().x/2)
-	return 0.0

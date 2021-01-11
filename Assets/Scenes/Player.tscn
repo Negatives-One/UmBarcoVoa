@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Images/AssetsEduardo/vela.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Scripts/PlayerController.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Images/AssetsEduardo/personagem.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/AssetsEduardo/leme.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Images/AssetsEduardo/barco.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sounds/SFX/batida.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sounds/SFX/barcoruido.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Sounds/SFX/ventoloop.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Sounds/SFX/ventoempurrao.wav" type="AudioStream" id=9]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
@@ -45,3 +49,21 @@ scale = Vector2( 0.5, 0.5 )
 polygon = PoolVector2Array( 181.515, 63.269, 144.515, 131.382, -126.253, 154.927, -152.321, 121.291 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Batida" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 6 )
+bus = "SFX"
+
+[node name="BarcoRuido" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 7 )
+bus = "SFX"
+
+[node name="VentoLoop" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 8 )
+bus = "SFX"
+
+[node name="VentoEmpurrao" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 9 )
+bus = "SFX"

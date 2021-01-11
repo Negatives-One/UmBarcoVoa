@@ -10,8 +10,10 @@ easingTypeFadeIn = 1
 transitionTypeFadeOut = 4
 
 [node name="Current" type="AudioStreamPlayer" parent="."]
+bus = "Musica"
 
 [node name="Next" type="AudioStreamPlayer" parent="."]
+bus = "Musica"
 
 [node name="TweenCurrent" type="Tween" parent="."]
 
