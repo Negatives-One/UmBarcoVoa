@@ -154,7 +154,7 @@ func _process(_delta : float) -> void:
 	lineControle.set_point_position(1, Vector2(0, 0))
 	lineControle.set_point_position(2, Vector2(200 * cos(deg2rad(maxAngle)), 200 * sin(deg2rad(maxAngle))))
 	
-	print(is_angle_between(minAngle, rad2deg(target.normalized().angle()), maxAngle))
+	#print(is_angle_between(minAngle, rad2deg(target.normalized().angle()), maxAngle))
 	#print(IsBetweenAngles(maxAngle, minAngle, rad2deg(linear_velocity.normalized().angle())))
 
 func FSM() -> void:
@@ -200,6 +200,7 @@ func VentoLoop() -> void:
 		velocityX = windLoopVelocity
 	var volumePercentageWind : float = velocityX / windLoopVelocity
 	$SFX/VentoLoop.volume_db = linear2db(volumePercentageWind )
+	print($SFX/VentoLoop.volume_db)
 
 func IsBetweenAngles(start, end, mid) -> bool:
 	if (end - start) < 0.0:
@@ -213,16 +214,16 @@ func IsBetweenAngles(start, end, mid) -> bool:
 	return (mid < end)
 
 func is_angle_between(alpha : float, theta : float, beta : float):
-	while( abs(beta - alpha) > 180 ):
+	while(abs(beta - alpha) > 180):
 		if(beta > alpha):
-			alpha += 360;
+			alpha += 360
 		else:
-			beta += 360;
+			beta += 360
 	if(alpha > beta):
 		var phi : float = alpha;
-		alpha = beta;
-		beta = phi;
-	var threeSixtyMultiple : int = (beta - theta)/360;
-	theta += 360 * threeSixtyMultiple;
+		alpha = beta
+		beta = phi
+	var threeSixtyMultiple : int = (beta - theta) / 360
+	theta += 360 * threeSixtyMultiple
 	return (alpha < theta) && (theta < beta)
 
