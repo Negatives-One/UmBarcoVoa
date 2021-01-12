@@ -36,26 +36,10 @@ var physicsState : Physics2DDirectBodyState
 
 var camera : MyCamera
 
-var valoresCoef = []
-
-var line : Line2D
-
-var lineControle : Line2D
-
 export(float, 0, 360) var minAngle : float = 10
 export(float, 0, 360) var maxAngle : float = 350
 
 func _ready() -> void:
-	line = Line2D.new()
-	add_child(line)
-	line.add_point(Vector2(0, 0))
-	line.add_point(Vector2(200 * cos(linear_velocity.normalized().angle()), 200 * sin(linear_velocity.normalized().angle())))
-	
-	lineControle = Line2D.new()
-	add_child(lineControle)
-	lineControle.add_point(Vector2(200 * cos(0.523599), 200 * sin(0.523599)))
-	lineControle.add_point(Vector2(0, 0))
-	lineControle.add_point(Vector2(200 * cos(5.75959), 200 * sin(5.75959)))
 	VentoLoop()
 	camera = $Camera2D2
 	currentState = States.Parado
@@ -97,47 +81,8 @@ func _unhandled_input(event : InputEvent) -> void:
 
 func _process(_delta : float) -> void:
 	VentoLoop()
-	if is_angle_between(minAngle, rad2deg(linear_velocity.normalized().angle()), maxAngle):
-		if $SFX/BarcoRuido.playing:
-			$SFX/BarcoRuido.stop()
-			tempoAudio = $SFX/BarcoRuido.get_playback_position()
-	else:
-		if !$SFX/BarcoRuido.playing:
-			$SFX/BarcoRuido.play(tempoAudio)
-		
-#	#print(deg2rad(minAngle), " - ", linear_velocity.normalized().angle(), " - ", deg2rad(maxAngle))
-#	#print(rad2deg(linear_velocity.normalized().angle()))
-#	var coef = abs(abs(linear_velocity.normalized().angle()) - abs(target.normalized().angle()))
-#	#var coef = abs(abs(linear_velocity.normalized().angle()) - abs((get_global_mouse_position() - global_position).normalized().angle()))
-#	#print(coef)
-#	var b = 0
-#	var medCoef = 0
-#	if valoresCoef.size() != 0:
-#		for i in valoresCoef:
-#			b += i
-#		medCoef = b / valoresCoef.size()
-#	if abs(prevCoef - medCoef) > 0.005:
-#		#print(true)
-#		if !$SFX/BarcoRuido.playing:
-#			$SFX/BarcoRuido.play(tempoAudio)
-#
-#	else:
-#		#print(false)
-#		if $SFX/BarcoRuido.playing:
-#			$SFX/BarcoRuido.stop()
-#			tempoAudio = $SFX/BarcoRuido.get_playback_position()
-
-#	#print(abs(prevCoef - medCoef))
-#	prevCoef = medCoef
-#	valoresCoef.append(coef)
-#	if valoresCoef.size() > 60:
-#		valoresCoef.remove(0)
-
-#	if $Jangada.rotation != linear_velocity.normalized().angle():
-#		if !$SFX/BarcoRuido.playing:
-#			$SFX/BarcoRuido.play()
-#	else:
-#		$SFX/BarcoRuido.stop()
+	RuidoBarco()
+	
 	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, linear_velocity.normalized().angle(), 0.05,Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 	$Tween.interpolate_property($CollisionPolygon2D, "rotation", $CollisionPolygon2D.rotation, linear_velocity.normalized().angle(), 0.05, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -146,16 +91,6 @@ func _process(_delta : float) -> void:
 #	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
 	if(linear_velocity.x < -0.1):
 		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
-	
-	line.set_point_position(0, Vector2(0, 0))
-	line.set_point_position(1, Vector2(200 * cos(target.normalized().angle()), 200 * sin(linear_velocity.normalized().angle())))
-	
-	lineControle.set_point_position(0, Vector2(200 * cos(deg2rad(minAngle)), 200 * sin(deg2rad(minAngle))))
-	lineControle.set_point_position(1, Vector2(0, 0))
-	lineControle.set_point_position(2, Vector2(200 * cos(deg2rad(maxAngle)), 200 * sin(deg2rad(maxAngle))))
-	
-	#print(is_angle_between(minAngle, rad2deg(target.normalized().angle()), maxAngle))
-	#print(IsBetweenAngles(maxAngle, minAngle, rad2deg(linear_velocity.normalized().angle())))
 
 func FSM() -> void:
 	
@@ -200,20 +135,19 @@ func VentoLoop() -> void:
 		velocityX = windLoopVelocity
 	var volumePercentageWind : float = velocityX / windLoopVelocity
 	$SFX/VentoLoop.volume_db = linear2db(volumePercentageWind )
-	print($SFX/VentoLoop.volume_db)
 
-func IsBetweenAngles(start, end, mid) -> bool:
-	if (end - start) < 0.0:
-		end = end - start + 360.0
+func RuidoBarco() -> void:
+	if is_angle_between(minAngle, rad2deg(linear_velocity.normalized().angle()), maxAngle):
+		if $SFX/BarcoRuido.playing:
+			#$Tween.interpolate_property($SFX/BarcoRuido, "volume_db", 0, -80, 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN)
+			$SFX/BarcoRuido.stop()
+			tempoAudio = $SFX/BarcoRuido.get_playback_position()
 	else:
-		end = end - start
-	if (mid - start) < 0.0:
-		mid = mid - start + 360.0
-	else:
-		mid = mid - start
-	return (mid < end)
+		if !$SFX/BarcoRuido.playing:
+			#$Tween.interpolate_property($SFX/BarcoRuido, "volume_db", -80, 0, 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN)
+			$SFX/BarcoRuido.play(tempoAudio)
 
-func is_angle_between(alpha : float, theta : float, beta : float):
+func is_angle_between(alpha : float, theta : float, beta : float) -> bool:
 	while(abs(beta - alpha) > 180):
 		if(beta > alpha):
 			alpha += 360

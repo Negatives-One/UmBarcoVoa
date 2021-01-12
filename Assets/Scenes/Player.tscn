@@ -60,6 +60,7 @@ bus = "SFXImpact"
 [node name="BarcoRuido" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 7 )
 volume_db = -15.0
+autoplay = true
 bus = "SFX"
 
 [node name="VentoLoop" type="AudioStreamPlayer" parent="SFX"]

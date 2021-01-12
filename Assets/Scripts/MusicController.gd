@@ -1,12 +1,12 @@
 extends Node
 
-var musicas : Array = ["aCEARA_loop1.ogg", "bPARAIBA_loop1.ogg", "cPERNAMBUCO_loop1.ogg", "dBAHIA_loop1.ogg"]
+var musicas : Array = ["aCEARA_loop1.ogg", "cPERNAMBUCO_loop1.ogg", "dBAHIA_loop1.ogg"]
 
 var stageController : StageController
 
 var MusicFolder : String = "res://Assets/Sounds/"
 
-enum Locations {Ceara, Paraiba, Pernambuco, Bahia}
+enum Locations {Ceara, Pernambuco, Bahia}
 
 export(float) var transitionDuration : float = 4.5
 
@@ -23,9 +23,9 @@ export(transitions) var transitionTypeFadeOut : int = Tween.TRANS_LINEAR
 export(easings) var easingTypeFadeOut : int = Tween.EASE_IN
 
 func _ready() -> void:
-	$Current.stream = load(MusicFolder + musicas[Locations.Ceara])
+	$Current.stream = load("res://Assets/Sounds/MainMenu_loop.ogg")
 	$Current.play()
-	$Next.stream = load(MusicFolder + musicas[Locations.Paraiba])
+	$Next.stream = load(MusicFolder + musicas[Locations.Ceara])
 
 #func GetFiles(path) -> Array:
 #	var files : Array = []
@@ -41,9 +41,14 @@ func _ready() -> void:
 #		file = dir.get_next()
 #	return files
 
+func Reset() -> void:
+	$Current.stream = load("res://Assets/Sounds/MainMenu_loop.ogg")
+	$Current.play()
+	$Next.stream = load(MusicFolder + musicas[Locations.Ceara])
+
 func ChangeMusic() -> void:
 	var locationNumber = stageController.currentLocation
-	if locationNumber == 3:
+	if locationNumber == 2:
 		locationNumber = -1
 	if $Current.playing:
 		fadeOut($Current, $TweenCurrent)

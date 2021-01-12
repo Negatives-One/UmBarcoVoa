@@ -2,7 +2,7 @@ extends Node2D
 
 class_name StageController
 
-enum Locations {Ceara, Paraiba, Pernambuco, Bahia}
+enum Locations {Ceara, Pernambuco, Bahia}
 export(Locations) var currentLocation : int = Locations.Ceara
 
 enum events {Nothing, FreeStyle, WindCurrent}
@@ -115,8 +115,6 @@ func GetStringLocation() -> String:
 	match currentLocation:
 		Locations.Ceara:
 			return "Ceará"
-		Locations.Paraiba:
-			return "Paraíba"
 		Locations.Pernambuco:
 			return "Pernambuco"
 		Locations.Bahia:

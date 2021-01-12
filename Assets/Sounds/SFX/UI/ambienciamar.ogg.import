@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ambienciamar.ogg-aa51d4dbb2590a4c85774df19896d417.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/SFX/UI/ambienciamar.ogg"
+dest_files=[ "res://.import/ambienciamar.ogg-aa51d4dbb2590a4c85774df19896d417.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

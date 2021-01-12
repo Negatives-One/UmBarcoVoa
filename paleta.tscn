@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
-shader_param/color = Color( 0.5, 0.5, 0.5, 1 )
+shader_param/color = Color( 0.501961, 0.501961, 0.501961, 1 )
 shader_param/replace = Color( 0.321569, 0.639216, 0.8, 1 )
 shader_param/tolerance = 0.45
 
@@ -31,7 +31,7 @@ load_path = "res://.import/catedral.png-bec5eec94cae46119ca5d596eedf4764.stex"
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 2 )
-shader_param/color = Color( 0.5, 0.5, 0.5, 1 )
+shader_param/color = Color( 0.501961, 0.501961, 0.501961, 1 )
 shader_param/replace = Color( 0.8, 0.8, 0.8, 1 )
 shader_param/tolerance = 0.45
 

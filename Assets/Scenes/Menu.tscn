@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=2]
 [ext_resource path="res://Assets/Scripts/Menu.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Sounds/SFX/UI/ambienciamar.ogg" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 57
@@ -206,6 +207,10 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "TÁ CARREGANDO,  FULERAGI!"
 align = 1
 valign = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
 [connection signal="pressed" from="Panel/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="Panel/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="value_changed" from="OptionsPanel/ColorRect3/HSlider" to="." method="_on_HSlider_value_changed"]

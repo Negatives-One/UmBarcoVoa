@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-masterVolume = -1.#INF
+masterVolume = 0.0
 highScore = 0
