@@ -20,6 +20,8 @@ var possibleAngles : Array = [0, 45, 90, 135, 180, 225, 270, 315]
 
 var angle : float setget SetDirection, GetDirection
 
+var played : bool = false
+
 func GetDirection() -> float:
 	return angle
 
@@ -50,6 +52,9 @@ func _on_Area2D_body_entered(body : RigidBody2D):
 	if body.is_in_group("Player"):
 		player = body
 		player.boostState = player.BoostStates.Usando
+		if !played:
+			player.VentoEmpurrao()
+		played = true
 
 
 func _on_Area2D_body_exited(body):

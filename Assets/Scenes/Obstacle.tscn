@@ -63,5 +63,4 @@ anims/CollSize0 = SubResource( 2 )
 anims/CollSize1 = SubResource( 3 )
 anims/CollSize2 = SubResource( 4 )
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_Area2D_body_exited"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

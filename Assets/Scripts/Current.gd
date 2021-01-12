@@ -43,3 +43,9 @@ func _physics_process(_delta: float) -> void:
 #	if initialXPosition > targetPos:
 #		position.x = targetPos
 #		currentState = states.Idle
+
+
+func _on_Area2D_body_entered(body: Node) -> void:
+	if body is Player:
+		if !body.sfxBoost.playing:
+			body.VentoEmpurrao()

@@ -40,13 +40,9 @@ func _on_Area2D_body_entered(body) -> void:
 		player = body
 		player.physicsState.apply_central_impulse(NerfVelocity())
 		var camera : MyCamera = player.camera
-		
+		body.Batida()
 		camera.shake(1, (currentSize+1)*10, (currentSize+1)*10)
 		call_deferred("queue_free")
-
-func _on_Area2D_body_exited(body) -> void:
-	if body.is_in_group("Player"):
-		pass
 
 func NerfVelocity() -> Vector2:
 	#var velocityNerf : Vector2 = Vector2(player.linear_velocity.x - (player.linear_velocity.x * baseSlowScale * currentSize), player.linear_velocity.y - (player.linear_velocity.y * baseSlowScale * currentSize))

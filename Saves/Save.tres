@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-masterVolume = -2.38373
+masterVolume = -80.0
 highScore = 0

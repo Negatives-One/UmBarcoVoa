@@ -203,7 +203,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 540.125 ]
 }
-initialEvent = 0
 minTimeToChangeEvent = 15.0
 maxTimeToChangeEvent = 20.0
 
