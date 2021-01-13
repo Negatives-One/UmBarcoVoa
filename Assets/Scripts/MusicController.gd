@@ -1,14 +1,12 @@
 extends Node
 
-var musicas : Array = ["aCEARA_loop1.ogg", "cPERNAMBUCO_loop1.ogg", "dBAHIA_loop1.ogg"]
+var musicas : Array = ["res://Assets/Sounds/CearaLoop.ogg", "res://Assets/Sounds/PernambucoLoop.ogg", "res://Assets/Sounds/BahiaLoop.ogg", "res://Assets/Sounds/MainMenuLoop.ogg"]
 
 var stageController : StageController
 
-var MusicFolder : String = "res://Assets/Sounds/"
+enum MusicsNumber {Ceara, Pernambuco, Bahia, Menu}
 
-enum Locations {Ceara, Pernambuco, Bahia}
-
-export(float) var transitionDuration : float = 4.5
+export(float) var transitionDuration : float = 2.7
 
 enum transitions {TRANS_LINEAR, TRANS_SINE, TRANS_QUINT, TRANS_QUART, TRANS_QUAD, TRANS_EXPO, TRANS_ELASTIC, TRANS_CUBIC, TRANS_CIRC, TRANS_BOUNCE, TRANS_BACK}
 
@@ -23,41 +21,38 @@ export(transitions) var transitionTypeFadeOut : int = Tween.TRANS_LINEAR
 export(easings) var easingTypeFadeOut : int = Tween.EASE_IN
 
 func _ready() -> void:
-	$Current.stream = load("res://Assets/Sounds/MainMenu_loop.ogg")
-	$Current.play()
-	$Next.stream = load(MusicFolder + musicas[Locations.Ceara])
-
-#func GetFiles(path) -> Array:
-#	var files : Array = []
-#	var dir : Directory = Directory.new()
-#	var _openError = dir.open(path)
-#	var _dirError = dir.list_dir_begin(true)
-#	var file : String = dir.get_next()
-#	while file != '':
-#		if file[file.length() -1 ] == 'g':
-#			files += [file]
-#		else:
-#			pass
-#		file = dir.get_next()
-#	return files
+	Reset()
 
 func Reset() -> void:
-	$Current.stream = load("res://Assets/Sounds/MainMenu_loop.ogg")
+	$Current.stream = load(musicas[MusicsNumber.Menu])
+	$AmbienciaMar.play()
 	$Current.play()
-	$Next.stream = load(MusicFolder + musicas[Locations.Ceara])
+	$Next.stream = load(musicas[MusicsNumber.Ceara])
 
-func ChangeMusic() -> void:
-	var locationNumber = stageController.currentLocation
-	if locationNumber == 2:
-		locationNumber = -1
+func MenuGameTransition() -> void:
+	if $Current.playing:
+		$Current.stop()
+	else:
+		$Next.stop()
+	$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn)
+	ChangeMusic(MusicsNumber.Ceara)
+
+func ChangeMusic(music : int) -> void:
 	if $Current.playing:
 		fadeOut($Current, $TweenCurrent)
-		$Next.stream = load(MusicFolder + musicas[locationNumber + 1])
+		$Next.stream = load(musicas[music])
 		fadeIn($Next, $TweenNext)
 	else:
 		fadeOut($Next, $TweenNext)
-		$Current.stream = load(MusicFolder + musicas[locationNumber + 1])
+		$Current.stream = load(musicas[music])
 		fadeIn($Current, $TweenCurrent)
+	if music == MusicsNumber.Menu:
+		$AmbienciaMar.stream = load("res://Assets/Sounds/SFX/UI/ambienciamar.ogg")
+		$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn)
+		$AmbienciaMar.play()
+	else:
+		$AmbienciaMar.stop()
+		$AmbienciaMar.stream = null
 
 func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween):
 	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)

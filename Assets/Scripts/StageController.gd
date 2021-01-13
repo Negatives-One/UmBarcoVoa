@@ -46,9 +46,12 @@ func _process(_delta: float) -> void:
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false
-			$ScenePlayer.play("FadeIn")
+			$ScenePlayer.play("Transicao")
 			if once:
-				MusicController.ChangeMusic()
+				if currentLocation == Locations.Bahia:
+					MusicController.ChangeMusic(Locations.Ceara)
+				else:
+					MusicController.ChangeMusic(currentLocation + 1)
 				once = false
 			counting = false
 	$HUD/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)

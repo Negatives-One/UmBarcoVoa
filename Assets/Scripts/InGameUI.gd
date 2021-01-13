@@ -18,5 +18,6 @@ func _on_ResumePause_pressed() -> void:
 
 
 func _on_Quitgame_pressed() -> void:
+	MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
 	get_tree().set_pause(false)
 	get_tree().change_scene("res://Assets/Scenes/Menu.tscn")

@@ -91,6 +91,7 @@ func _process(_delta : float) -> void:
 #	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
 	if(linear_velocity.x < -0.1):
 		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
+		MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
 
 func FSM() -> void:
 	

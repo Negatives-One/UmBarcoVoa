@@ -41,7 +41,7 @@ func _ready() -> void:
 		magnitude = PotenciaFraco
 		gravity = PotenciaFraco
 	if !isStrong:
-		$Sprite.self_modulate = Color(1,1,1, 0.5)
+		$AnimatedSprite.self_modulate = Color(1,1,1, 0.5)
 	gravity_vec = direction.normalized()
 
 func SetDirection(angulo : float) -> void:

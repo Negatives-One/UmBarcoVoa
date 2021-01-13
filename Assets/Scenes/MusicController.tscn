@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Assets/Scripts/MusicController.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sounds/SFX/UI/ambienciamar.ogg" type="AudioStream" id=2]
 
 [node name="Node" type="Node"]
 pause_mode = 2
@@ -18,5 +19,8 @@ bus = "Musica"
 [node name="TweenCurrent" type="Tween" parent="."]
 
 [node name="TweenNext" type="Tween" parent="."]
+
+[node name="AmbienciaMar" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
 [connection signal="tween_completed" from="TweenCurrent" to="." method="_on_TweenCurrent_tween_completed"]
 [connection signal="tween_completed" from="TweenNext" to="." method="_on_TweenNext_tween_completed"]

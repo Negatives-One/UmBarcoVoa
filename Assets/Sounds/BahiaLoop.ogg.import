@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/BahiaLoop.ogg-bbdcb5a834b4176be45d6c395b22f97b.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/BahiaLoop.ogg"
+dest_files=[ "res://.import/BahiaLoop.ogg-bbdcb5a834b4176be45d6c395b22f97b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

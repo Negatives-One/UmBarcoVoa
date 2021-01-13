@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/CearaLoop.ogg-e799cef0e23f989a8e3be918a57064f7.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/CearaLoop.ogg"
+dest_files=[ "res://.import/CearaLoop.ogg-e799cef0e23f989a8e3be918a57064f7.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

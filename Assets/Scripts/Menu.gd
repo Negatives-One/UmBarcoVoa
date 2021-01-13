@@ -2,6 +2,9 @@ extends Control
 
 var loading : ResourceInteractiveLoader
 
+func _ready() -> void:
+	pass
+
 func _process(_delta: float) -> void:
 	if $Loading.visible:
 		var _error : int = loading.poll()
@@ -11,6 +14,8 @@ func _process(_delta: float) -> void:
 			var _changeError : int = get_tree().change_scene_to(loading.get_resource())
 
 func _on_PlayButton_pressed() -> void:
+	$PlaySound.play()
+	MusicController.MenuGameTransition()
 	loading = ResourceLoader.load_interactive("res://Assets/Scenes/Mundo.tscn")
 	$Loading/ProgressBar.max_value = loading.get_stage_count()
 	$Loading.visible = true
