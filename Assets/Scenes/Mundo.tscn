@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -200,7 +200,37 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=8]
-resource_name = "Transicao"
+resource_name = "StartAnim"
+length = 1.55
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Parallax/Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 381.481, 540 ), Vector2( 5500, 540 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "RandomStart"
+} ]
+}
+
+[sub_resource type="Animation" id=9]
 length = 2.75
 step = 0.05
 tracks/0/type = "method"
@@ -264,6 +294,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 540.125 ]
 }
+initialEvent = 0
 minTimeToChangeEvent = 15.0
 maxTimeToChangeEvent = 20.0
 
@@ -371,6 +402,7 @@ __meta__ = {
 }
 
 [node name="PauseButton" type="Button" parent="HUD/Panel"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -69.5
@@ -511,7 +543,7 @@ motion_scale = Vector2( 0.75, 1 )
 motion_scale = Vector2( 0.9, 1 )
 
 [node name="Node2D" parent="Parallax" instance=ExtResource( 8 )]
-position = Vector2( -2945, 540 )
+position = Vector2( 3793.83, 540 )
 
 [node name="SunPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
@@ -591,7 +623,8 @@ __meta__ = {
 anims/FadeIn = SubResource( 5 )
 anims/FadeOut = SubResource( 6 )
 anims/ShowName = SubResource( 7 )
-anims/Transicao = SubResource( 8 )
+anims/StartAnim = SubResource( 8 )
+anims/Transicao = SubResource( 9 )
 [connection signal="resized" from="HUD/Panel/Location" to="." method="_on_Location_resized"]
 [connection signal="button_down" from="HUD/Panel/PauseButton" to="HUD/Panel" method="_on_PauseButton_button_down"]
 [connection signal="pressed" from="HUD/Panel/Panel/ResumePause" to="HUD/Panel" method="_on_ResumePause_pressed"]

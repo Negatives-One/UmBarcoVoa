@@ -4,6 +4,8 @@ var musicas : Array = ["res://Assets/Sounds/CearaLoop.ogg", "res://Assets/Sounds
 
 var stageController : StageController
 
+var menu : Menu
+
 enum MusicsNumber {Ceara, Pernambuco, Bahia, Menu}
 
 export(float) var transitionDuration : float = 2.7
@@ -35,7 +37,6 @@ func MenuGameTransition() -> void:
 	else:
 		$Next.stop()
 	$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn)
-	ChangeMusic(MusicsNumber.Ceara)
 
 func ChangeMusic(music : int) -> void:
 	if $Current.playing:
@@ -51,8 +52,7 @@ func ChangeMusic(music : int) -> void:
 		$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn)
 		$AmbienciaMar.play()
 	else:
-		$AmbienciaMar.stop()
-		$AmbienciaMar.stream = null
+		$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut)
 
 func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween):
 	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
@@ -66,7 +66,17 @@ func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween):
 func _on_TweenCurrent_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Current.volume_db < -79:
 		$Current.playing = false
+	if _object == $AmbienciaMar and $AmbienciaMar.volume_db < -79:
+		$AmbienciaMar.stop()
+		$AmbienciaMar.stream = null
 
 func _on_TweenNext_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Next.volume_db < -79:
 		$Next.playing = false
+
+func PlaySound():
+	$PlaySound.play()
+
+
+func _on_PlaySound_finished() -> void:
+	menu.go = true

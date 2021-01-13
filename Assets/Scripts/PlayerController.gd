@@ -39,7 +39,15 @@ var camera : MyCamera
 export(float, 0, 360) var minAngle : float = 10
 export(float, 0, 360) var maxAngle : float = 350
 
+func _init() -> void:
+	linear_velocity.x = 300
+
 func _ready() -> void:
+	target = Vector2(global_position.x+1, -$"../StageSpawner".screenSize.y/2)
+	currentState = States.Acelerando
+	acelleration = (target - global_position).normalized()
+	acelleration.x *= HorizontalAcelleration
+	acelleration.y *= VerticalAcelleration
 	VentoLoop()
 	camera = $Camera2D2
 	currentState = States.Parado

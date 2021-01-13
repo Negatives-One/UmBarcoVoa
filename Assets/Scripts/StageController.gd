@@ -29,6 +29,7 @@ var preservedYPosition : float
 var once : bool = true
 
 func _ready() -> void:
+	$ScenePlayer.play("StartAnim")
 	MusicController.stageController = self
 	ChangeEvent(initialEvent)
 	$SunPlayer.play("AnimacaoSol")
@@ -107,13 +108,6 @@ func _on_timer_timeout():
 	elif currentEvent == events.WindCurrent:
 		ChangeEvent(events.FreeStyle)
 
-
-func _on_ScenePlayer_animation_finished(anim_name : String) -> void:
-	if anim_name == "FadeIn":
-		$ScenePlayer.play("ShowName")
-	elif anim_name == "ShowName":
-		$ScenePlayer.play("FadeOut")
-
 func GetStringLocation() -> String:
 	match currentLocation:
 		Locations.Ceara:
@@ -126,3 +120,11 @@ func GetStringLocation() -> String:
 
 func NameTransitionLabel() -> void:
 	$HUD/ColorRect/Label.text = GetStringLocation()
+
+func RandomStart() -> void:
+	randomize()
+	ChangeEvent(randi() % 2 + 1)
+
+
+func _on_ScenePlayer_animation_finished(anim_name: String) -> void:
+	print(anim_name)
