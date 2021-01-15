@@ -29,6 +29,7 @@ var preservedYPosition : float
 var once : bool = true
 
 func _ready() -> void:
+	$BonuStage.Visible(false)
 	$ScenePlayer.play("StartAnim")
 	MusicController.stageController = self
 	ChangeEvent(initialEvent)
@@ -76,8 +77,17 @@ func ChangeEvent(event : int) -> void:
 		$StageSpawner.Disable()
 		$Sol.Disable()
 		$CorrentesDeVento.Enable()
+	elif currentEvent == events.Nothing:
+		$StageSpawner.Disable()
+		$Sol.Disable()
+		$CorrentesDeVento.Disable()
 
 func NextLocation() -> void:
+	$Parallax/ParallaxBackground/BackgroundLayer.visible = true
+	$Parallax/ParallaxBackground/BackLayer.visible = true
+	$Parallax/ParallaxBackground/MidLayer.visible = true
+	$Parallax/ParallaxBackground/FrontLayer.visible = true
+	$BonuStage.Visible(false)
 	$RigidBody2D.receivingInputs = true
 	canChange = true
 	counting = true
@@ -98,6 +108,13 @@ func PrepareToChangeLocation() -> void:
 	preservedYPosition = $RigidBody2D.global_position.y
 	$RigidBody2D.sleeping = true
 	$RigidBody2D.receivingInputs = false
+
+func ChangeToBonus() -> void:
+	$Parallax/ParallaxBackground/BackgroundLayer.visible = false
+	$Parallax/ParallaxBackground/BackLayer.visible = false
+	$Parallax/ParallaxBackground/MidLayer.visible = false
+	$Parallax/ParallaxBackground/FrontLayer.visible = false
+	$BonuStage.Visible(true)
 
 func _on_Location_resized():
 	$HUD/Panel/ColorRect2.rect_size.x = $HUD/Panel/Location.rect_size.x

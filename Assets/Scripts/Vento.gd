@@ -27,7 +27,7 @@ func GetDirection() -> float:
 
 func _ready() -> void:
 	randomize()
-	var rand = int(rand_range(0, 2))
+	var rand = randi() % 2
 	
 	if rand == 0:
 		isStrong = false
@@ -37,11 +37,11 @@ func _ready() -> void:
 	if isStrong:
 		magnitude = PotenciaForte
 		gravity = PotenciaForte
+		$AnimatedSprite.scale = Vector2(-0.75, 0.75)
+		$AnimatedSprite.frames = load("res://Assets/Images/Animations/VentoQuente/VentoQuente.tres")
 	else:
 		magnitude = PotenciaFraco
 		gravity = PotenciaFraco
-	if !isStrong:
-		$AnimatedSprite.self_modulate = Color(1,1,1, 0.5)
 	gravity_vec = direction.normalized()
 
 func SetDirection(angulo : float) -> void:

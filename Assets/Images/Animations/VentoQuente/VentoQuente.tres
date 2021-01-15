@@ -1,0 +1,15 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_001.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_002.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_003.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_004.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_005.png" type="Texture" id=5]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]

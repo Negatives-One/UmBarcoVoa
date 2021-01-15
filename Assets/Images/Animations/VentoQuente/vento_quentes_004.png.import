@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/vento1005.png-4bfce4aabf729b3e39d813c772139217.stex"
+path="res://.import/vento_quentes_004.png-34ccdc2f37edda14a4cfd15680206097.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Animations/vento1005.png"
-dest_files=[ "res://.import/vento1005.png-4bfce4aabf729b3e39d813c772139217.stex" ]
+source_file="res://Assets/Images/Animations/VentoQuente/vento_quentes_004.png"
+dest_files=[ "res://.import/vento_quentes_004.png-34ccdc2f37edda14a4cfd15680206097.stex" ]
 
 [params]
 
