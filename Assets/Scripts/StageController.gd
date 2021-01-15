@@ -5,6 +5,8 @@ class_name StageController
 enum Locations {Ceara, Pernambuco, Bahia}
 export(Locations) var currentLocation : int = Locations.Ceara
 
+var isBonusStage : bool = false
+
 enum events {Nothing, FreeStyle, WindCurrent}
 export(events) var initialEvent : int = events.FreeStyle
 var currentEvent : int = events.Nothing
@@ -48,12 +50,26 @@ func _process(_delta: float) -> void:
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false
-			$ScenePlayer.play("Transicao")
+			# vai para o próximo estado
+			if isBonusStage:
+				$ScenePlayer.play("Transicao")
+				if MusicController.ambienciaMar.playing:
+					$TransitionTween.interpolate_property(MusicController.ambienciaMar, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
+				#RandomStart()
+			else:
+				$ScenePlayer.play("AnimacaoBonus")
+				ChangeEvent(events.Nothing)
+				MusicController.ambienciaMar.play()
+				$TransitionTween.interpolate_property(MusicController.ambienciaMar, "volume_db", -80, 0, MusicController.transitionDuration, MusicController.transitionTypeFadeIn, MusicController.easingTypeFadeIn)
 			if once:
-				if currentLocation == Locations.Bahia:
-					MusicController.ChangeMusic(Locations.Ceara)
+				if isBonusStage:
+					#Ajeita porra da musica, carai
+					pass
 				else:
-					MusicController.ChangeMusic(currentLocation + 1)
+					if currentLocation == Locations.Bahia:
+						MusicController.ChangeMusic(Locations.Ceara)
+					else:
+						MusicController.ChangeMusic(currentLocation + 1)
 				once = false
 			counting = false
 	$HUD/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
@@ -63,8 +79,7 @@ func _process(_delta: float) -> void:
 		$HUD/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance))
 	$HUD/Panel/BoostState.text = str($RigidBody2D.boostState)
 	$HUD/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
-	if Input.is_action_just_pressed("ui_down"):
-		$RigidBody2D.sleeping = true
+	print(currentLocation)
 
 func ChangeEvent(event : int) -> void:
 	previousEvent = currentEvent
@@ -83,6 +98,7 @@ func ChangeEvent(event : int) -> void:
 		$CorrentesDeVento.Disable()
 
 func NextLocation() -> void:
+	isBonusStage = false
 	$Parallax/ParallaxBackground/BackgroundLayer.visible = true
 	$Parallax/ParallaxBackground/BackLayer.visible = true
 	$Parallax/ParallaxBackground/MidLayer.visible = true
@@ -99,10 +115,11 @@ func NextLocation() -> void:
 	once = true
 
 func PrepareToChangeLocation() -> void:
-	if currentLocation < Locations.Bahia:
-		currentLocation += 1
-	else:
-		currentLocation = 0
+	if isBonusStage == true:
+		if currentLocation < Locations.Bahia:
+			currentLocation += 1
+		else:
+			currentLocation = 0
 	#$RigidBody2D.currentState = $RigidBody2D.States.Acelerando
 	preservedLinearVelocity = $RigidBody2D.linear_velocity
 	preservedYPosition = $RigidBody2D.global_position.y
@@ -110,11 +127,21 @@ func PrepareToChangeLocation() -> void:
 	$RigidBody2D.receivingInputs = false
 
 func ChangeToBonus() -> void:
+	isBonusStage = true
 	$Parallax/ParallaxBackground/BackgroundLayer.visible = false
 	$Parallax/ParallaxBackground/BackLayer.visible = false
 	$Parallax/ParallaxBackground/MidLayer.visible = false
 	$Parallax/ParallaxBackground/FrontLayer.visible = false
 	$BonuStage.Visible(true)
+	$RigidBody2D.receivingInputs = true
+	canChange = true
+	counting = true
+	totalDistance += distancePerRegion
+	$RigidBody2D.global_position = Vector2(0, preservedYPosition)
+	$RigidBody2D.linear_velocity = preservedLinearVelocity
+	$StageSpawner.spawnPosition = Vector2.ZERO
+	$StageSpawner.CapPos = 0
+	once = true
 
 func _on_Location_resized():
 	$HUD/Panel/ColorRect2.rect_size.x = $HUD/Panel/Location.rect_size.x
@@ -145,3 +172,8 @@ func RandomStart() -> void:
 
 func _on_ScenePlayer_animation_finished(anim_name: String) -> void:
 	print(anim_name)
+
+
+func _on_TransitionTween_tween_completed(object, _key):
+	if object == MusicController.ambienciaMar and MusicController.ambienciaMar.volume_db < -79:
+		MusicController.ambienciaMar.stop()

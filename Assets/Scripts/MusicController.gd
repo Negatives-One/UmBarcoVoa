@@ -4,6 +4,8 @@ var musicas : Array = ["res://Assets/Sounds/CearaLoop.ogg", "res://Assets/Sounds
 
 var stageController : StageController
 
+onready var ambienciaMar : AudioStreamPlayer = $AmbienciaMar
+
 var menu : Menu
 
 enum MusicsNumber {Ceara, Pernambuco, Bahia, Menu}
@@ -66,9 +68,6 @@ func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween):
 func _on_TweenCurrent_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Current.volume_db < -79:
 		$Current.playing = false
-	if _object == $AmbienciaMar and $AmbienciaMar.volume_db < -79:
-		$AmbienciaMar.stop()
-		$AmbienciaMar.stream = null
 
 func _on_TweenNext_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Next.volume_db < -79:

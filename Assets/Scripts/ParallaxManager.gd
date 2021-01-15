@@ -40,7 +40,7 @@ func _ready() -> void:
 	$ParallaxBackground/BackgroundLayer.motion_mirroring.x = $"../StageSpawner".screenSize.x
 	$ParallaxBackground/BackgroundLayer/BG.scale.x = $"../StageSpawner".screenSize.x / $ParallaxBackground/BackgroundLayer/BG.texture.get_size().x
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	DeployHouses(camera)
 	for i in $ParallaxBackground/FrontLayer.get_children():
 		if i.position.x / $ParallaxBackground/FrontLayer.motion_scale.x + 500 < camera.global_position.x - $"../StageSpawner".screenSize.x /2:

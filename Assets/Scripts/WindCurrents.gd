@@ -120,7 +120,7 @@ func SpawnCurrent(animNumber : int):
 
 
 func _on_CurrentsTween_tween_completed(object: Object, _key: NodePath) -> void:
-	var current : Current = object
-	openSpaces.append(current.currentSpace)
+	var corrente : Current = object
+	openSpaces.append(corrente.currentSpace)
 	object.call_deferred("queue_free")
 	activeWindsCurrents -= 1
