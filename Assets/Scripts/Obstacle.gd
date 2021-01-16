@@ -50,11 +50,13 @@ func NerfVelocity() -> Vector2:
 	return -velocityNerf
 
 func GetSkin() -> int:
-	return 1;
+	return 1
 
-func SetSkin(skin : int) -> void:
-	var _a = skin
-	pass
+func SetSkin(skin : String, rotation : float, scale : Vector2) -> void:
+	$Sprite.visible = false
+	$AnimatedSprite.frames = load(skin)
+	$AnimatedSprite.rotation = rotation
+	$AnimatedSprite.scale = scale
 
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:

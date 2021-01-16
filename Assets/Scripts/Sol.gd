@@ -6,6 +6,9 @@ var obstacle : PackedScene = preload("res://Assets/Scenes/Obstacle.tscn")
 var direction : Vector2
 export(float) var shotSpeed : float = 500.0
 
+enum states {IDLE, SHOOTING}
+var currentState : int = states.IDLE
+
 var shots : Array = []
 var directions : Array = []
 
@@ -30,11 +33,12 @@ func _physics_process(delta: float) -> void:
 				shots[i].global_position += (directions[i] * shotSpeed) * delta
 
 func _on_Timer_timeout() -> void:
-	CreateShot()
+	$AnimatedSprite.frame = 0
+	#CreateShot()
 	$Timer.wait_time = randi() % maxWaitTime + minWaitTime
 
 func CreateShot() -> void:
-	var lastShot = obstacle.instance()
+	var lastShot : Obstacle = obstacle.instance()
 	shots.append(lastShot)
 	var dir : Vector2 = player.global_position - self.global_position
 	dir += player.linear_velocity
@@ -42,6 +46,7 @@ func CreateShot() -> void:
 	$"..".add_child(lastShot)
 	lastShot.global_position = self.global_position
 	lastShot.currentSize = lastShot.Size.Medio
+	lastShot.SetSkin("res://Assets/Images/Animations/VentoQuente/VentoQuente.tres", dir.normalized().angle(), Vector2(-0.5, 0.5))
 
 func Enable() -> void:
 	$Timer.start(randi() % maxWaitTime + minWaitTime)
@@ -54,3 +59,8 @@ func Disable() -> void:
 	directions.clear()
 	$Timer.stop()
 	$Timer.wait_time = randi() % maxWaitTime + minWaitTime
+
+
+func _on_AnimatedSprite_frame_changed():
+	if $AnimatedSprite.frame == 5:
+		CreateShot()

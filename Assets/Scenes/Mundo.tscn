@@ -39,16 +39,15 @@ size = 100
 use_filter = true
 font_data = ExtResource( 20 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 27 ), ExtResource( 26 ), ExtResource( 28 ), ExtResource( 15 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 29 ) ],
-"loop": true,
+"loop": false,
 "name": "default",
 "speed": 8.0
 } ]
 
-[sub_resource type="Animation" id=2]
-resource_name = "alert0"
+[sub_resource type="Animation" id=3]
 length = 2.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Warnings/0:self_modulate")
@@ -63,8 +62,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "alert1"
+[sub_resource type="Animation" id=4]
 length = 2.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Warnings/1:self_modulate")
@@ -79,8 +77,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "alert2"
+[sub_resource type="Animation" id=5]
 length = 2.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Warnings/2:self_modulate")
@@ -95,7 +92,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -136,7 +133,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -191,7 +188,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -220,8 +217,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "StartAnim"
+[sub_resource type="Animation" id=9]
 length = 1.55
 step = 0.05
 tracks/0/type = "value"
@@ -526,9 +522,8 @@ playerPath = NodePath("../RigidBody2D")
 targetPath = NodePath("../RigidBody2D/Camera2D2")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sol"]
-scale = Vector2( 1, 1 )
-frames = SubResource( 9 )
-frame = 6
+frames = SubResource( 2 )
+frame = 9
 playing = true
 
 [node name="Timer" type="Timer" parent="Sol"]
@@ -556,13 +551,13 @@ self_modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 18 )
 
 [node name="WarningsPlayer0" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert0 = SubResource( 2 )
+anims/alert0 = SubResource( 3 )
 
 [node name="WarningsPlayer1" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert1 = SubResource( 3 )
+anims/alert1 = SubResource( 4 )
 
 [node name="WarningsPlayer2" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert2 = SubResource( 4 )
+anims/alert2 = SubResource( 5 )
 
 [node name="CurrentsTween" type="Tween" parent="CorrentesDeVento"]
 playback_process_mode = 0
@@ -588,10 +583,10 @@ __meta__ = {
 
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoBonus = ExtResource( 16 )
-anims/FadeIn = SubResource( 5 )
-anims/FadeOut = SubResource( 6 )
-anims/ShowName = SubResource( 7 )
-anims/StartAnim = SubResource( 8 )
+anims/FadeIn = SubResource( 6 )
+anims/FadeOut = SubResource( 7 )
+anims/ShowName = SubResource( 8 )
+anims/StartAnim = SubResource( 9 )
 anims/Transicao = ExtResource( 7 )
 
 [node name="BonuStage" parent="." instance=ExtResource( 9 )]
@@ -602,6 +597,7 @@ position = Vector2( 261.442, 204.161 )
 [connection signal="button_down" from="HUD/Panel/PauseButton" to="HUD/Panel" method="_on_PauseButton_button_down"]
 [connection signal="pressed" from="HUD/Panel/Panel/ResumePause" to="HUD/Panel" method="_on_ResumePause_pressed"]
 [connection signal="pressed" from="HUD/Panel/Panel/Quitgame" to="HUD/Panel" method="_on_Quitgame_pressed"]
+[connection signal="frame_changed" from="Sol/AnimatedSprite" to="Sol" method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer0" to="CorrentesDeVento" method="_on_WarningsPlayer0_animation_finished"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer1" to="CorrentesDeVento" method="_on_WarningsPlayer1_animation_finished"]
