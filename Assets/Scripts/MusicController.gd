@@ -5,6 +5,8 @@ var musicas : Array = ["res://Assets/Sounds/CearaLoop.ogg", "res://Assets/Sounds
 var stageController : StageController
 
 onready var ambienciaMar : AudioStreamPlayer = $AmbienciaMar
+onready var current : AudioStreamPlayer = $Current
+onready var next : AudioStreamPlayer = $Next
 
 var menu : Menu
 
@@ -67,11 +69,11 @@ func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween):
 
 func _on_TweenCurrent_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Current.volume_db < -79:
-		$Current.playing = false
+		$Current.stop()#playing = false
 
 func _on_TweenNext_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Next.volume_db < -79:
-		$Next.playing = false
+		$Next.stop()#playing = false
 
 func PlaySound():
 	$PlaySound.play()
@@ -79,3 +81,7 @@ func PlaySound():
 
 func _on_PlaySound_finished() -> void:
 	menu.go = true
+
+func Mute() -> void:
+	$TweenCurrent.interpolate_property($Current, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
+	$TweenNext.interpolate_property($Next, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)

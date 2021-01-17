@@ -55,21 +55,28 @@ func _process(_delta: float) -> void:
 				$ScenePlayer.play("Transicao")
 				if MusicController.ambienciaMar.playing:
 					$TransitionTween.interpolate_property(MusicController.ambienciaMar, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
+				if currentLocation == Locations.Bahia:
+					MusicController.ChangeMusic(Locations.Ceara)
+				else:
+					MusicController.ChangeMusic(currentLocation + 1)
 				#RandomStart()
 			else:
 				$ScenePlayer.play("AnimacaoBonus")
 				ChangeEvent(events.Nothing)
-				MusicController.ambienciaMar.play()
-				$TransitionTween.interpolate_property(MusicController.ambienciaMar, "volume_db", -80, 0, MusicController.transitionDuration, MusicController.transitionTypeFadeIn, MusicController.easingTypeFadeIn)
+				#MusicController.ambienciaMar.play()
+				MusicController.fadeIn(MusicController.ambienciaMar, $TransitionTween)
+				MusicController.fadeOut(MusicController.current, $TransitionTween)
+				MusicController.fadeOut(MusicController.next, $TransitionTween)
+				#$TransitionTween.interpolate_property(MusicController.current, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
+				#$TransitionTween.interpolate_property(MusicController.next, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
+				#MusicController.current.stop()
+				#MusicController.next.stop()
+				#print("Eis o problema")
 			if once:
-				if isBonusStage:
-					#Ajeita porra da musica, carai
+				if !isBonusStage:
 					pass
 				else:
-					if currentLocation == Locations.Bahia:
-						MusicController.ChangeMusic(Locations.Ceara)
-					else:
-						MusicController.ChangeMusic(currentLocation + 1)
+					pass
 				once = false
 			counting = false
 	$HUD/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
@@ -79,7 +86,7 @@ func _process(_delta: float) -> void:
 		$HUD/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance))
 	$HUD/Panel/BoostState.text = str($RigidBody2D.boostState)
 	$HUD/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
-	print(currentLocation)
+
 
 func ChangeEvent(event : int) -> void:
 	previousEvent = currentEvent
@@ -113,6 +120,7 @@ func NextLocation() -> void:
 	$StageSpawner.spawnPosition = Vector2.ZERO
 	$StageSpawner.CapPos = 0
 	once = true
+	distancePerRegion = 50000
 
 func PrepareToChangeLocation() -> void:
 	if isBonusStage == true:
@@ -142,6 +150,7 @@ func ChangeToBonus() -> void:
 	$StageSpawner.spawnPosition = Vector2.ZERO
 	$StageSpawner.CapPos = 0
 	once = true
+	distancePerRegion = 25000
 
 func _on_Location_resized():
 	$HUD/Panel/ColorRect2.rect_size.x = $HUD/Panel/Location.rect_size.x
@@ -177,3 +186,7 @@ func _on_ScenePlayer_animation_finished(anim_name: String) -> void:
 func _on_TransitionTween_tween_completed(object, _key):
 	if object == MusicController.ambienciaMar and MusicController.ambienciaMar.volume_db < -79:
 		MusicController.ambienciaMar.stop()
+	if object == MusicController.current and MusicController.current.volume_db < -79:
+		MusicController.current.stop()
+	if object == MusicController.next and MusicController.next.volume_db < -79:
+		MusicController.next.stop()
