@@ -2,7 +2,8 @@ extends Node2D
 
 var angle1 : float = 0
 var angle2 : float = PI
-var ray : float = 10
+export(float) var rayX : float = 20
+export(float) var rayY : float = 10
 
 export(float) var waveVelocity : float = 3
 
@@ -11,6 +12,9 @@ var startPositionStroke : Vector2
 var startPositionYJangada : float
 
 func _ready() -> void:
+	randomize()
+	$ParallaxBackground/ParallaxLayer4/Jangada.position.x = rand_range(0, get_viewport_rect().size.x)
+	$ParallaxBackground/ParallaxLayer/Farol.position.x = rand_range(0, get_viewport_rect().size.x)
 	$ParallaxBackground/ParallaxLayer3.motion_mirroring.x = $ParallaxBackground/ParallaxLayer3/NoStrokeWave.texture.get_size().x - 20
 	$ParallaxBackground/ParallaxLayer2.motion_mirroring.x = $ParallaxBackground/ParallaxLayer2/StrokeWave.texture.get_size().x
 	#$ParallaxBackground/ParallaxLayer3/NoStrokeWave.position.x = $ParallaxBackground/ParallaxLayer3/NoStrokeWave.texture.get_size().x/2
@@ -23,9 +27,9 @@ func _ready() -> void:
 	$AnimationPlayer.play("Barquin")
 
 func _process(delta: float) -> void:
-	$ParallaxBackground/ParallaxLayer3/NoStrokeWave.position = Vector2((sin(angle1) * ray) + startPositionNoStroke.x, (cos(angle1) * -ray) + startPositionNoStroke.y)
-	$ParallaxBackground/ParallaxLayer4/Jangada.position.y = (cos(angle1 + PI/3) * -ray) + startPositionYJangada
-	$ParallaxBackground/ParallaxLayer2/StrokeWave.position = Vector2((sin(angle2) * ray) + startPositionStroke.x, (cos(angle2) * -ray) + startPositionStroke.y)
+	$ParallaxBackground/ParallaxLayer3/NoStrokeWave.position = Vector2((sin(angle1) * rayX) + startPositionNoStroke.x, (cos(angle1) * -rayY) + startPositionNoStroke.y)
+	$ParallaxBackground/ParallaxLayer4/Jangada.position.y = (cos(angle1 + PI/3) * -rayY) + startPositionYJangada
+	$ParallaxBackground/ParallaxLayer2/StrokeWave.position = Vector2((sin(angle2) * rayX) + startPositionStroke.x, (cos(angle2) * -rayY) + startPositionStroke.y)
 	angle1 += waveVelocity * delta
 	if angle1 > PI*2:
 		angle1 = 0

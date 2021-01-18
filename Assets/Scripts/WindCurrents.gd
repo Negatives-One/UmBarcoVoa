@@ -47,6 +47,7 @@ func _ready() -> void:
 	add_child(timer)
 	timer.autostart = false
 	timer.wait_time = 1
+	get_physics_process_delta_time()
 
 func _physics_process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2

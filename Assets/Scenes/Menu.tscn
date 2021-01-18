@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=2]
 [ext_resource path="res://Assets/Scripts/Menu.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Images/UI/PLAYTamanhoCerto.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/UI/VOLUMEONTamanhoCerto.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/UI/VOLUMEOFFTamanhoCerto.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/UI/contained2TamanhoCertoMenu.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Images/UI/outlined1TamanhoCertoMenu.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
-size = 57
+size = 290
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -21,66 +26,147 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 __meta__ = {
+"_edit_horizontal_guides_": [ 922.901 ],
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -400.0
-margin_right = 400.0
 theme = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.815686, 0.815686, 0.815686, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Label" type="Label" parent="Panel"]
+anchor_top = 0.282
 anchor_right = 1.0
-margin_top = 175.104
-margin_bottom = 233.104
+anchor_bottom = 0.559
+margin_top = -0.423401
+margin_bottom = 0.416565
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Um Barco Voa - Return of Zumira"
+text = "ZUMIRA"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayButton" type="Button" parent="Panel"]
+[node name="OptionsButton" type="Button" parent="Panel"]
+visible = false
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -200.0
-margin_top = -204.104
-margin_right = 200.0
-margin_bottom = -54.1041
+anchor_bottom = 1.0
+margin_left = -245.718
+margin_top = 805.782
+margin_right = 190.282
+margin_bottom = -112.218
 custom_fonts/font = SubResource( 2 )
-text = "Play"
+text = "Options"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionsButton" type="Button" parent="Panel"]
-anchor_left = 0.5
-anchor_right = 0.5
+[node name="PlayTextureButton" type="TextureButton" parent="Panel"]
+anchor_top = 0.548
+anchor_right = 1.0
+anchor_bottom = 0.761
+margin_top = -0.403503
+margin_right = 0.00012207
+margin_bottom = -0.443542
+rect_pivot_offset = Vector2( 960, 150 )
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MuteUnmute" type="CheckBox" parent="Panel"]
+anchor_left = 0.068
+anchor_top = 0.841
+anchor_right = 0.119
+anchor_bottom = 0.93
+margin_left = 0.471756
+margin_top = 0.124756
+margin_right = 0.551727
+margin_bottom = 0.00469971
+focus_mode = 0
+custom_icons/radio_checked = ExtResource( 6 )
+custom_icons/checked = ExtResource( 6 )
+custom_icons/radio_unchecked = ExtResource( 5 )
+custom_icons/unchecked = ExtResource( 5 )
+pressed = true
+enabled_focus_mode = 0
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreditosTextureButton" type="TextureButton" parent="Panel"]
+anchor_left = 0.338
+anchor_top = 0.845
+anchor_right = 0.484
+anchor_bottom = 0.933
+margin_left = 0.55603
+margin_top = -0.130737
+margin_right = 0.236084
+margin_bottom = -0.170715
+texture_normal = ExtResource( 8 )
+expand = true
+
+[node name="CreditosText" type="Label" parent="Panel/CreditosTextureButton"]
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -218.0
-margin_top = 516.0
-margin_right = 218.0
-margin_bottom = -402.0
-custom_fonts/font = SubResource( 2 )
-text = "Options"
+text = "CRÉDITOS"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DoeTextureButton" type="TextureButton" parent="Panel"]
+anchor_left = 0.516
+anchor_top = 0.845
+anchor_right = 0.662
+anchor_bottom = 0.933
+margin_left = 0.410034
+margin_top = -0.130737
+margin_right = 0.0899658
+margin_bottom = -0.170715
+texture_normal = ExtResource( 8 )
+expand = true
+
+[node name="DoeText" type="Label" parent="Panel/DoeTextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "DOE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SairTextureButton" type="TextureButton" parent="Panel"]
+anchor_left = 0.865
+anchor_top = 0.855
+anchor_right = 0.938
+anchor_bottom = 0.936
+margin_left = -0.743774
+margin_top = -0.442566
+margin_right = -0.903687
+margin_bottom = 0.0773926
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="SairText" type="Label" parent="Panel/SairTextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.168627, 0.168627, 0.168627, 1 )
+text = "SAIR"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -209,7 +295,9 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "TÁ CARREGANDO,  FULERAGI!"
 align = 1
 valign = 1
-[connection signal="pressed" from="Panel/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="Panel/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Panel/PlayTextureButton" to="." method="_on_PlayTextureButton_pressed"]
+[connection signal="toggled" from="Panel/MuteUnmute" to="." method="_on_MuteUnmute_toggled"]
+[connection signal="pressed" from="Panel/SairTextureButton" to="." method="_on_SairTextureButton_pressed"]
 [connection signal="value_changed" from="OptionsPanel/ColorRect3/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="pressed" from="OptionsPanel/ApplyOptions" to="." method="_on_ApplyOptions_pressed"]

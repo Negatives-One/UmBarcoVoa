@@ -2,6 +2,6 @@ extends Resource
 
 class_name SaveSystem
 
-export(float) var masterVolume : float = 0
+export(bool) var AudioBool : bool = true
 
 export(int) var highScore : int = 0

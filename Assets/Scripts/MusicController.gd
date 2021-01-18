@@ -59,12 +59,12 @@ func ChangeMusic(music : int) -> void:
 		$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut)
 
 func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween):
-	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
+	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
 	var _startBool : bool = tween.start()
 
 func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween):
 	streamPlayer.play()
-	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", -80, GameManager.soundMaster, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn, 0)
+	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn, 0)
 	var _startBool : bool = tween.start()
 
 func _on_TweenCurrent_tween_completed(_object: Object, _key: NodePath) -> void:

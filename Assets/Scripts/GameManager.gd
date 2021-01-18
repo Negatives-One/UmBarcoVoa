@@ -1,14 +1,25 @@
 extends Node
 
-var saveVars : Array = ["masterVolume", "highScore"]
+var saveVars : Array = ["AudioBool", "highScore"]
 export(Script) var gameSave : Script
 
-var soundMaster : float = 0
+var audioBool : bool = true
 
 func _init() -> void:
 	if not loadSettings():
 		saveSettings()
-	SetVolume(soundMaster)
+	UpdateMute()
+
+func _ready() -> void:
+	get_tree().set_auto_accept_quit(false)
+
+func _notification(what: int) -> void:
+	#WINDOWS
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		get_tree().quit()
+	#ANDROID
+	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+		pass
 
 func verifySave(saveResource) -> bool:
 	for v in saveVars:
@@ -18,7 +29,7 @@ func verifySave(saveResource) -> bool:
 
 func saveSettings() -> void:
 	var saveSystem : SaveSystem = gameSave.new()
-	saveSystem.masterVolume = soundMaster
+	saveSystem.AudioBool = audioBool
 	var dir : Directory = Directory.new()
 	if not dir.dir_exists("res://Saves/"):
 		var _error : int = dir.make_dir_recursive("res://Saves/")
@@ -32,10 +43,8 @@ func loadSettings() -> bool:
 	var saveResource = load("res://Saves/Save.tres")
 	if not verifySave(saveResource):
 		return false
-	soundMaster = saveResource.masterVolume
+	audioBool = saveResource.AudioBool
 	return true
 
-func SetVolume(volume : float) -> void:
-	soundMaster = volume
-	MusicController.get_node("Current").volume_db = soundMaster
-	MusicController.get_node("Next").volume_db = soundMaster
+func UpdateMute() -> void:
+	AudioServer.set_bus_mute(0, audioBool)

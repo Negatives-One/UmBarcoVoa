@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -7,8 +7,8 @@
 [ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
 [ext_resource path="res://Assets/Scripts/ParallaxManager.gd" type="Script" id=6]
 [ext_resource path="res://Assets/AnimacaoTransicao.tres" type="Animation" id=7]
-[ext_resource path="res://transicaoNode.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Node2D.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Scenes/transicaoNode.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Scenes/BonusStage.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Chuva.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem4.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Images/AssetsEduardo/Nuvem3.png" type="Texture" id=12]
@@ -33,6 +33,23 @@
 [ext_resource path="res://Assets/Images/Sol/Sol_002.png" type="Texture" id=31]
 [ext_resource path="res://Assets/Images/Sol/Sol_003.png" type="Texture" id=32]
 [ext_resource path="res://Assets/Images/Sol/Sol_rastro_001.png" type="Texture" id=33]
+[ext_resource path="res://Assets/Images/UI/PausaInGameTamanhoCerto.png" type="Texture" id=34]
+[ext_resource path="res://Assets/Images/Pause.png" type="Texture" id=35]
+[ext_resource path="res://Assets/Images/UI/PAUSADOCorreto.png" type="Texture" id=36]
+[ext_resource path="res://Assets/Images/UI/VOLUMEOFFPauseInGame.png" type="Texture" id=37]
+[ext_resource path="res://Assets/Images/UI/VOLUMEONPauseInGame.png" type="Texture" id=38]
+[ext_resource path="res://Assets/Images/UI/ROUNDEDCorreto.png" type="Texture" id=39]
+[ext_resource path="res://Assets/Images/UI/HOMECorreto.png" type="Texture" id=40]
+[ext_resource path="res://Assets/Images/UI/ContornoBranco.png" type="Texture" id=41]
+[ext_resource path="res://Assets/Images/UI/PAUSECorreto.png" type="Texture" id=42]
+
+[sub_resource type="DynamicFont" id=11]
+size = 20
+font_data = ExtResource( 20 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 60
+font_data = ExtResource( 20 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -120,18 +137,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("HUD/Panel/PauseButton:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
 [sub_resource type="Animation" id=7]
 length = 1.5
@@ -161,25 +166,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("HUD/Panel/PauseButton:visible")
+tracks/2/type = "method"
+tracks/2/path = NodePath("Parallax")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 1.5 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath("Parallax")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -250,7 +243,8 @@ tracks/1/keys = {
 [node name="StageController" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 540.125 ]
+"_edit_horizontal_guides_": [ 311.444, 434.646 ],
+"_edit_vertical_guides_": [ 631.7, 1801.92 ]
 }
 initialEvent = 0
 minTimeToChangeEvent = 15.0
@@ -279,7 +273,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextureRect" type="TextureRect" parent="HUD/Panel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -14.0
+margin_top = -15.0
+texture = ExtResource( 35 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ColorRect2" type="ColorRect" parent="HUD/Panel"]
+visible = false
 margin_right = 264.0
 margin_bottom = 205.0
 color = Color( 1, 1, 1, 0.890196 )
@@ -288,6 +295,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="HUD/Panel"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -170.37
@@ -299,6 +307,7 @@ __meta__ = {
 }
 
 [node name="BarcoState" type="Label" parent="HUD/Panel"]
+visible = false
 margin_top = 50.9692
 margin_right = 605.0
 margin_bottom = 102.969
@@ -309,6 +318,7 @@ __meta__ = {
 }
 
 [node name="BarcoVelocity" type="Label" parent="HUD/Panel"]
+visible = false
 margin_right = 219.0
 margin_bottom = 52.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -318,6 +328,7 @@ __meta__ = {
 }
 
 [node name="Location" type="Label" parent="HUD/Panel"]
+visible = false
 margin_top = 101.938
 margin_right = 219.0
 margin_bottom = 153.938
@@ -328,6 +339,7 @@ __meta__ = {
 }
 
 [node name="Distance" type="Label" parent="HUD/Panel"]
+visible = false
 margin_top = 149.132
 margin_right = 219.0
 margin_bottom = 201.132
@@ -349,6 +361,7 @@ __meta__ = {
 }
 
 [node name="FPS" type="Label" parent="HUD/Panel"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -212.0
@@ -359,62 +372,180 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PauseButton" type="Button" parent="HUD/Panel"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -69.5
-margin_right = 69.5
-margin_bottom = 58.0
-text = "Pause"
+[node name="PauseTextureButton" type="TextureButton" parent="HUD/Panel"]
+anchor_left = 0.938406
+anchor_top = 0.0238897
+anchor_right = 0.980072
+anchor_bottom = 0.0979638
+margin_bottom = -7.62939e-06
+texture_normal = ExtResource( 42 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="Panel" type="Panel" parent="HUD/Panel"]
+[node name="Panel" type="TextureRect" parent="HUD/Panel"]
 pause_mode = 2
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 562.0
-margin_top = 131.0
-margin_right = -562.0
-margin_bottom = -131.0
-
-[node name="ColorRect" type="ColorRect" parent="HUD/Panel/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color( 0.45098, 0.45098, 0.45098, 1 )
-
-[node name="ResumePause" type="Button" parent="HUD/Panel/Panel"]
-anchor_top = 0.301
-anchor_right = 1.0
-anchor_bottom = 0.422
-margin_left = 311.0
-margin_top = -0.0894165
-margin_right = -310.0
-margin_bottom = 0.932587
-text = "Resume"
+anchor_left = 0.243
+anchor_top = 0.256
+anchor_right = 0.744
+anchor_bottom = 0.827
+margin_left = -0.560028
+margin_top = -0.480011
+margin_right = 0.52002
+margin_bottom = -0.160034
+texture = ExtResource( 34 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Quitgame" type="Button" parent="HUD/Panel/Panel"]
-anchor_top = 0.488
-anchor_right = 1.0
-anchor_bottom = 0.631
-margin_left = 311.0
-margin_top = -0.18399
-margin_right = -310.0
-margin_bottom = -17.158
-text = "Quit"
+[node name="ResumePause" type="Button" parent="HUD/Panel/Panel"]
+anchor_left = 0.322949
+anchor_top = 0.635745
+anchor_right = 0.678089
+anchor_bottom = 0.758401
+margin_top = 3.05176e-05
+custom_fonts/font = SubResource( 11 )
+text = "Resume"
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="Paused" type="Label" parent="HUD/Panel/Panel"]
-anchor_top = 0.066
+[node name="MenuTextureButton" type="TextureButton" parent="HUD/Panel/Panel"]
+anchor_left = 0.322403
+anchor_top = 0.224706
+anchor_right = 0.700388
+anchor_bottom = 0.362469
+texture_normal = ExtResource( 41 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Panel/Panel/MenuTextureButton"]
+show_behind_parent = true
+anchor_left = 0.032967
+anchor_top = 0.0705882
+anchor_right = 0.972527
+anchor_bottom = 0.905882
+margin_left = -9.53674e-07
+margin_top = -4.76837e-07
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="HUD/Panel/Panel/MenuTextureButton"]
+anchor_left = 0.425564
+anchor_top = 0.257897
+anchor_right = 0.763476
+anchor_bottom = 0.869662
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "MENU"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Panel/Panel/MenuTextureButton"]
+anchor_left = 0.262887
+anchor_top = 0.205428
+anchor_right = 0.392008
+anchor_bottom = 0.73484
+margin_left = 7.62939e-06
+margin_bottom = 3.8147e-06
+texture = ExtResource( 40 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="RecomecarTextureButton" type="TextureButton" parent="HUD/Panel/Panel"]
+anchor_left = 0.322403
+anchor_top = 0.434431
+anchor_right = 0.700388
+anchor_bottom = 0.572195
+texture_normal = ExtResource( 41 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Panel/Panel/RecomecarTextureButton"]
+show_behind_parent = true
+anchor_left = 0.032967
+anchor_top = 0.0705882
+anchor_right = 0.972527
+anchor_bottom = 0.905882
+margin_left = -9.53674e-07
+margin_top = -4.76837e-07
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="HUD/Panel/Panel/RecomecarTextureButton"]
+anchor_top = 0.141
 anchor_right = 1.0
-anchor_bottom = 0.13
-margin_left = 322.5
-margin_top = -0.0489731
-margin_right = -322.5
-margin_bottom = -0.400986
-text = "Paused"
+anchor_bottom = 1.0
+margin_top = 0.0149994
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "RECOMEÇAR"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MuteTextureButton" type="CheckBox" parent="HUD/Panel/Panel"]
+anchor_left = 0.166752
+anchor_top = 0.654855
+anchor_right = 0.229058
+anchor_bottom = 0.7521
+focus_mode = 0
+custom_icons/radio_checked = ExtResource( 37 )
+custom_icons/checked = ExtResource( 37 )
+custom_icons/radio_unchecked = ExtResource( 38 )
+custom_icons/unchecked = ExtResource( 38 )
+pressed = true
+enabled_focus_mode = 0
+flat = true
+align = 1
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Panel/Panel/MuteTextureButton"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -21.0
+margin_top = -18.0
+margin_right = 19.0
+margin_bottom = 20.0
+texture = ExtResource( 39 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PausadoTextureRect" type="TextureRect" parent="HUD/Panel/Panel"]
+anchor_left = 0.288681
+anchor_top = -0.0324149
+anchor_right = 0.739356
+anchor_bottom = 0.13128
+texture = ExtResource( 36 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Paused" type="Label" parent="HUD/Panel/Panel/PausadoTextureRect"]
+anchor_top = 0.129
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.0290012
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "PAUSADO"
 align = 1
 valign = 1
 
@@ -594,9 +725,11 @@ position = Vector2( 261.442, 204.161 )
 
 [node name="TransitionTween" type="Tween" parent="."]
 [connection signal="resized" from="HUD/Panel/Location" to="." method="_on_Location_resized"]
-[connection signal="button_down" from="HUD/Panel/PauseButton" to="HUD/Panel" method="_on_PauseButton_button_down"]
+[connection signal="pressed" from="HUD/Panel/PauseTextureButton" to="HUD/Panel" method="_on_PauseTextureButton_pressed"]
 [connection signal="pressed" from="HUD/Panel/Panel/ResumePause" to="HUD/Panel" method="_on_ResumePause_pressed"]
-[connection signal="pressed" from="HUD/Panel/Panel/Quitgame" to="HUD/Panel" method="_on_Quitgame_pressed"]
+[connection signal="pressed" from="HUD/Panel/Panel/MenuTextureButton" to="HUD/Panel" method="_on_MenuTextureButton_pressed"]
+[connection signal="pressed" from="HUD/Panel/Panel/RecomecarTextureButton" to="HUD/Panel" method="_on_RecomecarTextureButton_pressed"]
+[connection signal="toggled" from="HUD/Panel/Panel/MuteTextureButton" to="HUD/Panel" method="_on_MuteTextureButton_toggled"]
 [connection signal="frame_changed" from="Sol/AnimatedSprite" to="Sol" method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer0" to="CorrentesDeVento" method="_on_WarningsPlayer0_animation_finished"]

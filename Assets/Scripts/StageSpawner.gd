@@ -52,7 +52,8 @@ func FillArray() -> void:
 		openSpaces.append((screenSize.y / horizontalLines * (i + 1)) - 80)
 
 func _process(_delta: float) -> void:
-	CheckCollumnSpawner()
+	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 < $"..".distancePerRegion - 2000:
+		CheckCollumnSpawner()
 
 func CheckCollumnSpawner() -> void:
 	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 + 100 > CapPos and $"../CorrentesDeVento".activeWindsCurrents == 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Images/AssetsEduardo/vela.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Scripts/PlayerController.gd" type="Script" id=2]
@@ -13,9 +13,20 @@
 [ext_resource path="res://Assets/Images/NovoPlayer/zulmira_V02.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Images/NovoPlayer/Barco_suporte.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Images/NovoPlayer/Vela_V02.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Images/NovoPlayer/barcoZulmira01.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Images/NovoPlayer/barcoZulmira03.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Images/NovoPlayer/barcoZulmira02.png" type="Texture" id=16]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="RigidBody2D" type="RigidBody2D" groups=[
 "Player",
@@ -53,25 +64,32 @@ position = Vector2( 15.7144, 107.734 )
 texture = ExtResource( 5 )
 
 [node name="Barco_suporte" type="Sprite" parent="Jangada"]
+visible = false
 position = Vector2( 0, -53.472 )
 texture = ExtResource( 12 )
 
 [node name="Vela_V02" type="Sprite" parent="Jangada"]
+visible = false
 position = Vector2( -44.9295, -77.8392 )
 texture = ExtResource( 13 )
 
 [node name="zulmira_V02" type="Sprite" parent="Jangada"]
+visible = false
 position = Vector2( -94.1556, 31.9077 )
 texture = ExtResource( 11 )
 
 [node name="barco" type="Sprite" parent="Jangada"]
+visible = false
 position = Vector2( 0, 87.437 )
 texture = ExtResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Jangada"]
+frames = SubResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 0, -46 )
 scale = Vector2( 0.5, 0.5 )
-polygon = PoolVector2Array( 159.397, 91.3693, 85.6665, 132.992, -167.635, 125.856, -155.743, 53.3146, 21.4493, -127.445 )
+polygon = PoolVector2Array( 153.337, 105.017, 80.3771, 146.548, -155.34, 125.221, -145.238, 33.179, 33.2337, -116.108 )
 
 [node name="Tween" type="Tween" parent="."]
 

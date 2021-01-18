@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-masterVolume = 0.0
+AudioBool = false
 highScore = 0
