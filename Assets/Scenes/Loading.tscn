@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Images/Sol/Sol_001.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Sol/Sol_rastro_001.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Scripts/Loading.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Animations/AnimacaoSol.tres" type="Animation" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "TextAnim"
+length = 1.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "CARREGANDO   ", "CARREGANDO.  ", "CARREGANDO.. ", "CARREGANDO..." ]
+}
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sol" type="TextureRect" parent="."]
+anchor_left = 0.399018
+anchor_top = 0.255302
+anchor_right = 0.600982
+anchor_bottom = 0.595374
+margin_left = -6.11444
+margin_top = -16.3609
+margin_right = 6.1145
+margin_bottom = 16.3605
+rect_rotation = -1.51883
+rect_scale = Vector2( 0.751346, 0.751346 )
+rect_pivot_offset = Vector2( 200, 200 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="Sol"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.369271
+anchor_top = 0.826428
+anchor_right = 0.630729
+anchor_bottom = 0.900502
+margin_bottom = -6.10352e-05
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "CARREGANDO.  "
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AnimationPlayerSol" type="AnimationPlayer" parent="."]
+anims/AnimacaoSol = ExtResource( 5 )
+
+[node name="AnimationPlayerTexto" type="AnimationPlayer" parent="."]
+anims/TextAnim = SubResource( 2 )

@@ -5,6 +5,8 @@ export(Script) var gameSave : Script
 
 var audioBool : bool = true
 
+var targetScene : String
+
 func _init() -> void:
 	if not loadSettings():
 		saveSettings()

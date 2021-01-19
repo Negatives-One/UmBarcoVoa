@@ -10,6 +10,8 @@ onready var next : AudioStreamPlayer = $Next
 
 var menu : Menu
 
+var loadingScene
+
 enum MusicsNumber {Ceara, Pernambuco, Bahia, Menu}
 
 export(float) var transitionDuration : float = 2.7
@@ -78,9 +80,11 @@ func _on_TweenNext_tween_completed(_object: Object, _key: NodePath) -> void:
 func PlaySound():
 	$PlaySound.play()
 
+func ButtonSound() -> void:
+	$Buttons.play()
 
 func _on_PlaySound_finished() -> void:
-	menu.go = true
+	loadingScene.go = true
 
 func Mute() -> void:
 	$TweenCurrent.interpolate_property($Current, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)

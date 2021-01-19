@@ -1,11 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Images/Animations/VentoNormal/VentoNorm.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Assets/Scripts/Vento.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Shaders/Outline.shader" type="Shader" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 58.0
 height = 86.5
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 3 )
+shader_param/width = 5.0
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [node name="Area2D" type="Area2D"]
 space_override = 1
@@ -24,8 +30,10 @@ position = Vector2( 1.33484, -1.90735e-06 )
 scale = Vector2( 9.20927, 7.34049 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 2 )
 scale = Vector2( -0.6, 0.6 )
 frames = ExtResource( 1 )
+frame = 3
 playing = true
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Area2D_body_exited"]

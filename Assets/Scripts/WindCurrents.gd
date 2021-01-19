@@ -12,7 +12,7 @@ var player : Player
 
 var current : PackedScene = preload("res://Assets/Scenes/Current.tscn")
 
-onready var screenSize : Vector2 = get_viewport_rect().size
+onready var screenSize : Vector2 = Vector2(get_viewport_rect().size.x, 1080-160)
 export(int, 2, 999) var screenDivisions : float = 4.0
 var screenDivisionValue : float
 
@@ -47,7 +47,6 @@ func _ready() -> void:
 	add_child(timer)
 	timer.autostart = false
 	timer.wait_time = 1
-	get_physics_process_delta_time()
 
 func _physics_process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2

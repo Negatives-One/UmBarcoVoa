@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=2]
 [ext_resource path="res://Assets/Scripts/Menu.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Images/UI/PLAYTamanhoCerto.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/UI/PLAY.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Images/UI/VOLUMEONTamanhoCerto.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Images/UI/VOLUMEOFFTamanhoCerto.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Images/UI/contained2TamanhoCertoMenu.png" type="Texture" id=8]
@@ -69,18 +69,15 @@ __meta__ = {
 }
 
 [node name="PlayTextureButton" type="TextureButton" parent="Panel"]
-anchor_top = 0.548
-anchor_right = 1.0
-anchor_bottom = 0.761
-margin_top = -0.403503
-margin_right = 0.00012207
-margin_bottom = -0.443542
+anchor_left = 0.440104
+anchor_top = 0.547222
+anchor_right = 0.559375
+anchor_bottom = 0.760185
 rect_pivot_offset = Vector2( 960, 150 )
 texture_normal = ExtResource( 4 )
 expand = true
-stretch_mode = 3
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="MuteUnmute" type="CheckBox" parent="Panel"]
@@ -260,44 +257,8 @@ text = "Apply"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Loading" type="Panel" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 2 )
-
-[node name="ColorRect" type="ColorRect" parent="Loading"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ProgressBar" type="ProgressBar" parent="Loading"]
-anchor_top = 0.414
-anchor_right = 1.0
-anchor_bottom = 0.568
-margin_left = 159.0
-margin_top = -0.120026
-margin_right = -158.0
-margin_bottom = -0.440002
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Loading"]
-anchor_top = 0.341
-anchor_right = 1.0
-anchor_bottom = 0.389
-margin_left = 626.5
-margin_top = -0.280029
-margin_right = -626.5
-margin_bottom = -0.120026
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "TÁ CARREGANDO,  FULERAGI!"
-align = 1
-valign = 1
 [connection signal="pressed" from="Panel/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="Panel/PlayTextureButton" to="." method="_on_PlayTextureButton_pressed"]
-[connection signal="toggled" from="Panel/MuteUnmute" to="." method="_on_MuteUnmute_toggled"]
 [connection signal="pressed" from="Panel/SairTextureButton" to="." method="_on_SairTextureButton_pressed"]
 [connection signal="value_changed" from="OptionsPanel/ColorRect3/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="pressed" from="OptionsPanel/ApplyOptions" to="." method="_on_ApplyOptions_pressed"]

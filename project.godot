@@ -87,6 +87,7 @@ GameManager="*res://Assets/Scenes/GameManager.tscn"
 
 window/size/width=1920
 window/size/height=1080
+window/size/fullscreen=true
 window/size/test_width=1600
 window/size/test_height=675
 window/handheld/orientation="sensor_landscape"

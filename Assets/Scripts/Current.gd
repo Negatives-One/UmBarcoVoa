@@ -17,17 +17,16 @@ var direction : int = 0
 var isStrong : bool = false
 
 func _ready() -> void:
+	$AnimatedSprite.scale.x = (get_viewport_rect().size.x / 2560) * direction
+	$AnimatedSprite.scale.y = get_parent().screenDivisionValue / 360
+	$AnimatedSprite.position = Vector2((get_viewport_rect().size.x /2), -(((get_parent().screenDivisionValue / 360) * 360) / 2))
 	gravity_vec = Vector2(direction, 0)
 	if isStrong:
 		gravity = currentController.magnitudeStrong
-		$pixel.self_modulate = Color(1, 0, 0, 0.8)
 	else:
 		gravity = currentController.magnitudeWeak
-		$pixel.self_modulate = Color(1, 0, 0, 0.4)
 	$CollisionShape2D.shape.extents = Vector2(get_viewport_rect().size.x/2, 270/2)
 	$CollisionShape2D.position.x = get_viewport_rect().size.x/2
-	$pixel.scale.x = get_viewport_rect().size.x #d(Vector2(get_viewport_rect().size.x, 270))
-	#$VisibilityNotifier2D.rect = Rect2(0, 0, get_viewport_rect().size.x, -270)
 
 func _physics_process(_delta: float) -> void:
 	pass
