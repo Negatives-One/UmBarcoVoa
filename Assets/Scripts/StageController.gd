@@ -31,11 +31,12 @@ var preservedYPosition : float
 var once : bool = true
 
 func _ready() -> void:
+	$StageSpawner.CapPos = $RigidBody2D/Camera2D2.global_position.x + get_viewport_rect().size.x/2 + 100
 	$BonuStage.Visible(false)
 	$ScenePlayer.play("StartAnim")
 	MusicController.stageController = self
 	ChangeEvent(initialEvent)
-	$SunPlayer.play("AnimacaoSol")
+	$SunPlayer.play("AnimacaoSolGame")
 	var _error : int = timer.connect("timeout", self, "_on_timer_timeout") 
 	add_child(timer)
 	timer.autostart = true
@@ -88,12 +89,13 @@ func _process(_delta: float) -> void:
 		$HUD/Panel/InformationTextureRect/DistanceLabel.text = str(int($RigidBody2D.global_position.x + totalDistance))
 	$HUD/Panel/BoostState.text = str($RigidBody2D.boostState)
 	$HUD/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
-
+	print($RigidBody2D.global_position.x > $StageSpawner.CapPos)
 
 func ChangeEvent(event : int) -> void:
 	previousEvent = currentEvent
 	currentEvent = event
 	if currentEvent == events.FreeStyle:
+		$StageSpawner.CapPos = $RigidBody2D/Camera2D2.global_position.x + get_viewport_rect().size.x/2 + 100
 		$StageSpawner.Enable()
 		$Sol.Enable()
 		$CorrentesDeVento.Disable()
@@ -136,6 +138,9 @@ func PrepareToChangeLocation() -> void:
 	$RigidBody2D.receivingInputs = false
 
 func ChangeToBonus() -> void:
+	for i in $CorrentesDeVento.get_children():
+		if i is Current:
+			i.call_deferred(queue_free())
 	isBonusStage = true
 	$Parallax/ParallaxBackground/BackgroundLayer.visible = false
 	$Parallax/ParallaxBackground/BackLayer.visible = false
@@ -158,9 +163,18 @@ func _on_Location_resized():
 
 func _on_timer_timeout():
 	if currentEvent == events.FreeStyle:
-		ChangeEvent(events.WindCurrent)
+		timer.wait_time = 0.5
+		timer.autostart = true
+		timer.start()
+		$StageSpawner.ended = true
+		if $RigidBody2D.global_position.x > $StageSpawner.CapPos:
+			ChangeEvent(events.WindCurrent)
+			timer.autostart = true
+			timer.wait_time = rand_range(minTimeToChangeEvent, maxTimeToChangeEvent)
+			timer.start()
 	elif currentEvent == events.WindCurrent:
 		ChangeEvent(events.FreeStyle)
+	print(3)
 
 func GetStringLocation() -> String:
 	match currentLocation:

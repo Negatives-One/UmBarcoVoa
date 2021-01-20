@@ -87,9 +87,8 @@ texture = ExtResource( 10 )
 frames = SubResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0, -46 )
 scale = Vector2( 0.5, 0.5 )
-polygon = PoolVector2Array( 153.337, 105.017, 80.3771, 146.548, -155.34, 125.221, -145.238, 33.179, 33.2337, -116.108 )
+polygon = PoolVector2Array( 151.092, 11.894, 78.132, 54.5475, -149.727, 42.2004, -151.972, -12.8001, 37.7234, -215.965 )
 
 [node name="Tween" type="Tween" parent="."]
 

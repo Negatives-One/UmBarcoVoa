@@ -3,7 +3,7 @@ extends Panel
 
 func _ready() -> void:
 	$Panel/MuteTextureButton.pressed = GameManager.audioBool
-	$Panel/MenuTextureButton.connect("toggled", self, "_on_MuteTextureButton_toggled")
+	$Panel/MuteTextureButton.connect("toggled", self, "_on_MuteTextureButton_toggled")
 
 
 func _on_ResumePause_pressed() -> void:

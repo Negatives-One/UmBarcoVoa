@@ -43,7 +43,7 @@ func _init() -> void:
 	linear_velocity.x = 300
 
 func _ready() -> void:
-	target = Vector2(global_position.x+1, -$"../StageSpawner".screenSize.y/2)
+	target = Vector2(global_position.x+1, -get_viewport_rect().size.y/2)
 	currentState = States.Acelerando
 	acelleration = (target - global_position).normalized()
 	acelleration.x *= HorizontalAcelleration
@@ -70,7 +70,7 @@ func _integrate_forces(state : Physics2DDirectBodyState):
 	set_applied_force(acelleration + state.total_gravity)
 
 func _physics_process(_delta: float) -> void:
-	if global_position.y < -1040:
+	if global_position.y < -1080 + 240:
 		physicsState.linear_velocity.y = 10
 	elif global_position.y > -40:
 		physicsState.linear_velocity.y = -10
@@ -88,6 +88,13 @@ func _unhandled_input(event : InputEvent) -> void:
 				apply_central_impulse(Vector2(1,0)*5000)
 
 func _process(_delta : float) -> void:
+	var coeficienteDaVela = windLoopVelocity / 3
+	if linear_velocity.x / coeficienteDaVela <= 1:
+		$Jangada/AnimatedSprite.frame = 0
+	elif linear_velocity.x / coeficienteDaVela <= 2:
+		$Jangada/AnimatedSprite.frame = 1
+	elif linear_velocity.x / coeficienteDaVela > 2:
+		$Jangada/AnimatedSprite.frame = 2
 	VentoLoop()
 	RuidoBarco()
 	
@@ -102,7 +109,6 @@ func _process(_delta : float) -> void:
 		MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
 
 func FSM() -> void:
-	
 	if(currentState == States.Acelerando):
 		linear_damp = -1
 		target = get_global_mouse_position()

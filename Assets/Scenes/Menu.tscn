@@ -76,6 +76,7 @@ anchor_bottom = 0.760185
 rect_pivot_offset = Vector2( 960, 150 )
 texture_normal = ExtResource( 4 )
 expand = true
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": true
 }

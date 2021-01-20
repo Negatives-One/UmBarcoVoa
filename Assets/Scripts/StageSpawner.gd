@@ -6,7 +6,7 @@ export(int, 1, 9999) var horizontalLines : float = 0
 export(NodePath) var WindsNode : NodePath
 export(NodePath) var ObstaclesNode : NodePath
 
-onready var screenSize : Vector2 = get_viewport_rect().size
+onready var screenSize : Vector2 = Vector2(get_viewport_rect().size.x, 1080 - 220)
 
 export onready var MaxHeight = $"..".MaxHeight
 export(float) var MinHeight = 0
@@ -39,6 +39,8 @@ var repeatedSkin : int = 0
 
 var openSpaces : Array = []
 
+var ended : bool
+
 func _ready() -> void:
 	set_process(false)
 	if obstacleAmmount + windAmmount > horizontalLines:
@@ -52,8 +54,9 @@ func FillArray() -> void:
 		openSpaces.append((screenSize.y / horizontalLines * (i + 1)) - 80)
 
 func _process(_delta: float) -> void:
-	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 < $"..".distancePerRegion - 2000:
-		CheckCollumnSpawner()
+	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 < $"..".distancePerRegion - 1500:
+		if !ended:
+			CheckCollumnSpawner()
 
 func CheckCollumnSpawner() -> void:
 	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 + 100 > CapPos and $"../CorrentesDeVento".activeWindsCurrents == 0:
@@ -142,6 +145,7 @@ func CreateObstacle(pos : Vector2) -> void:
 
 
 func Enable() -> void:
+	ended = false
 	set_process(true)
 
 func Disable() -> void:
