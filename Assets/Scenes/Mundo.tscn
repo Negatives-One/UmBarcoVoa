@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -34,7 +34,6 @@
 [ext_resource path="res://Assets/Images/Sol/Sol_003.png" type="Texture" id=32]
 [ext_resource path="res://Assets/Images/Sol/Sol_rastro_001.png" type="Texture" id=33]
 [ext_resource path="res://Assets/Images/UI/PausaInGameTamanhoCerto.png" type="Texture" id=34]
-[ext_resource path="res://Assets/Images/Pause.png" type="Texture" id=35]
 [ext_resource path="res://Assets/Images/UI/PAUSADOCorreto.png" type="Texture" id=36]
 [ext_resource path="res://Assets/Images/UI/VOLUMEOFFPauseInGame.png" type="Texture" id=37]
 [ext_resource path="res://Assets/Images/UI/VOLUMEONPauseInGame.png" type="Texture" id=38]
@@ -271,18 +270,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="HUD/Panel"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -14.0
-margin_top = -15.0
-texture = ExtResource( 35 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="InformationTextureRect" type="TextureRect" parent="HUD/Panel"]
 margin_left = -13.0
 margin_top = -15.0
@@ -338,81 +325,6 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "10 KM"
 __meta__ = {
 "_edit_use_anchors_": true
-}
-
-[node name="ColorRect2" type="ColorRect" parent="HUD/Panel"]
-visible = false
-margin_right = 264.0
-margin_bottom = 205.0
-color = Color( 1, 1, 1, 0.890196 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="HUD/Panel"]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -170.37
-margin_right = -0.370117
-margin_bottom = 53.0
-color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BarcoState" type="Label" parent="HUD/Panel"]
-visible = false
-margin_top = 50.9692
-margin_right = 605.0
-margin_bottom = 102.969
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Boat State"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BarcoVelocity" type="Label" parent="HUD/Panel"]
-visible = false
-margin_right = 219.0
-margin_bottom = 52.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Velocity"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Location" type="Label" parent="HUD/Panel"]
-visible = false
-margin_top = 101.938
-margin_right = 219.0
-margin_bottom = 153.938
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Location"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Distance" type="Label" parent="HUD/Panel"]
-visible = false
-margin_top = 149.132
-margin_right = 219.0
-margin_bottom = 201.132
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Distance"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BoostState" type="Label" parent="HUD/Panel"]
-visible = false
-margin_top = 97.0003
-margin_right = 605.0
-margin_bottom = 149.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "TExtooooooooooooosdasdasd"
-__meta__ = {
-"_edit_use_anchors_": false
 }
 
 [node name="FPS" type="Label" parent="HUD/Panel"]
@@ -637,13 +549,11 @@ texture = ExtResource( 46 )
 centered = false
 
 [node name="PontoCinza" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
-visible = false
 position = Vector2( 0, -1080 )
 texture = ExtResource( 47 )
 centered = false
 
 [node name="Amassado" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
-visible = false
 position = Vector2( 0, -1080 )
 texture = ExtResource( 48 )
 centered = false
@@ -729,6 +639,7 @@ playing = true
 script = ExtResource( 17 )
 targetPath = NodePath("../RigidBody2D/Camera2D2")
 playerPath = NodePath("../RigidBody2D")
+screenDivisions = 3
 timeBetweenSpawns = 7.0
 magnitudeStrong = 600.0
 magnitudeWeak = 300.0
@@ -790,8 +701,9 @@ anims/Transicao = ExtResource( 7 )
 position = Vector2( 261.442, 204.161 )
 
 [node name="TransitionTween" type="Tween" parent="."]
-[connection signal="resized" from="HUD/Panel/Location" to="." method="_on_Location_resized"]
 [connection signal="pressed" from="HUD/Panel/PauseTextureButton" to="HUD/Panel" method="_on_PauseTextureButton_pressed"]
+[connection signal="mouse_entered" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_exited"]
 [connection signal="pressed" from="HUD/Panel/Panel/ResumePause" to="HUD/Panel" method="_on_ResumePause_pressed"]
 [connection signal="pressed" from="HUD/Panel/Panel/MenuTextureButton" to="HUD/Panel" method="_on_MenuTextureButton_pressed"]
 [connection signal="pressed" from="HUD/Panel/Panel/RecomecarTextureButton" to="HUD/Panel" method="_on_RecomecarTextureButton_pressed"]

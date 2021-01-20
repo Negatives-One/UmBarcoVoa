@@ -1,14 +1,21 @@
 extends Panel
 
+var isIn : bool
 
 func _ready() -> void:
 	$Panel/MuteTextureButton.pressed = GameManager.audioBool
-	$Panel/MuteTextureButton.connect("toggled", self, "_on_MuteTextureButton_toggled")
+	var _error : int = $Panel/MuteTextureButton.connect("toggled", self, "_on_MuteTextureButton_toggled")
 
+func _unhandled_input(event):
+	if event is InputEventScreenTouch:
+		if event.is_pressed():
+			get_tree().set_pause(false)
+			#$PauseTextureButton.visible = true
+			$Panel.visible = false
 
 func _on_ResumePause_pressed() -> void:
 	get_tree().set_pause(false)
-	$PauseTextureButton.visible = true
+	#$PauseTextureButton.visible = true
 	$Panel.visible = false
 	MusicController.ButtonSound()
 
@@ -34,7 +41,17 @@ func _on_MuteTextureButton_toggled(button_pressed: bool) -> void:
 
 
 func _on_PauseTextureButton_pressed() -> void:
-	get_tree().set_pause(true)
-	$PauseTextureButton.visible = false
-	$Panel.visible = true
+	get_tree().set_pause(!get_tree().is_paused())
+	#$PauseTextureButton.visible = false
+	$Panel.visible = !$Panel.visible
+	MusicController.ButtonSound()
+
+
+func _on_Panel_mouse_exited() -> void:
+	isIn = false
+	MusicController.ButtonSound()
+
+
+func _on_Panel_mouse_entered() -> void:
+	isIn = true
 	MusicController.ButtonSound()

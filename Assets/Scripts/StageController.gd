@@ -72,7 +72,6 @@ func _process(_delta: float) -> void:
 				#$TransitionTween.interpolate_property(MusicController.next, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
 				#MusicController.current.stop()
 				#MusicController.next.stop()
-				#print("Eis o problema")
 			if once:
 				if !isBonusStage:
 					pass
@@ -80,16 +79,10 @@ func _process(_delta: float) -> void:
 					pass
 				once = false
 			counting = false
-	$HUD/Panel/BarcoState.text = str(get_viewport_rect().size)#"State: " + str($RigidBody2D.currentState)
-	$HUD/Panel/BarcoVelocity.text = "Velocity: " + str(int($RigidBody2D.linear_velocity.x))
-	$HUD/Panel/Location.text = "Location: " + GetStringLocation()
 	$HUD/Panel/InformationTextureRect/LocationLabel.text = GetStringLocation()
 	if counting:
-		$HUD/Panel/Distance.text = "Distance: " + str(int($RigidBody2D.global_position.x + totalDistance))
 		$HUD/Panel/InformationTextureRect/DistanceLabel.text = str(int($RigidBody2D.global_position.x + totalDistance))
-	$HUD/Panel/BoostState.text = str($RigidBody2D.boostState)
 	$HUD/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
-	print($RigidBody2D.global_position.x > $StageSpawner.CapPos)
 
 func ChangeEvent(event : int) -> void:
 	previousEvent = currentEvent
@@ -140,7 +133,7 @@ func PrepareToChangeLocation() -> void:
 func ChangeToBonus() -> void:
 	for i in $CorrentesDeVento.get_children():
 		if i is Current:
-			i.call_deferred(queue_free())
+			i.call_deferred("queue_free")
 	isBonusStage = true
 	$Parallax/ParallaxBackground/BackgroundLayer.visible = false
 	$Parallax/ParallaxBackground/BackLayer.visible = false
@@ -174,7 +167,6 @@ func _on_timer_timeout():
 			timer.start()
 	elif currentEvent == events.WindCurrent:
 		ChangeEvent(events.FreeStyle)
-	print(3)
 
 func GetStringLocation() -> String:
 	match currentLocation:
