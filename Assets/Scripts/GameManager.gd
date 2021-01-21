@@ -22,7 +22,7 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	#WINDOWS
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		hudOptions.Pause()
+		get_tree().quit()
 	#ANDROID
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
 		hudOptions.Pause()

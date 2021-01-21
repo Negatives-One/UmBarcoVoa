@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-AudioBool = true
+AudioBool = false
 highScore = 0

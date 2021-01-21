@@ -62,18 +62,14 @@ func Disable() -> void:
 
 func _on_timer_timeout():
 	timer.wait_time = timeBetweenSpawns
-	if activeWindsCurrents > 2:
+	if activeWindsCurrents > 1:
 		return
 	var quantity : int = 0
 	if activeWindsCurrents == 0:
-		quantity = randi() % 3 + 1
-		for _i in range(quantity):
-			CreateCurrent()
-	elif activeWindsCurrents == 1:
 		quantity = randi() % 2 + 1
 		for _i in range(quantity):
 			CreateCurrent()
-	elif activeWindsCurrents == 2:
+	elif activeWindsCurrents == 1:
 		CreateCurrent()
 #	openSpaces.clear()
 #	for i in range(screenDivisions):
