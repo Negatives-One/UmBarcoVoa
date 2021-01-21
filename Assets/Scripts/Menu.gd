@@ -7,7 +7,7 @@ var loadScene : String = "res://Assets/Scenes/Loading.tscn"
 
 func _ready() -> void:
 	$Panel/MuteUnmute.pressed = GameManager.audioBool
-	$Panel/MuteUnmute.connect("toggled", self, "_on_MuteUnmute_toggled")
+	var _error : int = $Panel/MuteUnmute.connect("toggled", self, "_on_MuteUnmute_toggled")
 	MusicController.menu = self
 
 func _on_OptionsButton_pressed() -> void:

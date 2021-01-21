@@ -39,6 +39,8 @@ var camera : MyCamera
 export(float, 0, 360) var minAngle : float = 10
 export(float, 0, 360) var maxAngle : float = 350
 
+var lose : bool = false
+
 func _init() -> void:
 	linear_velocity.x = 300
 
@@ -67,13 +69,15 @@ func _integrate_forces(state : Physics2DDirectBodyState):
 			linear_damp = -1
 	else:
 		linear_velocity = linear_velocity.clamped(MaxSpeed)
-	set_applied_force(acelleration + state.total_gravity)
+	if !lose:
+		set_applied_force(acelleration + state.total_gravity)
 
 func _physics_process(_delta: float) -> void:
-	if global_position.y < -1080 + 240:
-		physicsState.linear_velocity.y = 10
-	elif global_position.y > -40:
-		physicsState.linear_velocity.y = -10
+	if !lose:
+		if global_position.y < -1080 + 240:
+			physicsState.linear_velocity.y = 10
+		elif global_position.y > -40:
+			physicsState.linear_velocity.y = -10
 
 func _unhandled_input(event : InputEvent) -> void:
 	if receivingInputs:
@@ -88,6 +92,7 @@ func _unhandled_input(event : InputEvent) -> void:
 				apply_central_impulse(Vector2(1,0)*5000)
 
 func _process(_delta : float) -> void:
+# warning-ignore:integer_division
 	var coeficienteDaVela = windLoopVelocity / 3
 	if linear_velocity.x / coeficienteDaVela <= 1:
 		$Jangada/AnimatedSprite.frame = 0
@@ -97,16 +102,35 @@ func _process(_delta : float) -> void:
 		$Jangada/AnimatedSprite.frame = 2
 	VentoLoop()
 	RuidoBarco()
-	
-	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, linear_velocity.normalized().angle(), 0.05,Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$Tween.start()
-	$Tween.interpolate_property($CollisionPolygon2D, "rotation", $CollisionPolygon2D.rotation, linear_velocity.normalized().angle(), 0.05, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$Tween.start()
-#	$Jangada.rotation = linear_velocity.normalized().angle()
+	if !lose:
+		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, linear_velocity.normalized().angle(), 0.05,Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.start()
+		$Tween.interpolate_property($CollisionPolygon2D, "rotation", $CollisionPolygon2D.rotation, linear_velocity.normalized().angle(), 0.05, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.start()
+	else:
+#		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, 2,Tween.TRANS_LINEAR, Tween.EASE_IN)
+#		$Tween.start()
+		self.sleeping = true
+	#	$Jangada.rotation = linear_velocity.normalized().angle()
 #	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
-	if(linear_velocity.x < 100):
-		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
-		MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
+	if(linear_velocity.x < 100) and !lose:
+		lose = true
+		$CollisionPolygon2D.disabled = true
+		$"..".ChangeEvent($"..".events.Nothing)
+		$"../HUD/Panel/TryAgain".visible = true
+		receivingInputs = false
+		self.sleeping = true
+		#linear_velocity = Vector2.ZERO
+		#self.sleeping = true
+		$Tween.interpolate_property(self, "global_position", self.global_position, Vector2(global_position.x, -40), 3, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		$Tween.start()
+		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0.9, 2.2,Tween.TRANS_EXPO, Tween.EASE_OUT)
+		$Tween.start()
+		yield(get_tree().create_timer(2.3), "timeout")
+		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, 0.7,Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.start()
+#		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
+#		MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
 
 func FSM() -> void:
 	if(currentState == States.Acelerando):
@@ -172,7 +196,7 @@ func is_angle_between(alpha : float, theta : float, beta : float) -> bool:
 		var phi : float = alpha;
 		alpha = beta
 		beta = phi
+# warning-ignore:narrowing_conversion
 	var threeSixtyMultiple : int = (beta - theta) / 360
 	theta += 360 * threeSixtyMultiple
 	return (alpha < theta) && (theta < beta)
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -49,15 +49,26 @@
 [ext_resource path="res://Assets/Images/Background/BG2_V01.png" type="Texture" id=48]
 
 [sub_resource type="DynamicFont" id=1]
-size = 20
-font_data = ExtResource( 20 )
-
-[sub_resource type="DynamicFont" id=2]
 size = 60
 font_data = ExtResource( 20 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "AnimacaoSolGame"
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/PausaInGameTamanhoCerto.png-e3d5d3eede109971abdf82b20a158138.stex"
+
+[sub_resource type="DynamicFont" id=3]
+size = 70
+font_data = ExtResource( 20 )
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/ContornoBranco.png-33ee49935ef74fc7123d57c7587ecb39.stex"
+
+[sub_resource type="StreamTexture" id=5]
+flags = 4
+load_path = "res://.import/ContornoBranco.png-33ee49935ef74fc7123d57c7587ecb39.stex"
+
+[sub_resource type="Animation" id=6]
 length = 3.9
 loop = true
 tracks/0/type = "value"
@@ -85,10 +96,9 @@ tracks/1/keys = {
 "values": [ Vector2( 1.1, 1.1 ), Vector2( 0.75, 0.75 ), Vector2( 0.9, 0.9 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "New Anim"
+[sub_resource type="Animation" id=7]
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 27 ), ExtResource( 26 ), ExtResource( 28 ), ExtResource( 15 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 29 ) ],
 "loop": false,
@@ -96,7 +106,7 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 length = 2.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Warnings/0:self_modulate")
@@ -111,7 +121,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 length = 2.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Warnings/1:self_modulate")
@@ -126,7 +136,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=11]
 length = 2.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Warnings/2:self_modulate")
@@ -141,7 +151,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=12]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -158,7 +168,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=13]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -189,7 +199,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=14]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
@@ -206,7 +216,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=15]
 length = 1.55
 step = 0.05
 tracks/0/type = "value"
@@ -365,18 +375,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResumePause" type="Button" parent="HUD/Panel/Panel"]
-anchor_left = 0.322949
-anchor_top = 0.635745
-anchor_right = 0.678089
-anchor_bottom = 0.758401
-margin_top = 3.05176e-05
-custom_fonts/font = SubResource( 1 )
-text = "Resume"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="MenuTextureButton" type="TextureButton" parent="HUD/Panel/Panel"]
 anchor_left = 0.322403
 anchor_top = 0.280601
@@ -521,11 +519,112 @@ anchor_top = 0.129
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -0.0290012
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "PAUSADO"
 align = 1
 valign = 1
+
+[node name="TryAgain" type="TextureRect" parent="HUD/Panel"]
+pause_mode = 2
+visible = false
+anchor_left = 0.242708
+anchor_top = 0.255556
+anchor_right = 0.744271
+anchor_bottom = 0.826852
+margin_top = -3.05176e-05
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="HUD/Panel/TryAgain"]
+anchor_left = 0.223261
+anchor_top = 0.257224
+anchor_right = 0.776739
+anchor_bottom = 0.372297
+custom_fonts/font = SubResource( 3 )
+text = "Voar Novamente ?"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Sair" type="TextureButton" parent="HUD/Panel/TryAgain"]
+anchor_left = 0.534059
+anchor_top = 0.568269
+anchor_right = 0.726167
+anchor_bottom = 0.706032
+margin_bottom = -3.05176e-05
+texture_normal = SubResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true,
+"_editor_description_": ""
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Panel/TryAgain/Sair"]
+show_behind_parent = true
+anchor_left = 0.0648649
+anchor_top = 0.0705882
+anchor_right = 0.972973
+anchor_bottom = 0.905882
+margin_top = -4.76837e-07
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": true,
+"_editor_description_": ""
+}
+
+[node name="Label" type="Label" parent="HUD/Panel/TryAgain/Sair"]
+anchor_top = 0.0209616
+anchor_right = 1.0
+anchor_bottom = 1.02096
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Sair"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Sim" type="TextureButton" parent="HUD/Panel/TryAgain"]
+anchor_left = 0.271189
+anchor_top = 0.568269
+anchor_right = 0.463297
+anchor_bottom = 0.706032
+margin_bottom = -3.05176e-05
+texture_normal = SubResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true,
+"_editor_description_": ""
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Panel/TryAgain/Sim"]
+show_behind_parent = true
+anchor_left = 0.0648649
+anchor_top = 0.0705882
+anchor_right = 0.972973
+anchor_bottom = 0.905882
+margin_top = -4.76837e-07
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": true,
+"_editor_description_": ""
+}
+
+[node name="Label" type="Label" parent="HUD/Panel/TryAgain/Sim"]
+anchor_top = 0.0209616
+anchor_right = 1.0
+anchor_bottom = 1.02096
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Sim"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Parallax" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
@@ -609,8 +708,8 @@ position = Vector2( -2945, 540 )
 
 [node name="SunPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
-anims/AnimacaoSolGame = SubResource( 3 )
-"anims/New Anim" = SubResource( 4 )
+anims/AnimacaoSolGame = SubResource( 6 )
+"anims/New Anim" = SubResource( 7 )
 
 [node name="Obstaculos" type="Node2D" parent="."]
 
@@ -629,7 +728,7 @@ playerPath = NodePath("../RigidBody2D")
 targetPath = NodePath("../RigidBody2D/Camera2D2")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sol"]
-frames = SubResource( 5 )
+frames = SubResource( 8 )
 frame = 9
 playing = true
 
@@ -659,13 +758,13 @@ self_modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 18 )
 
 [node name="WarningsPlayer0" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert0 = SubResource( 6 )
+anims/alert0 = SubResource( 9 )
 
 [node name="WarningsPlayer1" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert1 = SubResource( 7 )
+anims/alert1 = SubResource( 10 )
 
 [node name="WarningsPlayer2" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert2 = SubResource( 8 )
+anims/alert2 = SubResource( 11 )
 
 [node name="CurrentsTween" type="Tween" parent="CorrentesDeVento"]
 playback_process_mode = 0
@@ -691,10 +790,10 @@ __meta__ = {
 
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoBonus = ExtResource( 16 )
-anims/FadeIn = SubResource( 9 )
-anims/FadeOut = SubResource( 10 )
-anims/ShowName = SubResource( 11 )
-anims/StartAnim = SubResource( 12 )
+anims/FadeIn = SubResource( 12 )
+anims/FadeOut = SubResource( 13 )
+anims/ShowName = SubResource( 14 )
+anims/StartAnim = SubResource( 15 )
 anims/Transicao = ExtResource( 7 )
 
 [node name="BonuStage" parent="." instance=ExtResource( 9 )]
@@ -704,9 +803,10 @@ position = Vector2( 261.442, 204.161 )
 [connection signal="pressed" from="HUD/Panel/PauseTextureButton" to="HUD/Panel" method="_on_PauseTextureButton_pressed"]
 [connection signal="mouse_entered" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_exited"]
-[connection signal="pressed" from="HUD/Panel/Panel/ResumePause" to="HUD/Panel" method="_on_ResumePause_pressed"]
 [connection signal="pressed" from="HUD/Panel/Panel/MenuTextureButton" to="HUD/Panel" method="_on_MenuTextureButton_pressed"]
 [connection signal="pressed" from="HUD/Panel/Panel/RecomecarTextureButton" to="HUD/Panel" method="_on_RecomecarTextureButton_pressed"]
+[connection signal="pressed" from="HUD/Panel/TryAgain/Sair" to="HUD/Panel" method="_on_Sair_pressed"]
+[connection signal="pressed" from="HUD/Panel/TryAgain/Sim" to="HUD/Panel" method="_on_Sim_pressed"]
 [connection signal="frame_changed" from="Sol/AnimatedSprite" to="Sol" method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer0" to="CorrentesDeVento" method="_on_WarningsPlayer0_animation_finished"]

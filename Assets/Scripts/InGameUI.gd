@@ -3,6 +3,7 @@ extends Panel
 var isIn : bool
 
 func _ready() -> void:
+	GameManager.hudOptions = self
 	$Panel/MuteTextureButton.pressed = GameManager.audioBool
 	var _error : int = $Panel/MuteTextureButton.connect("toggled", self, "_on_MuteTextureButton_toggled")
 
@@ -12,13 +13,6 @@ func _unhandled_input(event):
 			get_tree().set_pause(false)
 			#$PauseTextureButton.visible = true
 			$Panel.visible = false
-
-func _on_ResumePause_pressed() -> void:
-	get_tree().set_pause(false)
-	#$PauseTextureButton.visible = true
-	$Panel.visible = false
-	MusicController.ButtonSound()
-
 
 func _on_MenuTextureButton_pressed() -> void:
 	MusicController.ButtonSound()
@@ -46,6 +40,9 @@ func _on_PauseTextureButton_pressed() -> void:
 	$Panel.visible = !$Panel.visible
 	MusicController.ButtonSound()
 
+func Pause() -> void:
+	get_tree().set_pause(!get_tree().is_paused())
+	$Panel.visible = !$Panel.visible
 
 func _on_Panel_mouse_exited() -> void:
 	isIn = false
@@ -55,3 +52,18 @@ func _on_Panel_mouse_exited() -> void:
 func _on_Panel_mouse_entered() -> void:
 	isIn = true
 	MusicController.ButtonSound()
+
+
+func _on_Sair_pressed() -> void:
+	var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
+	MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
+	MusicController.ButtonSound()
+
+
+func _on_Sim_pressed() -> void:
+	MusicController.PlaySound()
+	MusicController.current.stop()
+	MusicController.next.stop()
+	GameManager.targetScene = "res://Assets/Scenes/Mundo.tscn"
+	var _error : int = get_tree().change_scene("res://Assets/Scenes/Loading.tscn")
+	#MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)

@@ -39,18 +39,17 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Panel"]
-anchor_top = 0.282
-anchor_right = 1.0
-anchor_bottom = 0.559
-margin_top = -0.423401
-margin_bottom = 0.416565
+anchor_left = 0.0755208
+anchor_top = 0.286111
+anchor_right = 0.924479
+anchor_bottom = 0.555556
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "ZUMIRA"
+text = "Um Barco Voa"
 align = 1
 valign = 1
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="OptionsButton" type="Button" parent="Panel"]
@@ -157,6 +156,9 @@ margin_right = -0.903687
 margin_bottom = 0.0773926
 texture_normal = ExtResource( 9 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SairText" type="Label" parent="Panel/SairTextureButton"]
 anchor_right = 1.0

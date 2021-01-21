@@ -81,7 +81,8 @@ func _process(_delta: float) -> void:
 			counting = false
 	$HUD/Panel/InformationTextureRect/LocationLabel.text = GetStringLocation()
 	if counting:
-		$HUD/Panel/InformationTextureRect/DistanceLabel.text = str(int($RigidBody2D.global_position.x + totalDistance))
+# warning-ignore:integer_division
+		$HUD/Panel/InformationTextureRect/DistanceLabel.text = str(int($RigidBody2D.global_position.x + totalDistance) / 1000 +1) + " KM"
 	$HUD/Panel/FPS.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
 
 func ChangeEvent(event : int) -> void:

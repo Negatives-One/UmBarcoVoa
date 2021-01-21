@@ -5,7 +5,11 @@ export(Script) var gameSave : Script
 
 var audioBool : bool = true
 
+var highScore : int = 0
+
 var targetScene : String
+
+var hudOptions
 
 func _init() -> void:
 	if not loadSettings():
@@ -18,10 +22,10 @@ func _ready() -> void:
 func _notification(what: int) -> void:
 	#WINDOWS
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		get_tree().quit()
+		hudOptions.Pause()
 	#ANDROID
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-		pass
+		hudOptions.Pause()
 
 func verifySave(saveResource) -> bool:
 	for v in saveVars:
@@ -50,3 +54,22 @@ func loadSettings() -> bool:
 
 func UpdateMute() -> void:
 	AudioServer.set_bus_mute(0, audioBool)
+
+func LoadScore() -> bool:
+	var dir : Directory = Directory.new()
+	if not dir.file_exists("res://Saves/Save.tres"):
+		return false
+	
+	var saveResource = load("res://Saves/Save.tres")
+	if not verifySave(saveResource):
+		return false
+	highScore = saveResource.highScore
+	return true
+
+func SaveScore() -> void:
+	var saveSystem : SaveSystem = gameSave.new()
+	saveSystem.AudioBool = audioBool
+	var dir : Directory = Directory.new()
+	if not dir.dir_exists("res://Saves/"):
+		var _error : int = dir.make_dir_recursive("res://Saves/")
+	var _error : int = ResourceSaver.save("res://Saves/Save.tres", saveSystem)

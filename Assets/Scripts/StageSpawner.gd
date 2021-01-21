@@ -44,7 +44,9 @@ var ended : bool
 func _ready() -> void:
 	set_process(false)
 	if obstacleAmmount + windAmmount > horizontalLines:
+# warning-ignore:narrowing_conversion
 		obstacleAmmount = horizontalLines/2
+# warning-ignore:narrowing_conversion
 		windAmmount = horizontalLines/2
 	FillArray()
 
