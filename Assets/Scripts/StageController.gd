@@ -185,7 +185,6 @@ func NameTransitionLabel() -> void:
 func RandomStart() -> void:
 	randomize()
 	ChangeEvent(randi() % 2 + 1)
-	pass
 
 
 func _on_ScenePlayer_animation_finished(anim_name: String) -> void:

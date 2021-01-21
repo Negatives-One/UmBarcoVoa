@@ -37,8 +37,6 @@ func _ready() -> void:
 	DeployCities()
 	while camera.global_position.x + $"../StageSpawner".screenSize.x/2 > start:
 		DeployHouses(camera)
-	$ParallaxBackground/BackgroundLayer.motion_mirroring.x = $"../StageSpawner".screenSize.x
-	$ParallaxBackground/BackgroundLayer/BG.scale.x = $"../StageSpawner".screenSize.x / $ParallaxBackground/BackgroundLayer/BG.texture.get_size().x
 
 func _process(_delta: float) -> void:
 	DeployHouses(camera)

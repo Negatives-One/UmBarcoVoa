@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -17,11 +17,11 @@
 [ext_resource path="res://Assets/Images/Sol/Sol_007.png" type="Texture" id=15]
 [ext_resource path="res://Assets/AnimacaoBonus.tres" type="Animation" id=16]
 [ext_resource path="res://Assets/Scripts/WindCurrents.gd" type="Script" id=17]
-[ext_resource path="res://icon0.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Images/Animations/VentoNormal/vento1005.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Scripts/StageSpawner.gd" type="Script" id=19]
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=20]
 [ext_resource path="res://Assets/Scripts/Sol.gd" type="Script" id=21]
-[ext_resource path="res://Assets/Images/AssetsEduardo/BG.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Images/Background/BG_03.jpg" type="Texture" id=22]
 [ext_resource path="res://Assets/Scripts/InGameUI.gd" type="Script" id=23]
 [ext_resource path="res://Assets/Images/Sol/Sol_008.png" type="Texture" id=24]
 [ext_resource path="res://Assets/Images/Sol/Sol_009.png" type="Texture" id=25]
@@ -34,6 +34,7 @@
 [ext_resource path="res://Assets/Images/Sol/Sol_003.png" type="Texture" id=32]
 [ext_resource path="res://Assets/Images/Sol/Sol_rastro_001.png" type="Texture" id=33]
 [ext_resource path="res://Assets/Images/UI/PausaInGameTamanhoCerto.png" type="Texture" id=34]
+[ext_resource path="res://Assets/Images/Animations/VentoNormal/vento1003.png" type="Texture" id=35]
 [ext_resource path="res://Assets/Images/UI/PAUSADOCorreto.png" type="Texture" id=36]
 [ext_resource path="res://Assets/Images/UI/VOLUMEOFFPauseInGame.png" type="Texture" id=37]
 [ext_resource path="res://Assets/Images/UI/VOLUMEONPauseInGame.png" type="Texture" id=38]
@@ -44,9 +45,13 @@
 [ext_resource path="res://Assets/Images/UI/LOCATION.png" type="Texture" id=43]
 [ext_resource path="res://Assets/Images/UI/SIDEBAR.png" type="Texture" id=44]
 [ext_resource path="res://Assets/Images/UI/DISTANCE.png" type="Texture" id=45]
-[ext_resource path="res://Assets/Images/Background/BG1_V01.png" type="Texture" id=46]
-[ext_resource path="res://Assets/Images/Background/BG1_V02.png" type="Texture" id=47]
-[ext_resource path="res://Assets/Images/Background/BG2_V01.png" type="Texture" id=48]
+[ext_resource path="res://Assets/Images/Background/BG_01.jpg" type="Texture" id=46]
+[ext_resource path="res://Assets/Images/Background/BG_04.jpg" type="Texture" id=47]
+[ext_resource path="res://Assets/Images/Background/BG_02.jpg" type="Texture" id=48]
+[ext_resource path="res://Assets/Images/Animations/VentoNormal/vento1004.png" type="Texture" id=49]
+[ext_resource path="res://Assets/Images/Animations/VentoNormal/vento1002.png" type="Texture" id=50]
+[ext_resource path="res://Assets/Images/Animations/VentoNormal/vento1001.png" type="Texture" id=51]
+[ext_resource path="res://Assets/Shaders/Outline.shader" type="Shader" id=52]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -106,115 +111,18 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="Animation" id=9]
-length = 2.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Warnings/0:self_modulate")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
-}
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 52 )
+shader_param/width = 5.0
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="Animation" id=10]
-length = 2.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Warnings/1:self_modulate")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=11]
-length = 2.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Warnings/2:self_modulate")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=12]
-length = 1.5
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 1.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "PrepareToChangeLocation"
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ ExtResource( 51 ), ExtResource( 50 ), ExtResource( 35 ), ExtResource( 49 ), ExtResource( 18 ), ExtResource( 51 ), ExtResource( 50 ), ExtResource( 35 ), ExtResource( 49 ), ExtResource( 18 ), ExtResource( 51 ), ExtResource( 50 ), ExtResource( 35 ), ExtResource( 49 ), ExtResource( 18 ), ExtResource( 51 ) ],
+"loop": false,
+"name": "default",
+"speed": 8.0
 } ]
-}
-
-[sub_resource type="Animation" id=13]
-length = 1.5
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "NextLocation"
-} ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("Parallax")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "DeployCities"
-} ]
-}
-
-[sub_resource type="Animation" id=14]
-length = 1.5
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "NameTransitionLabel"
-} ]
-}
 
 [sub_resource type="Animation" id=15]
 length = 1.55
@@ -541,9 +449,9 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="HUD/Panel/TryAgain"]
 anchor_left = 0.223261
-anchor_top = 0.257224
+anchor_top = 0.38703
 anchor_right = 0.776739
-anchor_bottom = 0.372297
+anchor_bottom = 0.502103
 custom_fonts/font = SubResource( 3 )
 text = "Voar Novamente ?"
 __meta__ = {
@@ -552,9 +460,9 @@ __meta__ = {
 
 [node name="Sair" type="TextureButton" parent="HUD/Panel/TryAgain"]
 anchor_left = 0.534059
-anchor_top = 0.568269
+anchor_top = 0.698075
 anchor_right = 0.726167
-anchor_bottom = 0.706032
+anchor_bottom = 0.835838
 margin_bottom = -3.05176e-05
 texture_normal = SubResource( 4 )
 expand = true
@@ -590,9 +498,9 @@ __meta__ = {
 
 [node name="Sim" type="TextureButton" parent="HUD/Panel/TryAgain"]
 anchor_left = 0.271189
-anchor_top = 0.568269
+anchor_top = 0.698075
 anchor_right = 0.463297
-anchor_bottom = 0.706032
+anchor_bottom = 0.835838
 margin_bottom = -3.05176e-05
 texture_normal = SubResource( 5 )
 expand = true
@@ -626,6 +534,19 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="RecordLabel" type="Label" parent="HUD/Panel/TryAgain"]
+anchor_right = 1.0
+margin_left = 81.0
+margin_top = 75.0
+margin_right = -82.0009
+margin_bottom = 127.0
+text = "Seu melhor score foi: 1000 KM "
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Parallax" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
 cameraPath = NodePath("../RigidBody2D/Camera2D2")
@@ -634,36 +555,35 @@ cameraPath = NodePath("../RigidBody2D/Camera2D2")
 
 [node name="BackgroundLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
-motion_mirroring = Vector2( 2520, 0 )
-
-[node name="BG" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
-position = Vector2( 0, -1080 )
-scale = Vector2( 1.312, 1 )
-texture = ExtResource( 22 )
-centered = false
-
-[node name="PontoPreto" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
-position = Vector2( 0, -1080 )
-texture = ExtResource( 46 )
-centered = false
-
-[node name="PontoCinza" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
-position = Vector2( 0, -1080 )
-texture = ExtResource( 47 )
-centered = false
-
-[node name="Amassado" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
-position = Vector2( 0, -1080 )
-texture = ExtResource( 48 )
-centered = false
+motion_mirroring = Vector2( 5140, 0 )
 
 [node name="ColorRect" type="ColorRect" parent="Parallax/ParallaxBackground/BackgroundLayer"]
-margin_right = 2520.0
+margin_right = 5140.0
 margin_bottom = 40.0
 color = Color( 0.152941, 0.152941, 0.152941, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="BG_01" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
+position = Vector2( 0, -1080 )
+texture = ExtResource( 46 )
+centered = false
+
+[node name="BG_02" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
+position = Vector2( 1285, -1080 )
+texture = ExtResource( 48 )
+centered = false
+
+[node name="BG_03" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
+position = Vector2( 2570, -1080 )
+texture = ExtResource( 22 )
+centered = false
+
+[node name="BG_04" type="Sprite" parent="Parallax/ParallaxBackground/BackgroundLayer"]
+position = Vector2( 3855, -1080 )
+texture = ExtResource( 47 )
+centered = false
 
 [node name="BackLayer" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 motion_scale = Vector2( 0.6, 1 )
@@ -745,26 +665,15 @@ magnitudeWeak = 300.0
 
 [node name="Warnings" type="Node2D" parent="CorrentesDeVento"]
 
-[node name="0" type="Sprite" parent="CorrentesDeVento/Warnings"]
-self_modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 18 )
+[node name="0" type="AnimatedSprite" parent="CorrentesDeVento/Warnings"]
+material = SubResource( 17 )
+scale = Vector2( 0.6, 0.6 )
+frames = SubResource( 16 )
 
-[node name="1" type="Sprite" parent="CorrentesDeVento/Warnings"]
-self_modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 18 )
-
-[node name="2" type="Sprite" parent="CorrentesDeVento/Warnings"]
-self_modulate = Color( 1, 0, 0, 1 )
-texture = ExtResource( 18 )
-
-[node name="WarningsPlayer0" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert0 = SubResource( 9 )
-
-[node name="WarningsPlayer1" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert1 = SubResource( 10 )
-
-[node name="WarningsPlayer2" type="AnimationPlayer" parent="CorrentesDeVento"]
-anims/alert2 = SubResource( 11 )
+[node name="1" type="AnimatedSprite" parent="CorrentesDeVento/Warnings"]
+material = SubResource( 17 )
+scale = Vector2( 0.6, 0.6 )
+frames = SubResource( 16 )
 
 [node name="CurrentsTween" type="Tween" parent="CorrentesDeVento"]
 playback_process_mode = 0
@@ -790,9 +699,6 @@ __meta__ = {
 
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoBonus = ExtResource( 16 )
-anims/FadeIn = SubResource( 12 )
-anims/FadeOut = SubResource( 13 )
-anims/ShowName = SubResource( 14 )
 anims/StartAnim = SubResource( 15 )
 anims/Transicao = ExtResource( 7 )
 
@@ -809,9 +715,8 @@ position = Vector2( 261.442, 204.161 )
 [connection signal="pressed" from="HUD/Panel/TryAgain/Sim" to="HUD/Panel" method="_on_Sim_pressed"]
 [connection signal="frame_changed" from="Sol/AnimatedSprite" to="Sol" method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
-[connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer0" to="CorrentesDeVento" method="_on_WarningsPlayer0_animation_finished"]
-[connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer1" to="CorrentesDeVento" method="_on_WarningsPlayer1_animation_finished"]
-[connection signal="animation_finished" from="CorrentesDeVento/WarningsPlayer2" to="CorrentesDeVento" method="_on_WarningsPlayer2_animation_finished"]
+[connection signal="animation_finished" from="CorrentesDeVento/Warnings/0" to="CorrentesDeVento" method="_on_0_animation_finished"]
+[connection signal="animation_finished" from="CorrentesDeVento/Warnings/1" to="CorrentesDeVento" method="_on_1_animation_finished"]
 [connection signal="tween_completed" from="CorrentesDeVento/CurrentsTween" to="CorrentesDeVento" method="_on_CurrentsTween_tween_completed"]
 [connection signal="animation_finished" from="ScenePlayer" to="." method="_on_ScenePlayer_animation_finished"]
 [connection signal="tween_completed" from="TransitionTween" to="." method="_on_TransitionTween_tween_completed"]

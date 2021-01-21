@@ -7,6 +7,8 @@ var audioBool : bool = true
 
 var highScore : int = 0
 
+var actualScore : int = 0
+
 var targetScene : String
 
 var hudOptions
@@ -15,6 +17,8 @@ func _init() -> void:
 	if not loadSettings():
 		saveSettings()
 	UpdateMute()
+	if not LoadScore():
+		SaveScore()
 
 func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)
@@ -25,7 +29,10 @@ func _notification(what: int) -> void:
 		get_tree().quit()
 	#ANDROID
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-		hudOptions.Pause()
+		if get_tree().current_scene.name == "StageController":
+			hudOptions.Pause()
+		else: 
+			pass
 
 func verifySave(saveResource) -> bool:
 	for v in saveVars:
@@ -68,8 +75,9 @@ func LoadScore() -> bool:
 
 func SaveScore() -> void:
 	var saveSystem : SaveSystem = gameSave.new()
-	saveSystem.AudioBool = audioBool
+	saveSystem.highScore = actualScore
 	var dir : Directory = Directory.new()
 	if not dir.dir_exists("res://Saves/"):
 		var _error : int = dir.make_dir_recursive("res://Saves/")
 	var _error : int = ResourceSaver.save("res://Saves/Save.tres", saveSystem)
+	LoadScore()

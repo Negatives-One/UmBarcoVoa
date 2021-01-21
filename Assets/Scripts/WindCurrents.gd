@@ -5,8 +5,6 @@ class_name WindCurrents
 export(NodePath) var targetPath : NodePath
 var target : Node
 
-var animationPlayer : String = "WarningsPlayer"
-
 export(NodePath) var playerPath : NodePath
 var player : Player
 
@@ -36,8 +34,6 @@ var dirCurrent : Array = [0, 0, 0]
 var selectedSpace : Array = [0, 0, 0]
 
 func _ready() -> void:
-	for i in $Warnings.get_children():
-		i.self_modulate = Color(1, 0, 0, 0)
 	screenDivisionValue = screenSize.y / screenDivisions
 	for i in range(screenDivisions):
 		openSpaces.append((i) * screenDivisionValue)
@@ -83,21 +79,14 @@ func CreateCurrent() -> void:
 	selectedSpace[int(warnings[activeWindsCurrents].name)] = openSpaces[randomSpace]
 	
 	if dirCurrent[activeWindsCurrents] == 1: 
-		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.05, -openSpaces[randomSpace] - screenDivisionValue/2)
+		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.01, -openSpaces[randomSpace] - screenDivisionValue/2)
+		warnings[activeWindsCurrents].scale.x = -0.6
 	else:
-		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.95, -openSpaces[randomSpace] - screenDivisionValue/2)
-	get_node("WarningsPlayer" + str(activeWindsCurrents)).play("alert" + str(activeWindsCurrents))
+		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.99, -openSpaces[randomSpace] - screenDivisionValue/2)
+		warnings[activeWindsCurrents].scale.x = 0.6
+	$Warnings.get_node(str(activeWindsCurrents)).play()
 	activeWindsCurrents += 1
 	openSpaces.remove(randomSpace)
-
-func _on_WarningsPlayer1_animation_finished(anim_name: String) -> void:
-	SpawnCurrent(int(anim_name[anim_name.length()-1]))
-
-func _on_WarningsPlayer2_animation_finished(anim_name: String) -> void:
-	SpawnCurrent(int(anim_name[anim_name.length()-1]))
-
-func _on_WarningsPlayer0_animation_finished(anim_name: String) -> void:
-	SpawnCurrent(int(anim_name[anim_name.length()-1]))
 
 func SpawnCurrent(animNumber : int):
 	var newCurrent : Current = current.instance()
@@ -114,9 +103,18 @@ func SpawnCurrent(animNumber : int):
 	$CurrentsTween.interpolate_property(newCurrent, "position", newCurrent.position, Vector2(screenSize.x * newCurrent.direction, newCurrent.position.y), timeToCrossScreen, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$CurrentsTween.start()
 
-
 func _on_CurrentsTween_tween_completed(object: Object, _key: NodePath) -> void:
 	var corrente : Current = object
 	openSpaces.append(corrente.currentSpace)
 	object.call_deferred("queue_free")
 	activeWindsCurrents -= 1
+
+func _on_0_animation_finished() -> void:
+	SpawnCurrent(0)
+	$Warnings.get_node("0").stop()
+	$Warnings.get_node("0").frame = 0
+
+func _on_1_animation_finished() -> void:
+	SpawnCurrent(1)
+	$Warnings.get_node("1").stop()
+	$Warnings.get_node("1").frame = 0

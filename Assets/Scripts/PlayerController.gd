@@ -118,16 +118,25 @@ func _process(_delta : float) -> void:
 		$CollisionPolygon2D.disabled = true
 		$"..".ChangeEvent($"..".events.Nothing)
 		$"../HUD/Panel/TryAgain".visible = true
+		var score : String = $"../HUD/Panel/InformationTextureRect/DistanceLabel".text
+		score.erase(score.length() - 3, 3)
+		print(score)
+		GameManager.actualScore = int(score)
+		if GameManager.actualScore > GameManager.highScore:
+			GameManager.SaveScore()
+			$"../HUD/Panel/TryAgain/RecordLabel".text = "Novo Record: " + str(GameManager.highScore)
+		else:
+			$"../HUD/Panel/TryAgain/RecordLabel".text = "Seu Record é: " + str(GameManager.highScore)
 		receivingInputs = false
 		self.sleeping = true
 		#linear_velocity = Vector2.ZERO
 		#self.sleeping = true
 		$Tween.interpolate_property(self, "global_position", self.global_position, Vector2(global_position.x, -40), 3, Tween.TRANS_QUAD, Tween.EASE_OUT)
 		$Tween.start()
-		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0.9, 2.2,Tween.TRANS_EXPO, Tween.EASE_OUT)
+		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0.9, 2.2, Tween.TRANS_EXPO, Tween.EASE_OUT)
 		$Tween.start()
 		yield(get_tree().create_timer(2.3), "timeout")
-		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, 0.7,Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, 0.7, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		$Tween.start()
 #		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
 #		MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
