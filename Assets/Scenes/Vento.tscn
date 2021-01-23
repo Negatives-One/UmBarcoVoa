@@ -33,8 +33,7 @@ scale = Vector2( 9.20927, 7.34049 )
 material = SubResource( 2 )
 scale = Vector2( -0.6, 0.6 )
 frames = ExtResource( 1 )
-frame = 3
+frame = 2
 playing = true
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_Area2D_body_exited"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

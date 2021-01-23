@@ -3,30 +3,20 @@ extends RigidBody2D
 class_name Player
 
 var receivingInputs : bool = true
+var acelerando : bool = true
  
 export(float) var VerticalAcelleration : float = 10
 export(float) var HorizontalAcelleration : float = 10
 export(float, 0, 9999) var MaxSpeed : float = 300
 
-enum States {Parado, Acelerando, Desacelerando}
-enum BoostStates {Usando, Acabou, Estavel}
-
-var boostState : int = BoostStates.Estavel
-
 export(int) var windLoopVelocity : int = 1100
-export(int, 0, 1) var windLoopVolume : int = 0.5
 
-var velocity : Vector2
 var acelleration : Vector2 = Vector2.ZERO
 
-var currentState : int
 var target : Vector2
 
-onready var Sprites = $Jangada.get_children()
-
+# warning-ignore:unused_class_variable
 onready var sfxBoost : AudioStreamPlayer = $SFX/VentoEmpurrao
-
-var prevCoef : float = 0
 
 var tempoAudio : float = 0
 
@@ -46,29 +36,19 @@ func _init() -> void:
 
 func _ready() -> void:
 	target = Vector2(global_position.x+1, -get_viewport_rect().size.y/2)
-	currentState = States.Acelerando
 	acelleration = (target - global_position).normalized()
 	acelleration.x *= HorizontalAcelleration
 	acelleration.y *= VerticalAcelleration
 	VentoLoop()
 	camera = $Camera2D2
-	currentState = States.Parado
 	var tam = get_viewport_rect().size
-	$Camera2D2.position.x = tam.x * 0.38
+	$Camera2D2.position.x = tam.x * cameraPositionRatio
 
 func _integrate_forces(state : Physics2DDirectBodyState):
 	physicsState = state
 	FSM()
 	linear_velocity = linear_velocity.normalized() * linear_velocity.length()
-	if boostState == BoostStates.Usando:
-		pass
-	elif boostState == BoostStates.Acabou:
-		linear_damp = 1.5
-		if linear_velocity.length() <= linear_velocity.clamped(MaxSpeed).length():
-			boostState = BoostStates.Estavel
-			linear_damp = -1
-	else:
-		linear_velocity = linear_velocity.clamped(MaxSpeed)
+	linear_velocity = linear_velocity.clamped(MaxSpeed)
 	if !lose:
 		set_applied_force(acelleration + state.total_gravity)
 
@@ -83,17 +63,12 @@ func _unhandled_input(event : InputEvent) -> void:
 	if receivingInputs:
 		if event is InputEventMouseButton:
 			if event.pressed and event.button_index == BUTTON_LEFT:
-				currentState = States.Acelerando
-			elif event.is_action_released("LClick"):
-				currentState = States.Desacelerando
-			else:
-				pass
+				acelerando = true
 			if event.pressed and event.button_index == BUTTON_RIGHT:
 				apply_central_impulse(Vector2(1,0)*5000)
 
 func _process(_delta : float) -> void:
-# warning-ignore:integer_division
-	var coeficienteDaVela = windLoopVelocity / 3
+	var coeficienteDaVela : float = float(windLoopVelocity) / 3
 	if linear_velocity.x / coeficienteDaVela <= 1:
 		$Jangada/AnimatedSprite.frame = 0
 	elif linear_velocity.x / coeficienteDaVela <= 2:
@@ -115,34 +90,37 @@ func _process(_delta : float) -> void:
 #	$CollisionPolygon2D.rotation = linear_velocity.normalized().angle()
 	if(linear_velocity.x < 100) and !lose:
 		lose = true
-		$CollisionPolygon2D.disabled = true
-		$"..".ChangeEvent($"..".events.Nothing)
-		$"../HUD/Panel/TryAgain".visible = true
-		var score : String = $"../HUD/Panel/InformationTextureRect/DistanceLabel".text
-		score.erase(score.length() - 3, 3)
-		print(score)
-		GameManager.actualScore = int(score)
-		if GameManager.actualScore > GameManager.highScore:
-			GameManager.SaveScore()
-			$"../HUD/Panel/TryAgain/RecordLabel".text = "Novo Record: " + str(GameManager.highScore)
-		else:
-			$"../HUD/Panel/TryAgain/RecordLabel".text = "Seu Record é: " + str(GameManager.highScore)
-		receivingInputs = false
-		self.sleeping = true
-		#linear_velocity = Vector2.ZERO
-		#self.sleeping = true
-		$Tween.interpolate_property(self, "global_position", self.global_position, Vector2(global_position.x, -40), 3, Tween.TRANS_QUAD, Tween.EASE_OUT)
-		$Tween.start()
-		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0.9, 2.2, Tween.TRANS_EXPO, Tween.EASE_OUT)
-		$Tween.start()
-		yield(get_tree().create_timer(2.3), "timeout")
-		$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, 0.7, Tween.TRANS_LINEAR, Tween.EASE_IN)
-		$Tween.start()
-#		var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
-#		MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
+		Lose()
+
+func Lose() -> void:
+	$"..".ChangeEvent($"..".events.Nothing)
+	MusicController.LoseSound()
+	$CollisionPolygon2D.disabled = true
+	$"../HUD/Panel/TryAgain".visible = true
+	$"../HUD/Panel/PauseTextureButton".visible = false
+	var score : String = $"../HUD/Panel/InformationTextureRect/DistanceLabel".text
+	score.erase(score.length() - 3, 3)
+	print(score)
+	GameManager.actualScore = int(score)
+	if GameManager.actualScore > GameManager.highScore:
+		GameManager.SaveScore()
+		$"../HUD/Panel/TryAgain/RecordLabel".text = "Novo Record: " + str(GameManager.highScore)
+	else:
+		$"../HUD/Panel/TryAgain/RecordLabel".text = "Seu Record é: " + str(GameManager.highScore)
+	receivingInputs = false
+	self.sleeping = true
+	#linear_velocity = Vector2.ZERO
+	#self.sleeping = true
+	$Tween.interpolate_property(self, "global_position", self.global_position, Vector2(global_position.x, -40), 3, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	$Tween.start()
+	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0.9, 2.2, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Tween.start()
+	yield(get_tree().create_timer(2.3), "timeout")
+	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, 0.7, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
 
 func FSM() -> void:
-	if(currentState == States.Acelerando):
+	if acelerando:
 		linear_damp = -1
 		target = get_global_mouse_position()
 #		var verticalDiference : float = (get_viewport_rect().size.y * 1.2) - get_viewport_rect().size.y
@@ -151,17 +129,9 @@ func FSM() -> void:
 		acelleration = (target - global_position).normalized()
 		acelleration.x *= HorizontalAcelleration
 		acelleration.y *= VerticalAcelleration
-		
-	elif(currentState == States.Desacelerando):
-		acelleration = Vector2.ZERO
-		linear_damp = 1.5
-		if linear_velocity.length() < 10:
-			linear_velocity = linear_velocity.normalized() / 10
-			currentState = States.Parado
-			linear_damp = -1
-		
 	else:
-		pass
+		acelleration = Vector2.ZERO
+		linear_damp = -1
 
 func ApplyImpulse(Impulse : Vector2):
 	physicsState.apply_central_impulse(Impulse)
@@ -182,17 +152,15 @@ func VentoLoop() -> void:
 	if linear_velocity.x > windLoopVelocity:
 		velocityX = windLoopVelocity
 	var volumePercentageWind : float = velocityX / windLoopVelocity
-	$SFX/VentoLoop.volume_db = linear2db(volumePercentageWind )
+	$SFX/VentoLoop.volume_db = linear2db(abs(volumePercentageWind))
 
 func RuidoBarco() -> void:
 	if is_angle_between(minAngle, rad2deg(linear_velocity.normalized().angle()), maxAngle):
 		if $SFX/BarcoRuido.playing:
-			#$Tween.interpolate_property($SFX/BarcoRuido, "volume_db", 0, -80, 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN)
 			$SFX/BarcoRuido.stop()
 			tempoAudio = $SFX/BarcoRuido.get_playback_position()
 	else:
 		if !$SFX/BarcoRuido.playing:
-			#$Tween.interpolate_property($SFX/BarcoRuido, "volume_db", -80, 0, 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN)
 			$SFX/BarcoRuido.play(tempoAudio)
 
 func is_angle_between(alpha : float, theta : float, beta : float) -> bool:

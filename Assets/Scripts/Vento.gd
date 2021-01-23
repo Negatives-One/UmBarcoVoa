@@ -51,16 +51,9 @@ func SetDirection(angulo : float) -> void:
 func _on_Area2D_body_entered(body : RigidBody2D):
 	if body.is_in_group("Player"):
 		player = body
-		player.boostState = player.BoostStates.Usando
 		if !played:
 			player.VentoEmpurrao()
 		played = true
-
-
-func _on_Area2D_body_exited(body):
-	if body.is_in_group("Player"):
-		player.boostState = player.BoostStates.Acabou
-
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()

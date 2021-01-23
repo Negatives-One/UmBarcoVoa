@@ -36,11 +36,14 @@ func _ready() -> void:
 	$VisibilityNotifier2D.rect = Rect2(-($Sprite.texture.get_size().x/2), -($Sprite.texture.get_size().y/2), $Sprite.texture.get_size().x, $Sprite.texture.get_size().y)
 
 func _on_Area2D_body_entered(body) -> void:
-	if body.is_in_group("Player"):
+	if body is Player:
 		player = body
 		player.physicsState.apply_central_impulse(NerfVelocity())
 		var camera : MyCamera = player.camera
-		body.Batida()
+		if $Sprite.visible:
+			player.Batida()
+		else:
+			player.VentoEmpurrao()
 		camera.shake(1, (currentSize+1)*10, (currentSize+1)*10)
 		call_deferred("queue_free")
 

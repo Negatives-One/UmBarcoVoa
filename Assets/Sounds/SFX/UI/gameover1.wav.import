@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gameover1.wav-04c0f8d31e0ef51feee73fe4b28d010e.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/SFX/UI/gameover1.wav"
+dest_files=[ "res://.import/gameover1.wav-04c0f8d31e0ef51feee73fe4b28d010e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

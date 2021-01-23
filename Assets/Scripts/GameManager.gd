@@ -41,19 +41,19 @@ func verifySave(saveResource) -> bool:
 	return true
 
 func saveSettings() -> void:
-	var saveSystem : SaveSystem = gameSave.new()
+	var saveSystem : SaveSystem = load(ProjectSettings.globalize_path("res://Saves/SaveGame.gd")).new()
 	saveSystem.AudioBool = audioBool
 	var dir : Directory = Directory.new()
 	if not dir.dir_exists("res://Saves/"):
-		var _error : int = dir.make_dir_recursive("res://Saves/")
-	var _error : int = ResourceSaver.save("res://Saves/Save.tres", saveSystem)
+		var _error : int = dir.make_dir_recursive(ProjectSettings.globalize_path("res://Saves/"))
+	var _error : int = ResourceSaver.save(ProjectSettings.globalize_path("res://Saves/Save.res"), saveSystem)
 
 func loadSettings() -> bool:
 	var dir : Directory = Directory.new()
-	if not dir.file_exists("res://Saves/Save.tres"):
+	if not dir.file_exists(ProjectSettings.globalize_path("res://Saves/Save.res")):
 		return false
 	
-	var saveResource = load("res://Saves/Save.tres")
+	var saveResource = load(ProjectSettings.globalize_path("res://Saves/Save.res"))
 	if not verifySave(saveResource):
 		return false
 	audioBool = saveResource.AudioBool
@@ -64,10 +64,10 @@ func UpdateMute() -> void:
 
 func LoadScore() -> bool:
 	var dir : Directory = Directory.new()
-	if not dir.file_exists("res://Saves/Save.tres"):
+	if not dir.file_exists(ProjectSettings.globalize_path("res://Saves/Save.res")):
 		return false
 	
-	var saveResource = load("res://Saves/Save.tres")
+	var saveResource = load(ProjectSettings.globalize_path("res://Saves/Save.res"))
 	if not verifySave(saveResource):
 		return false
 	highScore = saveResource.highScore
@@ -77,7 +77,7 @@ func SaveScore() -> void:
 	var saveSystem : SaveSystem = gameSave.new()
 	saveSystem.highScore = actualScore
 	var dir : Directory = Directory.new()
-	if not dir.dir_exists("res://Saves/"):
-		var _error : int = dir.make_dir_recursive("res://Saves/")
-	var _error : int = ResourceSaver.save("res://Saves/Save.tres", saveSystem)
+	if not dir.dir_exists(ProjectSettings.globalize_path("res://Saves/")):
+		var _error : int = dir.make_dir_recursive(ProjectSettings.globalize_path("res://Saves/"))
+	var _error : int = ResourceSaver.save(ProjectSettings.globalize_path("res://Saves/Save.res"), saveSystem)
 	LoadScore()
