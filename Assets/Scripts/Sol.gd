@@ -47,27 +47,20 @@ func CreateShot() -> void:
 	lastShot.global_position = self.global_position
 	lastShot.currentSize = lastShot.Size.Medio
 	lastShot.SetSkin("res://Assets/Images/Animations/VentoQuente/VentoQuente.tres", dir.normalized().angle(), Vector2(-0.5, 0.5))
-	SetShader(lastShot.get_node("AnimatedSprite"))
 
 func Enable() -> void:
 	$Timer.start(randi() % maxWaitTime + minWaitTime)
 
 func Disable() -> void:
-#	for i in shots:
-#		if is_instance_valid(i):
-#			i.queue_free()
+	for i in shots:
+		if is_instance_valid(i):
+			i.queue_free()
 	shots.clear()
 	directions.clear()
 	$Timer.stop()
+	$Timer.wait_time = randi() % maxWaitTime + minWaitTime
 
 
 func _on_AnimatedSprite_frame_changed():
 	if $AnimatedSprite.frame == 5:
 		CreateShot()
-
-func SetShader(alvo : AnimatedSprite) -> void:
-	var shaderMaterial : ShaderMaterial = ShaderMaterial.new()
-	shaderMaterial.shader = load("res://Assets/Shaders/Outline.shader")
-	shaderMaterial.set_shader_param("width", 5)
-	shaderMaterial.set_shader_param("outline_color", Color(1, 1, 1, 1))
-	alvo.material = shaderMaterial

@@ -18,7 +18,10 @@ export(float) var timeBetweenSpawns : float = 3.0
 
 export(float) var timeToCrossScreen : float = 4.0
 
-export(float) var magnitude : float = 450.0
+export(float) var magnitudeStrong : float = 300.0
+export(float) var durationStrong : float = 1.0
+export(float) var magnitudeWeak : float = 150.0
+export(float) var durationWeak : float = 1.0
 
 var activeWindsCurrents : int = 0
 
@@ -91,7 +94,10 @@ func SpawnCurrent(animNumber : int):
 	newCurrent.currentSpace = selectedSpace[animNumber]#int(anim_name[anim_name.length()-1])]
 	newCurrent.currentController = self
 	newCurrent.player = self.player
+	newCurrent.isStrong = true
 	self.call_deferred('add_child', newCurrent)
+	if randi() % 2:
+		newCurrent.isStrong = false
 	#newCurrent.global_position = Vector2(global_position.x + (screenSize.x * -newCurrent.direction), -selectedSpace[animNumber])
 	newCurrent.position = Vector2(screenSize.x * -newCurrent.direction, -selectedSpace[animNumber])
 	$CurrentsTween.interpolate_property(newCurrent, "position", newCurrent.position, Vector2(screenSize.x * newCurrent.direction, newCurrent.position.y), timeToCrossScreen, Tween.TRANS_LINEAR, Tween.EASE_IN)

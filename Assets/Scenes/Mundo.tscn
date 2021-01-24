@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -103,12 +103,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=7]
 
-[sub_resource type="ShaderMaterial" id=8]
-shader = ExtResource( 52 )
-shader_param/width = null
-shader_param/outline_color = null
-
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 27 ), ExtResource( 26 ), ExtResource( 28 ), ExtResource( 15 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 29 ) ],
 "loop": false,
@@ -116,12 +111,12 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=10]
+[sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 52 )
 shader_param/width = 5.0
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=16]
 animations = [ {
 "frames": [ ExtResource( 51 ), ExtResource( 50 ), ExtResource( 35 ), ExtResource( 49 ), ExtResource( 18 ), ExtResource( 51 ), ExtResource( 50 ), ExtResource( 35 ), ExtResource( 49 ), ExtResource( 18 ), ExtResource( 51 ), ExtResource( 50 ), ExtResource( 35 ), ExtResource( 49 ), ExtResource( 18 ), ExtResource( 51 ) ],
 "loop": false,
@@ -129,7 +124,7 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=15]
 length = 1.55
 step = 0.05
 tracks/0/type = "value"
@@ -453,14 +448,12 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="HUD/Panel/TryAgain"]
-anchor_left = 0.224299
-anchor_top = 0.387358
-anchor_right = 0.777777
-anchor_bottom = 0.502431
+anchor_left = 0.223261
+anchor_top = 0.38703
+anchor_right = 0.776739
+anchor_bottom = 0.502103
 custom_fonts/font = SubResource( 3 )
 text = "Voar Novamente ?"
-align = 1
-valign = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -542,15 +535,16 @@ __meta__ = {
 }
 
 [node name="RecordLabel" type="Label" parent="HUD/Panel/TryAgain"]
-anchor_left = 0.0841121
-anchor_top = 0.121556
-anchor_right = 0.914849
-anchor_bottom = 0.205835
+anchor_right = 1.0
+margin_left = 81.0
+margin_top = 75.0
+margin_right = -82.0009
+margin_bottom = 127.0
 text = "Seu melhor score foi: 1000 KM "
 align = 1
 valign = 1
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
 [node name="Parallax" type="CanvasLayer" parent="."]
@@ -630,7 +624,7 @@ motion_scale = Vector2( 0.75, 1 )
 motion_scale = Vector2( 0.9, 1 )
 
 [node name="Node2D" parent="Parallax" instance=ExtResource( 8 )]
-position = Vector2( 4865, 540 )
+position = Vector2( -2945, 540 )
 
 [node name="SunPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
@@ -643,7 +637,6 @@ anims/AnimacaoSolGame = SubResource( 6 )
 z_index = 4
 
 [node name="Sol" type="Sprite" parent="."]
-material = SubResource( 8 )
 position = Vector2( -699.573, -349.739 )
 rotation = 0.10359
 scale = Vector2( 1.0681, 1.0681 )
@@ -651,12 +644,11 @@ texture = ExtResource( 33 )
 script = ExtResource( 21 )
 maxWaitTime = 5
 minWaitTime = 3
-shotSpeed = 300.0
 playerPath = NodePath("../RigidBody2D")
 targetPath = NodePath("../RigidBody2D/Camera2D2")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sol"]
-frames = SubResource( 9 )
+frames = SubResource( 8 )
 frame = 9
 playing = true
 
@@ -668,18 +660,20 @@ targetPath = NodePath("../RigidBody2D/Camera2D2")
 playerPath = NodePath("../RigidBody2D")
 screenDivisions = 3
 timeBetweenSpawns = 7.0
+magnitudeStrong = 600.0
+magnitudeWeak = 300.0
 
 [node name="Warnings" type="Node2D" parent="CorrentesDeVento"]
 
 [node name="0" type="AnimatedSprite" parent="CorrentesDeVento/Warnings"]
-material = SubResource( 10 )
+material = SubResource( 17 )
 scale = Vector2( 0.6, 0.6 )
-frames = SubResource( 11 )
+frames = SubResource( 16 )
 
 [node name="1" type="AnimatedSprite" parent="CorrentesDeVento/Warnings"]
-material = SubResource( 10 )
+material = SubResource( 17 )
 scale = Vector2( 0.6, 0.6 )
-frames = SubResource( 11 )
+frames = SubResource( 16 )
 
 [node name="CurrentsTween" type="Tween" parent="CorrentesDeVento"]
 playback_process_mode = 0
@@ -687,6 +681,8 @@ playback_process_mode = 0
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -540 )
 z_index = 6
+gravity_scale = 1.0
+contact_monitor = true
 VerticalAcelleration = 900.0
 HorizontalAcelleration = 400.0
 MaxSpeed = 9999.0
@@ -703,7 +699,7 @@ __meta__ = {
 
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoBonus = ExtResource( 16 )
-anims/StartAnim = SubResource( 12 )
+anims/StartAnim = SubResource( 15 )
 anims/Transicao = ExtResource( 7 )
 
 [node name="BonuStage" parent="." instance=ExtResource( 9 )]
@@ -722,4 +718,5 @@ position = Vector2( 261.442, 204.161 )
 [connection signal="animation_finished" from="CorrentesDeVento/Warnings/0" to="CorrentesDeVento" method="_on_0_animation_finished"]
 [connection signal="animation_finished" from="CorrentesDeVento/Warnings/1" to="CorrentesDeVento" method="_on_1_animation_finished"]
 [connection signal="tween_completed" from="CorrentesDeVento/CurrentsTween" to="CorrentesDeVento" method="_on_CurrentsTween_tween_completed"]
+[connection signal="animation_finished" from="ScenePlayer" to="." method="_on_ScenePlayer_animation_finished"]
 [connection signal="tween_completed" from="TransitionTween" to="." method="_on_TransitionTween_tween_completed"]

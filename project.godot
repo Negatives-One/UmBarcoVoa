@@ -83,10 +83,6 @@ config/icon="res://icon0.png"
 MusicController="*res://Assets/Scenes/MusicController.tscn"
 GameManager="*res://Assets/Scenes/GameManager.tscn"
 
-[debug]
-
-gdscript/completion/autocomplete_setters_and_getters=true
-
 [display]
 
 window/size/width=1920

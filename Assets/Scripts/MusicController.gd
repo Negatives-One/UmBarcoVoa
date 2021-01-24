@@ -2,17 +2,12 @@ extends Node
 
 var musicas : Array = ["res://Assets/Sounds/CearaLoop.ogg", "res://Assets/Sounds/PernambucoLoop.ogg", "res://Assets/Sounds/BahiaLoop.ogg", "res://Assets/Sounds/MainMenuLoop.ogg"]
 
-# warning-ignore:unused_class_variable
 var stageController : StageController
 
-# warning-ignore:unused_class_variable
 onready var ambienciaMar : AudioStreamPlayer = $AmbienciaMar
-# warning-ignore:unused_class_variable
 onready var current : AudioStreamPlayer = $Current
-# warning-ignore:unused_class_variable
 onready var next : AudioStreamPlayer = $Next
 
-# warning-ignore:unused_class_variable
 var menu : Menu
 
 var loadingScene
@@ -40,7 +35,6 @@ func Reset() -> void:
 	$Current.stream = load(musicas[MusicsNumber.Menu])
 	$AmbienciaMar.play()
 	$Current.play()
-	$Current.volume_db = 0
 	$Next.stream = load(musicas[MusicsNumber.Ceara])
 
 func MenuGameTransition() -> void:
@@ -66,11 +60,11 @@ func ChangeMusic(music : int) -> void:
 	else:
 		$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut)
 
-func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween) -> void:
+func fadeOut(streamPlayer : AudioStreamPlayer, tween : Tween):
 	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
 	var _startBool : bool = tween.start()
 
-func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween) -> void:
+func fadeIn(streamPlayer : AudioStreamPlayer, tween : Tween):
 	streamPlayer.play()
 	var _interpolateBool : bool = tween.interpolate_property(streamPlayer, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn, 0)
 	var _startBool : bool = tween.start()
@@ -83,11 +77,8 @@ func _on_TweenNext_tween_completed(_object: Object, _key: NodePath) -> void:
 	if $Next.volume_db < -79:
 		$Next.stop()#playing = false
 
-func PlaySound() -> void:
+func PlaySound():
 	$PlaySound.play()
-
-func LoseSound() -> void:
-	$LoseSound.play()
 
 func ButtonSound() -> void:
 	$Buttons.play()
@@ -96,5 +87,5 @@ func _on_PlaySound_finished() -> void:
 	loadingScene.go = true
 
 func Mute() -> void:
-	$TweenCurrent.interpolate_property($Current, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
-	$TweenNext.interpolate_property($Next, "volume_db",  0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
+	$TweenCurrent.interpolate_property($Current, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
+	$TweenNext.interpolate_property($Next, "volume_db", GameManager.soundMaster, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
