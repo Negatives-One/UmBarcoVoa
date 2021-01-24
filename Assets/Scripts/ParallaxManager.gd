@@ -39,7 +39,7 @@ func _ready() -> void:
 		DeployHouses(camera)
 
 func _process(_delta: float) -> void:
-	#DeployHouses(camera)
+	DeployHouses(camera)
 	for i in $ParallaxBackground/FrontLayer.get_children():
 		if i.position.x / $ParallaxBackground/FrontLayer.motion_scale.x + 500 < camera.global_position.x - $"../StageSpawner".screenSize.x /2:
 			i.queue_free()
