@@ -15,16 +15,6 @@ func _on_OptionsButton_pressed() -> void:
 	print(db2linear(GameManager.soundMaster))
 	$OptionsPanel.visible = true
 
-
-func _on_ApplyOptions_pressed() -> void:
-	$OptionsPanel.visible = false
-	GameManager.saveSettings()
-
-
-func _on_HSlider_value_changed(_value: float) -> void:
-	GameManager.SetVolume(linear2db($"OptionsPanel/ColorRect3/HSlider".value))
-
-
 func _on_MuteUnmute_toggled(button_pressed: bool) -> void:
 	GameManager.audioBool = button_pressed
 	GameManager.saveSettings()
@@ -35,8 +25,13 @@ func _on_MuteUnmute_toggled(button_pressed: bool) -> void:
 func _on_PlayTextureButton_pressed() -> void:
 	MusicController.PlaySound()
 	MusicController.MenuGameTransition()
-	GameManager.targetScene = "res://Assets/Scenes/Mundo.tscn"
-	var _error : int = get_tree().change_scene(loadScene)
+	var loading : Loading = load(loadScene).instance()
+	loading.SetTargetScene("res://Assets/Scenes/Mundo.tscn", false)
+	$Tween.interpolate_property(loading, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN, 0)
+	$Tween.start()
+	$Tween.interpolate_property($Panel, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 0)
+	$Tween.start()
+	self.add_child(loading)
 
 func _on_SairTextureButton_pressed() -> void:
 	MusicController.ButtonSound()

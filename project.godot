@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://Assets/Scripts/Current.gd"
 }, {
 "base": "Control",
+"class": "Loading",
+"language": "GDScript",
+"path": "res://Assets/Scripts/Loading.gd"
+}, {
+"base": "Control",
 "class": "Menu",
 "language": "GDScript",
 "path": "res://Assets/Scripts/Menu.gd"
@@ -61,6 +66,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Current": "",
+"Loading": "",
 "Menu": "",
 "MyCamera": "",
 "Obstacle": "",
