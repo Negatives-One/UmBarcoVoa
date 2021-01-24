@@ -15,7 +15,9 @@ var previousEvent : int = events.Nothing
 var totalDistance : int = 0
 export(int) var distancePerRegion : int = 50000
 
+# warning-ignore:unused_class_variable
 export onready var MaxHeight : int = -ProjectSettings.get_setting("display/window/size/height")
+# warning-ignore:unused_class_variable
 export(float) var MinHeight : int = 0
 
 export(float) var minTimeToChangeEvent : float = 7
@@ -185,11 +187,6 @@ func NameTransitionLabel() -> void:
 func RandomStart() -> void:
 	randomize()
 	ChangeEvent(randi() % 2 + 1)
-
-
-func _on_ScenePlayer_animation_finished(anim_name: String) -> void:
-	print(anim_name)
-
 
 func _on_TransitionTween_tween_completed(object, _key):
 	if object == MusicController.ambienciaMar and MusicController.ambienciaMar.volume_db < -79:

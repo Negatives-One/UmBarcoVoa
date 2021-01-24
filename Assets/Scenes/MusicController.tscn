@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Scripts/MusicController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sounds/SFX/UI/ambienciamar.ogg" type="AudioStream" id=2]
 [ext_resource path="res://Assets/Sounds/SFX/UI/jogar.wav" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Sounds/SFX/UI/menu.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Sounds/SFX/UI/gameover1.wav" type="AudioStream" id=5]
 
 [node name="Node" type="Node"]
 pause_mode = 2
@@ -35,6 +36,10 @@ bus = "SFX"
 [node name="Buttons" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 bus = "SFX"
+
+[node name="LoseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "SFXImpact"
 [connection signal="tween_completed" from="TweenCurrent" to="." method="_on_TweenCurrent_tween_completed"]
 [connection signal="tween_completed" from="TweenNext" to="." method="_on_TweenNext_tween_completed"]
 [connection signal="finished" from="PlaySound" to="." method="_on_PlaySound_finished"]
