@@ -15,7 +15,7 @@ var direction : int = 0
 var isStrong : bool = false
 
 func _ready() -> void:
-	$AnimatedSprite.scale.x = (get_viewport_rect().size.x / 2560) * direction
+	$AnimatedSprite.scale.x = -(get_viewport_rect().size.x / 2560) * direction
 	$AnimatedSprite.scale.y = -(get_parent().screenDivisionValue / 360)
 	$AnimatedSprite.position = Vector2((get_viewport_rect().size.x /2), -(((get_parent().screenDivisionValue / 360) * 360) / 2))
 	gravity_vec = Vector2(direction, 0)

@@ -20,9 +20,9 @@ func _process(_delta: float) -> void:
 		#var mundo = loading.get_resource().instance()
 		#$"/root".add_child(mundo)
 		if targetScene == "res://Assets/Scenes/Mundo.tscn":
-			MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
 			MusicController.get_node("Current").volume_db = -80
 			MusicController.get_node("Next").volume_db = -80
+			MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
 		else:
 			MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
 		set_process(false)

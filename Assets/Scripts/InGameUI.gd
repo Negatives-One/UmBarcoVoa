@@ -4,7 +4,7 @@ var isIn : bool
 
 func _ready() -> void:
 	GameManager.hudOptions = self
-	$Panel/MuteTextureButton.pressed = GameManager.audioBool
+	$Panel/MuteTextureButton.pressed = GameManager.readData("mute", false)
 	var _error : int = $Panel/MuteTextureButton.connect("toggled", self, "_on_MuteTextureButton_toggled")
 
 func _unhandled_input(event):
@@ -24,7 +24,11 @@ func _on_MenuTextureButton_pressed() -> void:
 
 func _on_RecomecarTextureButton_pressed() -> void:
 	MusicController.ButtonSound()
-	MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
+	if MusicController.get_node("Current").playing:
+		MusicController.fadeOut(MusicController.get_node("Current"), MusicController.get_node("TweenCurrent"))
+	else:
+		MusicController.fadeOut(MusicController.get_node("Next"), MusicController.get_node("TweenNext"))
+	#MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
 	var loading : Loading = load("res://Assets/Scenes/Loading.tscn").instance()
 	loading.SetTargetScene("res://Assets/Scenes/Mundo.tscn", false)
 	$PanelTween.interpolate_property(loading, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN, 0)
@@ -32,10 +36,10 @@ func _on_RecomecarTextureButton_pressed() -> void:
 	self.add_child(loading)
 
 func _on_MuteTextureButton_toggled(button_pressed: bool) -> void:
-	GameManager.audioBool = button_pressed
-	GameManager.saveSettings()
-	AudioServer.set_bus_mute(0, GameManager.audioBool)
+	GameManager.saveData({"mute" : button_pressed})
+	GameManager.onlySaveData(true)
 	MusicController.ButtonSound()
+	AudioServer.set_bus_mute(0, GameManager.readData("mute", false))
 
 
 func _on_PauseTextureButton_pressed() -> void:
@@ -59,21 +63,32 @@ func _on_Panel_mouse_entered() -> void:
 
 
 func _on_Sair_pressed() -> void:
-	var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
-	MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
+#	var _error : int = get_tree().change_scene("res://Assets/Scenes/Menu.tscn")
+#	MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
+#	MusicController.ButtonSound()
 	MusicController.ButtonSound()
-
+	var loading : Loading = load("res://Assets/Scenes/Loading.tscn").instance()
+	loading.SetTargetScene("res://Assets/Scenes/Menu.tscn", false)
+	$PanelTween.interpolate_property(loading, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN, 0)
+	$PanelTween.start()
+	self.add_child(loading)
 
 func _on_Sim_pressed() -> void:
 	MusicController.PlaySound()
-	MusicController.current.stop()
-	MusicController.next.stop()
-	GameManager.targetScene = "res://Assets/Scenes/Mundo.tscn"
-	var _error : int = get_tree().change_scene("res://Assets/Scenes/Loading.tscn")
-	#MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
+	MusicController.current.volume_db = -80
+	MusicController.next.volume_db = -80
+#	GameManager.targetScene = "res://Assets/Scenes/Mundo.tscn"
+#	var _error : int = get_tree().change_scene("res://Assets/Scenes/Loading.tscn")
+#	#MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
+	MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
+	var loading : Loading = load("res://Assets/Scenes/Loading.tscn").instance()
+	loading.SetTargetScene("res://Assets/Scenes/Mundo.tscn", false)
+	$PanelTween.interpolate_property(loading, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN, 0)
+	$PanelTween.start()
+	self.add_child(loading)
 
 
-func _on_PanelTween_tween_completed(object: Object, key: NodePath) -> void:
+func _on_PanelTween_tween_completed(object: Object, _key: NodePath) -> void:
 	if object is Loading:
 		object.go = true
 		get_tree().set_pause(false)

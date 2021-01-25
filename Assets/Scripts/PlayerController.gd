@@ -65,7 +65,7 @@ func _unhandled_input(event : InputEvent) -> void:
 			if event.pressed and event.button_index == BUTTON_LEFT:
 				acelerando = true
 			if event.pressed and event.button_index == BUTTON_RIGHT:
-				apply_central_impulse(Vector2(1,0)*5000)
+				apply_central_impulse(Vector2(-1, 0) * 5000)
 
 func _process(_delta : float) -> void:
 	var coeficienteDaVela : float = float(windLoopVelocity) / 3
@@ -100,13 +100,12 @@ func Lose() -> void:
 	$"../HUD/Panel/PauseTextureButton".visible = false
 	var score : String = $"../HUD/Panel/InformationTextureRect/DistanceLabel".text
 	score.erase(score.length() - 3, 3)
-	print(score)
-	GameManager.actualScore = int(score)
-	if GameManager.actualScore > GameManager.highScore:
-		GameManager.SaveScore()
-		$"../HUD/Panel/TryAgain/RecordLabel".text = "Novo Record: " + str(GameManager.highScore)
+	if int(GameManager.readData("highScore", 0)) < int(score):
+		GameManager.saveData({"highScore" : score})
+		$"../HUD/Panel/TryAgain/RecordLabel".text = "Novo Record: " + str(GameManager.readData("highScore", 0)) + " KM"
 	else:
-		$"../HUD/Panel/TryAgain/RecordLabel".text = "Seu Record é: " + str(GameManager.highScore)
+		$"../HUD/Panel/TryAgain/RecordLabel".text = "Não foi dessa vez, Seu Record é: " + str(GameManager.readData("highScore", 0)) + " KM"
+	GameManager.onlySaveData(true)
 	receivingInputs = false
 	self.sleeping = true
 	#linear_velocity = Vector2.ZERO

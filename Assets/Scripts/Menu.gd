@@ -6,20 +6,15 @@ var loadScene : String = "res://Assets/Scenes/Loading.tscn"
 
 
 func _ready() -> void:
-	$Panel/MuteUnmute.pressed = GameManager.audioBool
+	$Panel/MuteUnmute.pressed = GameManager.readData("mute", false)
 	var _error : int = $Panel/MuteUnmute.connect("toggled", self, "_on_MuteUnmute_toggled")
 	MusicController.menu = self
 
-func _on_OptionsButton_pressed() -> void:
-	$"OptionsPanel/ColorRect3/HSlider".value = db2linear(GameManager.soundMaster)
-	print(db2linear(GameManager.soundMaster))
-	$OptionsPanel.visible = true
-
 func _on_MuteUnmute_toggled(button_pressed: bool) -> void:
-	GameManager.audioBool = button_pressed
-	GameManager.saveSettings()
+	GameManager.saveData({"mute" : button_pressed})
+	GameManager.onlySaveData(true)
 	MusicController.ButtonSound()
-	AudioServer.set_bus_mute(0, GameManager.audioBool)
+	AudioServer.set_bus_mute(0, GameManager.readData("mute", false))
 
 
 func _on_PlayTextureButton_pressed() -> void:

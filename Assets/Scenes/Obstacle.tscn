@@ -1,69 +1,91 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Scripts/Obstacle.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/urubu/urubu01.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/urubu/urubu02.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/urubu/urubu03.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/urubu/urubu04.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/urubu/urubu05.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pombo/pombo02.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pombo/pombo03.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pombo/pombo04.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pombo/pombo05.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pombo/pombo06.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/urubu/urubu06.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pipa/pipa01.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pipa/pipa02.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pipa/pipa03.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pombo/pombo01.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pipa/pipa04.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pipa/pipa06.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/coruja/coruja04.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/coruja/coruja03.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/coruja/coruja02.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/pipa/pipa05.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/coruja/coruja01.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/coruja/coruja05.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Verlet/Verlet.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Assets/Images/Animations/Obstaculos/coruja/coruja06.png" type="Texture" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
 
-[sub_resource type="Animation" id=2]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("CollisionShape2D:shape:extents")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 32, 32 ) ]
-}
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "urubu",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 22 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "pipa",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "pombo",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 24 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "coruja",
+"speed": 8.0
+} ]
 
-[sub_resource type="Animation" id=3]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("CollisionShape2D:shape:extents")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 48, 48 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-tracks/0/type = "value"
-tracks/0/path = NodePath("CollisionShape2D:shape:extents")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 64, 64 ) ]
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array(  )
 }
 
 [node name="Area2D" type="Area2D"]
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+rect = Rect2( -150, -50, 300, 100 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/CollSize0 = SubResource( 2 )
-anims/CollSize1 = SubResource( 3 )
-anims/CollSize2 = SubResource( 4 )
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 0, 0, 0, 1080 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-playing = true
+scale = Vector2( 0.8, 0.8 )
+frames = SubResource( 2 )
+animation = "pipa"
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( -400, 1080 )
+
+[node name="String" parent="." instance=ExtResource( 25 )]
+visible = false
+constrain = 20.0
+firstPointNode = NodePath("../AnimatedSprite")
+secondPointNode = NodePath("../Position2D")
+curva = SubResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

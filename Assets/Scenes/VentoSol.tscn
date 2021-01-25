@@ -1,0 +1,42 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Assets/Shaders/Outline.shader" type="Shader" id=1]
+[ext_resource path="res://Assets/Scripts/VentoSol.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_003.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_001.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_004.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_005.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/Animations/VentoQuente/vento_quentes_002.png" type="Texture" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50, 40 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/width = 5.0
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 2 )
+scale = Vector2( -0.5, 0.5 )
+frames = SubResource( 3 )
+frame = 4
+playing = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+rect = Rect2( -100, -25, 200, 50 )
+[connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]

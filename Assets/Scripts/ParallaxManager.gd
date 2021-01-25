@@ -13,7 +13,7 @@ export(float) var maxDistanceHouses : float = 800
 var start = 0
 
 
-var Ceara : Array = [["res://Assets/Images/Ceara/Fortaleza/Catedral.png", "res://Assets/Images/Ceara/Fortaleza/Iracema.png", "res://Assets/Images/Ceara/Fortaleza/TeatroJoseAlencar.png"],
+var Ceara : Array = [["res://Assets/Images/Ceara/Fortaleza/catedral.png", "res://Assets/Images/Ceara/Fortaleza/Iracema.png", "res://Assets/Images/Ceara/Fortaleza/TeatroJoseAlencar.png"],
 	["res://Assets/Images/Ceara/Juazeiro/LuzeiroDaFe.png", "res://Assets/Images/Ceara/Juazeiro/PadreCicero.png", "res://Assets/Images/Ceara/Juazeiro/PracaCicero.png"],
 	["res://Assets/Images/Ceara/Quixada/GalinhaChoca.png", "0", "0"],
 	["res://Assets/Images/Ceara/Sobral/Arco.png", "res://Assets/Images/Ceara/Sobral/LuziaHomem.png", "res://Assets/Images/Ceara/Sobral/MuseuDoEclipse.png"]]

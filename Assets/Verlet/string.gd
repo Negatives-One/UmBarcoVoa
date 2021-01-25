@@ -20,7 +20,16 @@ export (NodePath) var secondPointNode : NodePath
 var firstNode : Node
 var secondNode : Node
 
+export(Curve2D) var curva
+
 func _ready():
+	$Line2D.clear_points()
+	var target = $"../Position2D".position#Vector2(200, 1080)
+	#length = target.distance_to(Vector2.ZERO)
+	var distancePP = target / 14
+	for i in range(15):
+		$Line2D.add_point(distancePP * i)
+		print(distancePP*i)
 	firstNode = get_node(firstPointNode)
 	secondNode = get_node(secondPointNode)
 	count = get_count(length)
@@ -43,11 +52,11 @@ func init_position():
 
 func _physics_process(delta):
 	if start_pin and !firstPointNode.is_empty():
-		pos[0] = firstNode.global_position
-		pos_ex[0] = firstNode.global_position
+		pos[0] = firstNode.position
+		pos_ex[0] = firstNode.position
 	if end_pin and !secondPointNode.is_empty():
-		pos[count-1] = secondPoint
-		pos_ex[count-1] = secondPoint
+		pos[count-1] = secondNode.position
+		pos_ex[count-1] = secondNode.position
 	
 	update_points(delta)
 	update_distance()

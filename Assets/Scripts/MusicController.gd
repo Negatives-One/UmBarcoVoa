@@ -98,3 +98,13 @@ func _on_PlaySound_finished() -> void:
 func Mute() -> void:
 	$TweenCurrent.interpolate_property($Current, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
 	$TweenNext.interpolate_property($Next, "volume_db",  0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
+
+func SimpleFadeIn() -> void:
+	if $Current.playing:
+		fadeOut($Current, $TweenCurrent)
+		$Next.stream = load(musicas[0])
+		fadeIn($Next, $TweenNext)
+	else:
+		fadeOut($Next, $TweenNext)
+		$Current.stream = load(musicas[0])
+		fadeIn($Current, $TweenCurrent)
