@@ -95,6 +95,7 @@ func _process(_delta : float) -> void:
 func Lose() -> void:
 	$"..".ChangeEvent($"..".events.Nothing)
 	MusicController.LoseSound()
+	MusicController.Mute()
 	$CollisionPolygon2D.disabled = true
 	$"../HUD/Panel/TryAgain".visible = true
 	$"../HUD/Panel/PauseTextureButton".visible = false

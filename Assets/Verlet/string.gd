@@ -27,13 +27,10 @@ func _ready():
 	var distancePP = target / 14
 	for i in range(15):
 		$Line2D.add_point(distancePP * i)
-		print(distancePP*i)
 	firstNode = get_node(firstPointNode)
 	secondNode = get_node(secondPointNode)
 	count = get_count(length)
 	resize_arrays()
-	init_position()
-	init_position()
 	init_position()
 
 func get_count(distance: float):
@@ -46,8 +43,8 @@ func resize_arrays():
 
 func init_position():
 	for i in range(count):
-		pos[i] = position + Vector2(constrain *i, 0)
-		pos_ex[i] = position + Vector2(constrain *i, 0)
+		pos[i] = position# + Vector2(constrain *i, 0)
+		pos_ex[i] = position #+ Vector2(constrain *i, 0)
 	position = Vector2.ZERO
 
 func _physics_process(delta):
@@ -60,7 +57,7 @@ func _physics_process(delta):
 	
 	update_points(delta)
 	update_distance()
-	update_distance()	#Repeat to get tighter rope
+	update_distance()#Repeat to get tighter rope
 	update_distance()
 	$Line2D.points = pos
 

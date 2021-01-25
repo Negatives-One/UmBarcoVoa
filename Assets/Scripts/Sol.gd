@@ -24,6 +24,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	self.global_position = Vector2($"../RigidBody2D/Camera2D2".global_position.x + 720, -850)
+	$"../LUA".global_position = Vector2($"../RigidBody2D/Camera2D2".global_position.x + 720, -850)
 
 func _on_Timer_timeout() -> void:
 	$AnimatedSprite.frame = 0

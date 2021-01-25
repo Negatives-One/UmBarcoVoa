@@ -9,11 +9,9 @@
 [node name="Node" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
-transitionDuration = null
 transitionTypeFadeIn = 8
 easingTypeFadeIn = 1
 transitionTypeFadeOut = 4
-easingTypeFadeOut = null
 
 [node name="Current" type="AudioStreamPlayer" parent="."]
 volume_db = -80.0

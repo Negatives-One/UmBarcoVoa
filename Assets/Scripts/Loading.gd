@@ -14,6 +14,7 @@ func _ready() -> void:
 	MusicController.loadingScene = self
 
 func _process(_delta: float) -> void:
+	print(go)
 	var _error : int = loading.poll()
 	if loading.get_resource() != null and go == true:
 		var _changeError : int = get_tree().change_scene_to(loading.get_resource())
@@ -22,7 +23,7 @@ func _process(_delta: float) -> void:
 		if targetScene == "res://Assets/Scenes/Mundo.tscn":
 			MusicController.get_node("Current").volume_db = -80
 			MusicController.get_node("Next").volume_db = -80
-			MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
+			#MusicController.ChangeMusic(MusicController.MusicsNumber.Ceara)
 		else:
 			MusicController.ChangeMusic(MusicController.MusicsNumber.Menu)
 		set_process(false)

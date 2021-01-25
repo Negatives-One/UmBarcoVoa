@@ -17,7 +17,7 @@ var player : Player
 var index : int = 0
 
 func _ready() -> void:
-	$Position2D.global_position = Vector2(global_position.x - 500, 0)
+	$Position2D.position = Vector2(600, 1080)#.global_position = Vector2(global_position.x - 500, 0)
 	var collisionShape : CollisionShape2D = CollisionShape2D.new()
 	var shape : RectangleShape2D = RectangleShape2D.new()
 	add_child(collisionShape)

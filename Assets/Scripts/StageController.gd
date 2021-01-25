@@ -33,6 +33,9 @@ var preservedYPosition : float
 var once : bool = true
 
 func _ready() -> void:
+	MusicController.get_node("Current").stream = load("res://Assets/Sounds/CearaLoop.ogg")
+	MusicController.get_node("Current").play()
+	MusicController.fadeIn(MusicController.get_node("Current"), MusicController.get_node("TweenCurrent"))
 	$StageSpawner.CapPos = $RigidBody2D/Camera2D2.global_position.x + get_viewport_rect().size.x/2 + 100
 	$BonuStage.Visible(false)
 	$ScenePlayer.play("StartAnim")
@@ -106,7 +109,20 @@ func ChangeEvent(event : int) -> void:
 
 func NextLocation() -> void:
 	isBonusStage = false
-	$Parallax/ParallaxBackground/BackgroundLayer.visible = true
+	
+	$LUA.visible = false
+	$Sol.visible = true
+	
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_01.visible = true
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_02.visible = true
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_03.visible = true
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_04.visible = true
+	
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_01.visible = false
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_02.visible = false
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_03.visible = false
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_04.visible = false
+	
 	$Parallax/ParallaxBackground/BackLayer.visible = true
 	$Parallax/ParallaxBackground/MidLayer.visible = true
 	$Parallax/ParallaxBackground/FrontLayer.visible = true
@@ -138,7 +154,20 @@ func ChangeToBonus() -> void:
 		if i is Current:
 			i.call_deferred("queue_free")
 	isBonusStage = true
-	$Parallax/ParallaxBackground/BackgroundLayer.visible = false
+	
+	$LUA.visible = true
+	$Sol.visible = false
+	
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_01.visible = false
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_02.visible = false
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_03.visible = false
+	$Parallax/ParallaxBackground/BackgroundLayer/BG_04.visible = false
+	
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_01.visible = true
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_02.visible = true
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_03.visible = true
+	$Parallax/ParallaxBackground/BackgroundLayer/BGN_04.visible = true
+	
 	$Parallax/ParallaxBackground/BackLayer.visible = false
 	$Parallax/ParallaxBackground/MidLayer.visible = false
 	$Parallax/ParallaxBackground/FrontLayer.visible = false

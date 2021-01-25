@@ -48,7 +48,7 @@ func MenuGameTransition() -> void:
 		$Current.stop()
 	else:
 		$Next.stop()
-	$TweenCurrent.interpolate_property($AmbienciaMar, "volume_db", -80, 0, transitionDuration, transitionTypeFadeIn, easingTypeFadeIn)
+	fadeOut($AmbienciaMar, $TweenCurrent)
 
 func ChangeMusic(music : int) -> void:
 	if $Current.playing:
@@ -97,7 +97,9 @@ func _on_PlaySound_finished() -> void:
 
 func Mute() -> void:
 	$TweenCurrent.interpolate_property($Current, "volume_db", 0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
+	$TweenCurrent.start()
 	$TweenNext.interpolate_property($Next, "volume_db",  0, -80, transitionDuration, transitionTypeFadeOut, easingTypeFadeOut, 0)
+	$TweenNext.start()
 
 func SimpleFadeIn() -> void:
 	if $Current.playing:

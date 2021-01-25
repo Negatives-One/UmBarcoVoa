@@ -72,7 +72,7 @@ position = Vector2( -400, 1080 )
 
 [node name="String" parent="." instance=ExtResource( 25 )]
 constrain = 20.0
-gravity = Vector2( 0, 980 )
+gravity = Vector2( 0, 1500 )
 friction = 0.8
 firstPointNode = NodePath("../AnimatedSprite")
 secondPointNode = NodePath("../Position2D")

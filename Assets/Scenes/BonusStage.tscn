@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
+[ext_resource path="res://Assets/Shaders/Outline.shader" type="Shader" id=1]
 [ext_resource path="res://Assets/Scripts/BonusStage.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Images/BonusStage/Farol.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/BonusStage/Jangada.png" type="Texture" id=4]
@@ -11,7 +12,7 @@ resource_name = "Barquin"
 length = 4.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("ParallaxBackground/ParallaxLayer4/Jangada:rotation_degrees")
+tracks/0/path = NodePath("ParallaxBackground/Jangada0/Jangada:rotation_degrees")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -23,6 +24,11 @@ tracks/0/keys = {
 "values": [ 13.0, -13.0 ]
 }
 
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/width = 5.0
+shader_param/outline_color = Color( 0.980392, 0.980392, 0.980392, 1 )
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 rayX = 30.0
@@ -32,57 +38,112 @@ anims/Barquin = SubResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 427.297, -1096.53 )
+[node name="Jangada0" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.7, 1 )
+motion_mirroring = Vector2( 2520, 0 )
+
+[node name="Jangada" type="Sprite" parent="ParallaxBackground/Jangada0"]
+position = Vector2( 1881.67, -177.053 )
+rotation = 0.223603
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+
+[node name="Farol0" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 1 )
 motion_mirroring = Vector2( 2520, 0 )
 
-[node name="Farol" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 1549.51, 680.295 )
+[node name="Farol" type="Sprite" parent="ParallaxBackground/Farol0"]
+position = Vector2( 987.994, -294.952 )
+scale = Vector2( 0.35, 0.35 )
 texture = ExtResource( 3 )
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 427.297, -1096.53 )
-motion_scale = Vector2( 0.8, 1 )
+[node name="BackWave" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
 
-[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/ParallaxLayer2"]
-margin_top = 1016.5
+[node name="NoStrokeWave" type="Sprite" parent="ParallaxBackground/BackWave"]
+material = SubResource( 2 )
+position = Vector2( 1280, -37.5102 )
+scale = Vector2( 1.004, 1.4 )
+texture = ExtResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/BackWave"]
+margin_top = 8.43756
 margin_right = 2556.28
-margin_bottom = 1063.5
+margin_bottom = 158.438
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StrokeWave" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2( 1280, 975.027 )
+[node name="Farol1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 2520, 0 )
+
+[node name="Farol" type="Sprite" parent="ParallaxBackground/Farol1"]
+position = Vector2( 536.663, -304.391 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="MidWave" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/MidWave"]
+margin_top = 15.5181
+margin_right = 2556.28
+margin_bottom = 62.5181
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StrokeWave" type="Sprite" parent="ParallaxBackground/MidWave"]
+position = Vector2( 1280, -25.9549 )
 texture = ExtResource( 5 )
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 427.297, -1096.53 )
+[node name="Farol2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 2520, 0 )
+
+[node name="Farol" type="Sprite" parent="ParallaxBackground/Farol2"]
+position = Vector2( 180.684, -315.107 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 3 )
+
+[node name="Jangada1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.7, 1 )
 motion_mirroring = Vector2( 2520, 0 )
 
-[node name="Jangada" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2( 1049.67, 873.929 )
+[node name="Jangada" type="Sprite" parent="ParallaxBackground/Jangada1"]
+position = Vector2( 1015.67, -101.053 )
 rotation = -0.115463
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 427.297, -1096.53 )
-motion_scale = Vector2( 0.8, 1 )
+[node name="FrontWave" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer3"]
-margin_top = 1066.5
+[node name="NoStrokeWave" type="Sprite" parent="ParallaxBackground/FrontWave"]
+material = SubResource( 2 )
+position = Vector2( 1280, 39.7381 )
+scale = Vector2( 1.004, 1 )
+texture = ExtResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/FrontWave"]
+margin_top = 92.8699
 margin_right = 2556.28
-margin_bottom = 1216.5
+margin_bottom = 242.87
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NoStrokeWave" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
-position = Vector2( 1280, 1040.72 )
-scale = Vector2( 1.004, 1 )
-texture = ExtResource( 6 )
+[node name="Farol3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 2520, 0 )
+
+[node name="Farol" type="Sprite" parent="ParallaxBackground/Farol3"]
+position = Vector2( 1549.51, -354.686 )
+texture = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 960, -540 )
