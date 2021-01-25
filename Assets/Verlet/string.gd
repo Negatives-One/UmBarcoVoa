@@ -20,8 +20,6 @@ export (NodePath) var secondPointNode : NodePath
 var firstNode : Node
 var secondNode : Node
 
-export(Curve2D) var curva
-
 func _ready():
 	$Line2D.clear_points()
 	var target = $"../Position2D".position#Vector2(200, 1080)
@@ -34,6 +32,8 @@ func _ready():
 	secondNode = get_node(secondPointNode)
 	count = get_count(length)
 	resize_arrays()
+	init_position()
+	init_position()
 	init_position()
 
 func get_count(distance: float):

@@ -17,7 +17,7 @@ var player : Player
 var index : int = 0
 
 func _ready() -> void:
-	$Position2D.position = Vector2(500, 1080)#global_position = Vector2(global_position.x - 300, 0)
+	$Position2D.global_position = Vector2(global_position.x - 500, 0)
 	var collisionShape : CollisionShape2D = CollisionShape2D.new()
 	var shape : RectangleShape2D = RectangleShape2D.new()
 	add_child(collisionShape)
@@ -31,8 +31,8 @@ func SelectAnimation(collisionShape : CollisionShape2D, shape : RectangleShape2D
 		shape.extents = Vector2(64, 64)/2
 		collisionShape.position = Vector2(0, -3.5)
 		$AnimatedSprite.play("pipa")
-		$Line2D.visible = true
 	elif currentSize == Size.Medio:
+		$String.queue_free()
 		randomize()
 		if randi() % 2:
 			shape.extents = Vector2(96, 96)/2
@@ -43,6 +43,7 @@ func SelectAnimation(collisionShape : CollisionShape2D, shape : RectangleShape2D
 			collisionShape.position = Vector2(16, -20)
 			$AnimatedSprite.play("pombo")
 	elif currentSize == Size.Grande:
+		$String.queue_free()
 		shape.extents = Vector2(144, 144)/2
 		collisionShape.position = Vector2(0, -12)
 		$AnimatedSprite.play("urubu")
