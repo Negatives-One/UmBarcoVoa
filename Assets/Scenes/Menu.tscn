@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=2]
 [ext_resource path="res://Assets/Scripts/Menu.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Images/UI/PLAY.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/UI/PLAYTamanhoCerto.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Images/UI/VOLUMEONTamanhoCerto.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Images/UI/VOLUMEOFFTamanhoCerto.png" type="Texture" id=6]
 [ext_resource path="res://Logo-base.png" type="Texture" id=7]
@@ -128,6 +128,9 @@ margin_right = 0.0899658
 margin_bottom = -0.170715
 texture_normal = ExtResource( 8 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DoeText" type="Label" parent="Panel/DoeTextureButton"]
 anchor_right = 1.0

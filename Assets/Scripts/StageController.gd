@@ -59,8 +59,8 @@ func _process(_delta: float) -> void:
 			# vai para o próximo estado
 			if isBonusStage:
 				$ScenePlayer.play("Transicao")
-				if MusicController.ambienciaMar.playing:
-					$TransitionTween.interpolate_property(MusicController.ambienciaMar, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
+				$TransitionTween.interpolate_property(MusicController.ambienciaMar, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
+				$TransitionTween.start()
 				if currentLocation == Locations.Bahia:
 					MusicController.ChangeMusic(Locations.Ceara)
 				else:
@@ -69,8 +69,8 @@ func _process(_delta: float) -> void:
 			else:
 				$ScenePlayer.play("AnimacaoBonus")
 				ChangeEvent(events.Nothing)
-				#MusicController.ambienciaMar.play()
-				MusicController.fadeIn(MusicController.ambienciaMar, $TransitionTween)
+				$TransitionTween.interpolate_property(MusicController.ambienciaMar, "volume_db", -80, 0, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
+				$TransitionTween.start()
 				MusicController.fadeOut(MusicController.current, $TransitionTween)
 				MusicController.fadeOut(MusicController.next, $TransitionTween)
 				#$TransitionTween.interpolate_property(MusicController.current, "volume_db", 0, -80, MusicController.transitionDuration, MusicController.transitionTypeFadeOut, MusicController.easingTypeFadeOut)
@@ -109,6 +109,7 @@ func ChangeEvent(event : int) -> void:
 
 func NextLocation() -> void:
 	isBonusStage = false
+	#MusicController.get_node("AmbienciaMar").stop()
 	
 	$LUA.visible = false
 	$Sol.visible = true
@@ -150,6 +151,11 @@ func PrepareToChangeLocation() -> void:
 	$RigidBody2D.receivingInputs = false
 
 func ChangeToBonus() -> void:
+	ChangeEvent(events.Nothing)
+	#MusicController.get_node("AmbienciaMar").play()
+	#$TransitionTween.interpolate_property(MusicController.get_node("AmbienciaMar"), "volume_db", -80, 0, MusicController.transitionDuration , MusicController.transitionTypeFadeIn, MusicController.easingTypeFadeIn)
+	#$TransitionTween.start()
+	#MusicController.fadeIn(MusicController.get_node("AmbienciaMar"), MusicController.get_node("TweenNext"))
 	for i in $CorrentesDeVento.get_children():
 		if i is Current:
 			i.call_deferred("queue_free")
@@ -180,6 +186,7 @@ func ChangeToBonus() -> void:
 	$RigidBody2D.linear_velocity = preservedLinearVelocity
 	$StageSpawner.spawnPosition = Vector2.ZERO
 	$StageSpawner.CapPos = 0
+	$CorrentesDeVento.activeWindsCurrents = 0
 	once = true
 	distancePerRegion = 25000
 
@@ -218,8 +225,6 @@ func RandomStart() -> void:
 	ChangeEvent(randi() % 2 + 1)
 
 func _on_TransitionTween_tween_completed(object, _key):
-	if object == MusicController.ambienciaMar and MusicController.ambienciaMar.volume_db < -79:
-		MusicController.ambienciaMar.stop()
 	if object == MusicController.current and MusicController.current.volume_db < -79:
 		MusicController.current.stop()
 	if object == MusicController.next and MusicController.next.volume_db < -79:

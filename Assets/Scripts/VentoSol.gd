@@ -18,5 +18,5 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		player.physicsState.apply_central_impulse(-velocityNerf)
 		var camera : MyCamera = player.camera
 		camera.shake(1, (2)*10, (2)*10)
-		player.Batida()
+		player.VentoEmpurrao()
 		call_deferred("queue_free")

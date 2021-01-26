@@ -16,16 +16,18 @@ var player : Player
 
 var index : int = 0
 
+var collisionShape : CollisionShape2D
+
 func _ready() -> void:
-	$Position2D.position = Vector2(600, 1080)#.global_position = Vector2(global_position.x - 500, 0)
-	var collisionShape : CollisionShape2D = CollisionShape2D.new()
+	$Position2D.position = Vector2(-600, 1080)#.global_position = Vector2(global_position.x - 500, 0)
+	collisionShape = CollisionShape2D.new()
 	var shape : RectangleShape2D = RectangleShape2D.new()
 	add_child(collisionShape)
 	$CollisionShape2D.call_deferred("queue_free")
-	SelectAnimation(collisionShape, shape)
+	SelectAnimation(shape)
 	collisionShape.shape = shape
 
-func SelectAnimation(collisionShape : CollisionShape2D, shape : RectangleShape2D) -> void:
+func SelectAnimation(shape : RectangleShape2D) -> void:
 	$AnimatedSprite.scale = Vector2(0.8, 0.8)
 	if currentSize == Size.Pequeno:
 		shape.extents = Vector2(64, 64)/2
@@ -55,7 +57,10 @@ func _on_Area2D_body_entered(body) -> void:
 		var camera : MyCamera = player.camera
 		player.Batida()
 		camera.shake(1, (currentSize+1)*10, (currentSize+1)*10)
-		call_deferred("queue_free")
+		if currentSize == Size.Pequeno:
+			$String.call_deferred("queue_free")
+		collisionShape.call_deferred("queue_free")#disabled = true
+		$AnimationPlayer.play("sumir")
 
 func NerfVelocity() -> Vector2:
 	#var velocityNerf : Vector2 = Vector2(player.linear_velocity.x - (player.linear_velocity.x * baseSlowScale * currentSize), player.linear_velocity.y - (player.linear_velocity.y * baseSlowScale * currentSize))
@@ -64,3 +69,8 @@ func NerfVelocity() -> Vector2:
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
 	queue_free()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "sumir":
+		call_deferred("queue_free")

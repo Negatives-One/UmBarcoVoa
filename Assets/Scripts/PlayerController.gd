@@ -3,7 +3,7 @@ extends RigidBody2D
 class_name Player
 
 var receivingInputs : bool = true
-var acelerando : bool = true
+var acelerando : bool = false
  
 export(float) var VerticalAcelleration : float = 10
 export(float) var HorizontalAcelleration : float = 10
@@ -35,7 +35,8 @@ func _init() -> void:
 	linear_velocity.x = 300
 
 func _ready() -> void:
-	target = Vector2(global_position.x+1, -get_viewport_rect().size.y/2)
+	target = Vector2(global_position.x+500, -get_viewport_rect().size.y/2)
+	get_viewport().warp_mouse(Vector2(target.x, abs(target.y)))
 	acelleration = (target - global_position).normalized()
 	acelleration.x *= HorizontalAcelleration
 	acelleration.y *= VerticalAcelleration
@@ -43,6 +44,9 @@ func _ready() -> void:
 	camera = $Camera2D2
 	var tam = get_viewport_rect().size
 	$Camera2D2.position.x = tam.x * cameraPositionRatio
+	yield(get_tree().create_timer(1), "timeout")
+	$SFX/BarcoRuido.volume_db = -15
+	acelerando = true
 
 func _integrate_forces(state : Physics2DDirectBodyState):
 	physicsState = state
@@ -54,7 +58,7 @@ func _integrate_forces(state : Physics2DDirectBodyState):
 
 func _physics_process(_delta: float) -> void:
 	if !lose:
-		if global_position.y < -1080 + 240:
+		if global_position.y < -1080 + 280:
 			physicsState.linear_velocity.y = 10
 		elif global_position.y > -40:
 			physicsState.linear_velocity.y = -10
@@ -65,7 +69,7 @@ func _unhandled_input(event : InputEvent) -> void:
 			if event.pressed and event.button_index == BUTTON_LEFT:
 				acelerando = true
 			if event.pressed and event.button_index == BUTTON_RIGHT:
-				apply_central_impulse(Vector2(-1, 0) * 5000)
+				apply_central_impulse(Vector2(1, 0) * 5000)
 
 func _process(_delta : float) -> void:
 	var coeficienteDaVela : float = float(windLoopVelocity) / 3
@@ -111,12 +115,15 @@ func Lose() -> void:
 	self.sleeping = true
 	#linear_velocity = Vector2.ZERO
 	#self.sleeping = true
-	$Tween.interpolate_property(self, "global_position", self.global_position, Vector2(global_position.x, -40), 3, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	var distancia = abs(global_position.y + 40)
+	var velocidade = 300
+	var tempo = distancia / velocidade
+	$Tween.interpolate_property(self, "global_position", self.global_position, Vector2(global_position.x, -40), tempo, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()
-	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0.9, 2.2, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0.9, tempo * 0.73, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	$Tween.start()
-	yield(get_tree().create_timer(2.3), "timeout")
-	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, 0.7, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	yield(get_tree().create_timer(tempo * 0.73), "timeout")
+	$Tween.interpolate_property($Jangada, "rotation", $Jangada.rotation, 0, tempo * 0.27, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 
 func FSM() -> void:
@@ -130,7 +137,10 @@ func FSM() -> void:
 		acelleration.x *= HorizontalAcelleration
 		acelleration.y *= VerticalAcelleration
 	else:
-		acelleration = Vector2.ZERO
+		acelleration = (target - global_position).normalized()
+		acelleration.x *= HorizontalAcelleration
+		acelleration.y *= VerticalAcelleration
+	#	acelleration = Vector2.ZERO
 		linear_damp = -1
 
 func ApplyImpulse(Impulse : Vector2):

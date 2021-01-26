@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Scripts/Obstacle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Animations/Obstaculos/urubu/urubu01.png" type="Texture" id=2]
@@ -37,6 +37,11 @@ animations = [ {
 "name": "urubu",
 "speed": 8.0
 }, {
+"frames": [ ExtResource( 23 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 24 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "coruja",
+"speed": 8.0
+}, {
 "frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 22 ), ExtResource( 18 ) ],
 "loop": true,
 "name": "pipa",
@@ -46,12 +51,34 @@ animations = [ {
 "loop": true,
 "name": "pombo",
 "speed": 8.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 24 ), ExtResource( 27 ) ],
-"loop": true,
-"name": "coruja",
-"speed": 8.0
 } ]
+
+[sub_resource type="Animation" id=3]
+resource_name = "sumir"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 30, 50 ) ]
+}
 
 [node name="Area2D" type="Area2D"]
 script = ExtResource( 1 )
@@ -76,5 +103,9 @@ gravity = Vector2( 0, 1500 )
 friction = 0.8
 firstPointNode = NodePath("../AnimatedSprite")
 secondPointNode = NodePath("../Position2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/sumir = SubResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -39,7 +39,7 @@
 [ext_resource path="res://Assets/Images/UI/VOLUMEOFFPauseInGame.png" type="Texture" id=37]
 [ext_resource path="res://Assets/Images/UI/VOLUMEONPauseInGame.png" type="Texture" id=38]
 [ext_resource path="res://Assets/Images/UI/ROUNDEDCorreto.png" type="Texture" id=39]
-[ext_resource path="res://Assets/Images/UI/HOME.png" type="Texture" id=40]
+[ext_resource path="res://Assets/Images/UI/HOMECorreto.png" type="Texture" id=40]
 [ext_resource path="res://Assets/Images/UI/ContornoBranco.png" type="Texture" id=41]
 [ext_resource path="res://Assets/Images/UI/PAUSECorreto.png" type="Texture" id=42]
 [ext_resource path="res://Assets/Images/UI/LOCATION.png" type="Texture" id=43]
@@ -163,6 +163,18 @@ tracks/1/keys = {
 "method": "RandomStart"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("HUD/Panel/PauseTextureButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="StageController" type="Node2D"]
 script = ExtResource( 1 )
@@ -183,7 +195,7 @@ horizontalLines = 4
 WindsNode = NodePath("../Ventos")
 ObstaclesNode = NodePath("../Obstaculos")
 StageControllerPath = NodePath("..")
-verticalLinesDistance = 700.0
+verticalLinesDistance = 900.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -256,6 +268,7 @@ __meta__ = {
 }
 
 [node name="FPS" type="Label" parent="HUD/Panel"]
+visible = false
 anchor_left = 0.670821
 anchor_right = 0.781238
 anchor_bottom = 0.0481481
@@ -266,6 +279,7 @@ __meta__ = {
 }
 
 [node name="PauseTextureButton" type="TextureButton" parent="HUD/Panel"]
+visible = false
 anchor_left = 0.938406
 anchor_top = 0.0238897
 anchor_right = 0.980072
@@ -322,27 +336,28 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="HUD/Panel/Panel/MenuTextureButton"]
-anchor_left = 0.425564
-anchor_top = 0.257897
-anchor_right = 0.763476
-anchor_bottom = 0.869662
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 27.0
+margin_top = 7.0
+margin_right = 0.000488281
+margin_bottom = 7.00023
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "MENU"
 align = 1
 valign = 1
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="HUD/Panel/Panel/MenuTextureButton"]
-anchor_left = 0.263737
-anchor_top = 0.200001
-anchor_right = 0.406594
-anchor_bottom = 0.788237
-margin_left = 7.62939e-06
-margin_bottom = 3.8147e-06
+[node name="TextureRect" type="TextureRect" parent="HUD/Panel/Panel/MenuTextureButton/Label"]
+anchor_left = 0.180468
+anchor_top = 0.120769
+anchor_right = 0.323325
+anchor_bottom = 0.709005
 texture = ExtResource( 40 )
 expand = true
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -740,6 +755,8 @@ __meta__ = {
 }
 
 [node name="ScenePlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+method_call_mode = 1
 anims/AnimacaoBonus = ExtResource( 16 )
 anims/StartAnim = SubResource( 12 )
 anims/Transicao = ExtResource( 7 )

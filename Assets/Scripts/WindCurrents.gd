@@ -45,6 +45,10 @@ func _physics_process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2
 
 func Enable() -> void:
+	activeWindsCurrents = 0
+	openSpaces.clear()
+	for i in range(screenDivisions):
+		openSpaces.append((i) * screenDivisionValue)
 	timer.autostart = true
 	timer.start()
 
@@ -54,19 +58,20 @@ func Disable() -> void:
 	timer.stop()
 
 func _on_timer_timeout():
-	timer.wait_time = timeBetweenSpawns
-	if activeWindsCurrents > 1:
-		return
-	var quantity : int = 0
-	if activeWindsCurrents == 0:
-		quantity = randi() % 2 + 1
-		for _i in range(quantity):
+	if $"../RigidBody2D".get_node("Camera2D2").global_position.x < $"..".distancePerRegion - 1500:
+		timer.wait_time = timeBetweenSpawns
+		if activeWindsCurrents > 1:
+			return
+		var quantity : int = 0
+		if activeWindsCurrents == 0:
+			quantity = randi() % 2 + 1
+			for _i in range(quantity):
+				CreateCurrent()
+		elif activeWindsCurrents == 1:
 			CreateCurrent()
-	elif activeWindsCurrents == 1:
-		CreateCurrent()
-#	openSpaces.clear()
-#	for i in range(screenDivisions):
-#		openSpaces.append((i) * screenDivisionValue)
+	#	openSpaces.clear()
+	#	for i in range(screenDivisions):
+	#		openSpaces.append((i) * screenDivisionValue)
 
 func CreateCurrent() -> void:
 	randomize()
@@ -104,11 +109,13 @@ func _on_CurrentsTween_tween_completed(object: Object, _key: NodePath) -> void:
 	activeWindsCurrents -= 1
 
 func _on_0_animation_finished() -> void:
-	SpawnCurrent(0)
-	$Warnings.get_node("0").stop()
-	$Warnings.get_node("0").frame = 0
+	if $"../RigidBody2D".get_node("Camera2D2").global_position.x < $"..".distancePerRegion - 1500:
+		SpawnCurrent(0)
+		$Warnings.get_node("0").stop()
+		$Warnings.get_node("0").frame = 0
 
 func _on_1_animation_finished() -> void:
-	SpawnCurrent(1)
-	$Warnings.get_node("1").stop()
-	$Warnings.get_node("1").frame = 0
+	if $"../RigidBody2D".get_node("Camera2D2").global_position.x < $"..".distancePerRegion - 1500:
+		SpawnCurrent(1)
+		$Warnings.get_node("1").stop()
+		$Warnings.get_node("1").frame = 0

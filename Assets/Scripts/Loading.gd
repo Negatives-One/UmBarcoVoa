@@ -14,7 +14,6 @@ func _ready() -> void:
 	MusicController.loadingScene = self
 
 func _process(_delta: float) -> void:
-	print(go)
 	var _error : int = loading.poll()
 	if loading.get_resource() != null and go == true:
 		var _changeError : int = get_tree().change_scene_to(loading.get_resource())

@@ -22,7 +22,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1.25, 1.55 ),
+"times": PoolRealArray( 1.25, 1.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -31,4 +31,16 @@ tracks/1/keys = {
 "args": [  ],
 "method": "ChangeToBonus"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HUD/Panel/PauseTextureButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }

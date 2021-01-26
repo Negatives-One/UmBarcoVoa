@@ -18,14 +18,14 @@ var Ceara : Array = [["res://Assets/Images/Ceara/Fortaleza/catedral.png", "res:/
 	["res://Assets/Images/Ceara/Quixada/GalinhaChoca.png", "0", "0"],
 	["res://Assets/Images/Ceara/Sobral/Arco.png", "res://Assets/Images/Ceara/Sobral/LuziaHomem.png", "res://Assets/Images/Ceara/Sobral/MuseuDoEclipse.png"]]
 
-var Pernambuco : Array = [["res://Assets/Images/Pernambuco/Olinda/Bonecos.png", "res://Assets/Images/Pernambuco/Olinda/FarolDeOlinda.png", "res://Assets/Images/Pernambuco/Olinda/RuinasDoSenado.png"],
+var Pernambuco : Array = [["res://Assets/Images/Pernambuco/Olinda/bonecos.png", "res://Assets/Images/Pernambuco/Olinda/FarolDeOlinda.png", "res://Assets/Images/Pernambuco/Olinda/RuinasDoSenado.png"],
 	["res://Assets/Images/Pernambuco/Recife/CircuitoDePoesia.png", "res://Assets/Images/Pernambuco/Recife/MercadoSaoJose.png", "res://Assets/Images/Pernambuco/Recife/TorturaNuncaMais.png"]]
 
-var Bahia : Array = [["res://Assets/Images/Bahia/FeiraDeSantana/Caminhoneiro.png", "res://Assets/Images/Bahia/FeiraDeSantana/Tropeiro.png", "0"],
-	["res://Assets/Images/Bahia/Salvador/ElevadorLacerda.png","res://Assets/Images/Bahia/Salvador/Pelourinho1.png", "res://Assets/Images/Bahia/Salvador/Pelourinho2.png"],
+var Bahia : Array = [["res://Assets/Images/Bahia/FeiraDeSantana/caminhoneiro.png", "res://Assets/Images/Bahia/FeiraDeSantana/Tropeiro.png", "0"],
+	["res://Assets/Images/Bahia/Salvador/ElevadorLacerda.png","res://Assets/Images/Bahia/Salvador/pelourinho1.png", "res://Assets/Images/Bahia/Salvador/pelourinho2.png"],
 	["res://Assets/Images/Bahia/VitoriaDaConquista/MonumentoIndio.png", "0", "0"]]
 
-var DontShader : Array = ["res://Assets/Images/Bahia/Salvador/Pelourinho1.png", "res://Assets/Images/Bahia/Salvador/Pelourinho2.png", "res://Assets/Images/Pernambuco/Olinda/Bonecos.png", "res://Assets/Images/Pernambuco/Recife/CircuitoDePoesia.png"] 
+var DontShader : Array = ["res://Assets/Images/Bahia/Salvador/pelourinho1.png", "res://Assets/Images/Bahia/Salvador/pelourinho2.png", "res://Assets/Images/Pernambuco/Olinda/bonecos.png", "res://Assets/Images/Pernambuco/Recife/CircuitoDePoesia.png"] 
 
 var shader = "res://Assets/Shaders/ColorReplacement.shader"
 
