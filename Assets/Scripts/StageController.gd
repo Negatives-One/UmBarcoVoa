@@ -53,6 +53,7 @@ func _unhandled_input(event):
 		OS.window_fullscreen = !OS.window_fullscreen
 
 func _process(_delta: float) -> void:
+	print($CorrentesDeVento.activeWindsCurrents)
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false
@@ -136,6 +137,7 @@ func NextLocation() -> void:
 	$RigidBody2D.linear_velocity = preservedLinearVelocity
 	$StageSpawner.spawnPosition = Vector2.ZERO
 	$StageSpawner.CapPos = 0
+	$CorrentesDeVento.activeWindsCurrents = 0
 	once = true
 	distancePerRegion = 50000
 

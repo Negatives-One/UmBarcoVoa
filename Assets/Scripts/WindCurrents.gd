@@ -53,6 +53,9 @@ func Enable() -> void:
 	timer.start()
 
 func Disable() -> void:
+	openSpaces.clear()
+	for i in range(screenDivisions):
+		openSpaces.append((i) * screenDivisionValue)
 	timer.wait_time = 1
 	timer.autostart = false
 	timer.stop()
@@ -106,7 +109,8 @@ func _on_CurrentsTween_tween_completed(object: Object, _key: NodePath) -> void:
 	var corrente : Current = object
 	openSpaces.append(corrente.currentSpace)
 	object.call_deferred("queue_free")
-	activeWindsCurrents -= 1
+	if activeWindsCurrents > 0:
+		activeWindsCurrents -= 1
 
 func _on_0_animation_finished() -> void:
 	if $"../RigidBody2D".get_node("Camera2D2").global_position.x < $"..".distancePerRegion - 1500:
