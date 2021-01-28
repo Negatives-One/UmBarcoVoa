@@ -56,10 +56,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 1, 2, 3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 15.0, 0.0, -15.0 ]
+"values": [ -15.0, 0.0, 15.0 ]
 }
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( 0, -970 )
 script = ExtResource( 2 )
 rayX = 30.0
 
@@ -74,7 +75,7 @@ motion_mirroring = Vector2( 2800, 0 )
 
 [node name="Jangada" type="Sprite" parent="ParallaxBackground/Jangada0"]
 position = Vector2( 1881.67, -210.727 )
-rotation = 0.226893
+rotation = 0.0829919
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 4 )
 
@@ -147,7 +148,7 @@ motion_mirroring = Vector2( 2800, 0 )
 
 [node name="Jangada" type="Sprite" parent="ParallaxBackground/Jangada1"]
 position = Vector2( 1213.22, -177.139 )
-rotation = -0.226893
+rotation = -0.0829913
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 
@@ -170,12 +171,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LUA" type="Sprite" parent="."]
-position = Vector2( 1717.85, -970 )
-scale = Vector2( 0.430007, 0.430007 )
-z_index = 5
-z_as_relative = false
-texture = ExtResource( 7 )
-
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 anims/Lua = SubResource( 3 )
+
+[node name="LUA" type="Sprite" parent="."]
+position = Vector2( 1494.07, -960.336 )
+scale = Vector2( 0.43, 0.43 )
+texture = ExtResource( 7 )
