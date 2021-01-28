@@ -41,8 +41,6 @@ var openSpaces : Array = []
 
 var ended : bool
 
-var isIn
-
 func _ready() -> void:
 	set_process(false)
 	if obstacleAmmount + windAmmount > horizontalLines:
@@ -60,7 +58,6 @@ func FillArray() -> void:
 func _process(_delta: float) -> void:
 	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 < $"..".distancePerRegion - 1500:
 		if !ended:
-			isIn = true
 			CheckCollumnSpawner()
 
 func CheckCollumnSpawner() -> void:
@@ -154,5 +151,4 @@ func Enable() -> void:
 	set_process(true)
 
 func Disable() -> void:
-	isIn = false
 	set_process(false)

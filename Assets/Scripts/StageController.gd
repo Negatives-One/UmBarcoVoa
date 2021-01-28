@@ -8,9 +8,10 @@ export(Locations) var currentLocation : int = Locations.Ceara
 var isBonusStage : bool = false
 
 enum events {Nothing, FreeStyle, WindCurrent}
-export(events) var initialEvent : int = events.FreeStyle
 var currentEvent : int = events.Nothing
 var previousEvent : int = events.Nothing
+
+var canChangeEvent : bool
 
 var totalDistance : int = 0
 export(int) var distancePerRegion : int = 50000
@@ -40,7 +41,6 @@ func _ready() -> void:
 	$BonuStage.Visible(false)
 	$ScenePlayer.play("StartAnim")
 	MusicController.stageController = self
-	ChangeEvent(initialEvent)
 	$SunPlayer.play("AnimacaoSolGame")
 	var _error : int = timer.connect("timeout", self, "_on_timer_timeout") 
 	add_child(timer)
@@ -112,6 +112,7 @@ func NextLocation() -> void:
 	isBonusStage = false
 	#MusicController.get_node("AmbienciaMar").stop()
 	
+	$LUA.visible = false
 	$Sol.visible = true
 	
 	$Parallax/ParallaxBackground/BackgroundLayer/BG_01.visible = true
@@ -162,6 +163,7 @@ func ChangeToBonus() -> void:
 			i.call_deferred("queue_free")
 	isBonusStage = true
 	
+	$LUA.visible = true
 	$Sol.visible = false
 	
 	$Parallax/ParallaxBackground/BackgroundLayer/BG_01.visible = false

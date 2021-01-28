@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -56,6 +56,7 @@
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_01.jpg" type="Texture" id=54]
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_02.jpg" type="Texture" id=55]
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_04.jpg" type="Texture" id=56]
+[ext_resource path="res://Assets/Images/LUA.png" type="Texture" id=57]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -686,10 +687,12 @@ anims/AnimacaoSolGame = SubResource( 6 )
 [node name="Ventos" type="Node2D" parent="."]
 z_index = 4
 
-[node name="VentosSolares" type="Node2D" parent="."]
-position = Vector2( -699.573, -349.739 )
+[node name="LUA" type="Sprite" parent="."]
+visible = false
+position = Vector2( -733.5, -352.686 )
 rotation = 0.10359
-scale = Vector2( 1.0681, 1.0681 )
+scale = Vector2( 0.532947, 0.532947 )
+texture = ExtResource( 57 )
 
 [node name="Sol" type="Sprite" parent="."]
 material = SubResource( 8 )
