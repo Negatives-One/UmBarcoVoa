@@ -45,7 +45,6 @@ func _physics_process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2
 
 func Enable() -> void:
-	activeWindsCurrents = 0
 	openSpaces.clear()
 	for i in range(screenDivisions):
 		openSpaces.append((i) * screenDivisionValue)

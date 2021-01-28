@@ -23,8 +23,12 @@ func _ready() -> void:
 	target = get_node(targetPath)
 
 func _process(_delta: float) -> void:
+	if $"../RigidBody2D/Camera2D2".global_position.x + get_viewport_rect().size.x/2 < $"..".distancePerRegion - 1500:
+		$AnimatedSprite.playing = true
+	else:
+		$AnimatedSprite.playing = false
+		$AnimatedSprite.frame = 0
 	self.global_position = Vector2($"../RigidBody2D/Camera2D2".global_position.x + 720, -850)
-	$"../LUA".global_position = Vector2($"../RigidBody2D/Camera2D2".global_position.x + 720, -850)
 
 func _on_Timer_timeout() -> void:
 	$AnimatedSprite.frame = 0
@@ -38,18 +42,20 @@ func CreateShot() -> void:
 	lastShot.global_position = self.global_position
 	lastShot.dir = dir.normalized()
 	lastShot.speed = shotSpeed
-	$"..".add_child(lastShot)
+	$"../VentosSolares".add_child(lastShot)
 	SetShader(lastShot.get_node("AnimatedSprite"))
 
 func Enable() -> void:
+	currentState = states.SHOOTING
 	$Timer.start(randi() % maxWaitTime + minWaitTime)
 
 func Disable() -> void:
+	currentState = states.IDLE
 	$Timer.stop()
 
 
 func _on_AnimatedSprite_frame_changed():
-	if $AnimatedSprite.frame == 5:
+	if $AnimatedSprite.frame == 5 and currentState == states.SHOOTING:
 		CreateShot()
 
 func SetShader(alvo : AnimatedSprite) -> void:

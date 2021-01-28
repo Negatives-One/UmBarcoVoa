@@ -44,8 +44,11 @@ func _ready() -> void:
 	$ParallaxBackground/Farol2.motion_mirroring.x = 3000 + int(get_viewport_rect().size.x)
 	
 	$AnimationPlayer.play("Barquin")
+	$AnimationPlayer2.play("Lua")
 
 func _process(delta: float) -> void:
+	var playerPercent = $"../RigidBody2D".global_position.x / $"..".distancePerRegion
+	$LUA.global_position.x = $"../RigidBody2D".global_position.x + (get_viewport_rect().size.x - $LUA.texture.get_size().x/2) - Map(playerPercent, 0, 1, $LUA.texture.get_size().x/2, get_viewport_rect().size.x - $LUA.texture.get_size().x/2)
 	for i in range(len(onda)):
 		onda[i].position = Vector2(sin(angle1 + (i+1)) * rayX + ondaStartPos[i].x, cos(angle1 + (i+1)) * -rayY + ondaStartPos[i].y)#Vector2((sin(angle1 + ((i+1) * 1.5)) * rayX) + ondaStartPos[i].x, (cos(angle2) * -rayY) + ondaStartPos[i].y)
 		if i == 0:
@@ -62,5 +65,11 @@ func _process(delta: float) -> void:
 		angle2 = 0
 
 func Visible(value : bool) -> void:
+	set_process(value)
 	for i in $ParallaxBackground.get_children():
 		i.visible = value
+	$LUA.visible = value
+
+func Map(value : float, start1 : float, stop1 : float, start2 : float, stop2 : float) -> float:
+	var outgoing : float = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
+	return outgoing;
