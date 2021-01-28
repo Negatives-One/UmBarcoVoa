@@ -47,7 +47,7 @@ func _ready() -> void:
 	$AnimationPlayer2.play("Lua")
 
 func _process(delta: float) -> void:
-	var playerPercent = $"../RigidBody2D".global_position.x / $"..".distancePerRegion
+	var playerPercent = ($"../RigidBody2D".global_position.x-100000) / ($"..".distancePerRegion-100000)
 	$LUA.global_position.x = $"../RigidBody2D".global_position.x + (get_viewport_rect().size.x - $LUA.texture.get_size().x/2) - Map(playerPercent, 0, 1, $LUA.texture.get_size().x/2, get_viewport_rect().size.x - $LUA.texture.get_size().x/2)
 	for i in range(len(onda)):
 		onda[i].position = Vector2(sin(angle1 + (i+1)) * rayX + ondaStartPos[i].x, cos(angle1 + (i+1)) * -rayY + ondaStartPos[i].y)#Vector2((sin(angle1 + ((i+1) * 1.5)) * rayX) + ondaStartPos[i].x, (cos(angle2) * -rayY) + ondaStartPos[i].y)

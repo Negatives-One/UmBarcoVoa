@@ -138,7 +138,7 @@ func NextLocation() -> void:
 	$StageSpawner.CapPos = 0
 	$CorrentesDeVento.activeWindsCurrents = 0
 	once = true
-	distancePerRegion = 50000
+	distancePerRegion = 100000
 
 func PrepareToChangeLocation() -> void:
 	if isBonusStage == true:
@@ -181,14 +181,14 @@ func ChangeToBonus() -> void:
 	$RigidBody2D.receivingInputs = true
 	canChange = true
 	counting = true
-	totalDistance += distancePerRegion
-	$RigidBody2D.global_position = Vector2(0, preservedYPosition)
+	#totalDistance += distancePerRegion
+	#$RigidBody2D.global_position = Vector2(0, preservedYPosition)
 	$RigidBody2D.linear_velocity = preservedLinearVelocity
 	$StageSpawner.spawnPosition = Vector2.ZERO
 	$StageSpawner.CapPos = 0
 	$CorrentesDeVento.activeWindsCurrents = 0
 	once = true
-	distancePerRegion = 25000
+	distancePerRegion = 125000
 
 func _on_Location_resized():
 	$HUD/Panel/ColorRect2.rect_size.x = $HUD/Panel/Location.rect_size.x
