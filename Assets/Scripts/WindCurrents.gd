@@ -30,8 +30,6 @@ var openSpaces : Array = []
 var dirCurrent : Array = [0, 0, 0]
 var selectedSpace : Array = [0, 0, 0]
 
-var cont = 0
-
 func _ready() -> void:
 	screenDivisionValue = screenSize.y / screenDivisions
 	for i in range(screenDivisions):
@@ -46,13 +44,6 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	global_position.x = target.global_position.x - screenSize.x/2
 
-func _process(delta: float) -> void:
-	var correntes : Array
-	for i in self.get_children():
-		if i is Current:
-			correntes.append(i)
-	activeWindsCurrents = correntes.size()
-
 func Enable() -> void:
 	openSpaces.clear()
 	for i in range(screenDivisions):
@@ -64,17 +55,11 @@ func Disable() -> void:
 	openSpaces.clear()
 	for i in range(screenDivisions):
 		openSpaces.append((i) * screenDivisionValue)
-	for j in self.get_children():
-		if j is Current:
-			j.queue_free()
-	$CurrentsTween.stop_all()
 	timer.wait_time = 1
 	timer.autostart = false
 	timer.stop()
 
 func _on_timer_timeout():
-	cont += 1
-	print(cont) 
 	if $"../RigidBody2D".get_node("Camera2D2").global_position.x < $"..".distancePerRegion - 1500:
 		timer.wait_time = timeBetweenSpawns
 		if activeWindsCurrents > 1:
@@ -94,10 +79,6 @@ func CreateCurrent() -> void:
 	randomize()
 	var warnings : Array = $Warnings.get_children()
 	dirCurrent[int(warnings[activeWindsCurrents].name)] = pow(-1, randi() % 2)
-	if openSpaces.size() == 0:
-		openSpaces.clear()
-		for i in range(screenDivisions):
-			openSpaces.append((i) * screenDivisionValue)
 	var randomSpace : int = randi() % openSpaces.size()
 	selectedSpace[int(warnings[activeWindsCurrents].name)] = openSpaces[randomSpace]
 	
@@ -108,7 +89,7 @@ func CreateCurrent() -> void:
 		warnings[activeWindsCurrents].position = Vector2(screenSize.x * 0.99, -openSpaces[randomSpace] - screenDivisionValue/2)
 		warnings[activeWindsCurrents].scale.x = 0.6
 	$Warnings.get_node(str(activeWindsCurrents)).play()
-	#activeWindsCurrents += 1
+	activeWindsCurrents += 1
 	openSpaces.remove(randomSpace)
 
 func SpawnCurrent(animNumber : int):
@@ -127,7 +108,8 @@ func _on_CurrentsTween_tween_completed(object: Object, _key: NodePath) -> void:
 	var corrente : Current = object
 	openSpaces.append(corrente.currentSpace)
 	object.call_deferred("queue_free")
-	#activeWindsCurrents -= 1
+	if activeWindsCurrents > 0:
+		activeWindsCurrents -= 1
 
 func _on_0_animation_finished() -> void:
 	if $"../RigidBody2D".get_node("Camera2D2").global_position.x < $"..".distancePerRegion - 1500:
@@ -140,9 +122,3 @@ func _on_1_animation_finished() -> void:
 		SpawnCurrent(1)
 		$Warnings.get_node("1").stop()
 		$Warnings.get_node("1").frame = 0
-
-
-func _on_CurrentsTween_tween_all_completed() -> void:
-	openSpaces.clear()
-	for i in range(screenDivisions):
-		openSpaces.append((i) * screenDivisionValue)
