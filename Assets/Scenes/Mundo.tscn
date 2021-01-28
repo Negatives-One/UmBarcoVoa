@@ -773,5 +773,6 @@ position = Vector2( 261.442, 204.161 )
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/Warnings/0" to="CorrentesDeVento" method="_on_0_animation_finished"]
 [connection signal="animation_finished" from="CorrentesDeVento/Warnings/1" to="CorrentesDeVento" method="_on_1_animation_finished"]
+[connection signal="tween_all_completed" from="CorrentesDeVento/CurrentsTween" to="CorrentesDeVento" method="_on_CurrentsTween_tween_all_completed"]
 [connection signal="tween_completed" from="CorrentesDeVento/CurrentsTween" to="CorrentesDeVento" method="_on_CurrentsTween_tween_completed"]
 [connection signal="tween_completed" from="TransitionTween" to="." method="_on_TransitionTween_tween_completed"]

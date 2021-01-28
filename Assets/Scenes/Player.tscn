@@ -39,6 +39,7 @@ frames = SubResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
 polygon = PoolVector2Array( 151.092, 11.894, 78.132, 54.5475, -149.727, 42.2004, -151.972, -12.8001, 37.7234, -215.965 )
+disabled = true
 
 [node name="Tween" type="Tween" parent="."]
 
