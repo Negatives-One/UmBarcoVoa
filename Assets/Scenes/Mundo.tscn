@@ -182,7 +182,6 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 171.485, 434.646, 583.648 ],
 "_edit_vertical_guides_": [ 482.775, 1801.92, 1405.0, 947.035 ]
 }
-initialEvent = 0
 minTimeToChangeEvent = 15.0
 maxTimeToChangeEvent = 20.0
 
