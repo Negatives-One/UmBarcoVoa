@@ -29,6 +29,7 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite.playing = false
 		$AnimatedSprite.frame = 0
 	self.global_position = Vector2($"../RigidBody2D/Camera2D2".global_position.x + 720, -850)
+	$"../VentosSolares".global_position = Vector2(0, 540)
 
 func _on_Timer_timeout() -> void:
 	$AnimatedSprite.frame = 0
@@ -39,10 +40,11 @@ func CreateShot() -> void:
 	var lastShot = solarShot.instance()
 	var dir : Vector2 = player.global_position - self.global_position
 	dir += player.linear_velocity
-	lastShot.global_position = self.global_position
 	lastShot.dir = dir.normalized()
 	lastShot.speed = shotSpeed
+	lastShot.player = self.player
 	$"../VentosSolares".add_child(lastShot)
+	lastShot.global_position = self.global_position
 	SetShader(lastShot.get_node("AnimatedSprite"))
 
 func Enable() -> void:

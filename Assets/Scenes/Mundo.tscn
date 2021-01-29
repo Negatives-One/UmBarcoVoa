@@ -688,9 +688,7 @@ anims/AnimacaoSolGame = SubResource( 6 )
 z_index = 4
 
 [node name="VentosSolares" type="Node2D" parent="."]
-position = Vector2( -699.573, -349.739 )
-rotation = 0.10359
-scale = Vector2( 1.0681, 1.0681 )
+position = Vector2( 0, -540 )
 
 [node name="Sol" type="Sprite" parent="."]
 material = SubResource( 8 )

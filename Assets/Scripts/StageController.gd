@@ -40,7 +40,7 @@ func _ready() -> void:
 	$BonuStage.Visible(false)
 	$ScenePlayer.play("StartAnim")
 	MusicController.stageController = self
-	ChangeEvent(initialEvent)
+	#ChangeEvent(initialEvent)
 	$SunPlayer.play("AnimacaoSolGame")
 	var _error : int = timer.connect("timeout", self, "_on_timer_timeout") 
 	add_child(timer)
@@ -53,7 +53,7 @@ func _unhandled_input(event):
 		OS.window_fullscreen = !OS.window_fullscreen
 
 func _process(_delta: float) -> void:
-	print($CorrentesDeVento.activeWindsCurrents)
+	#print($CorrentesDeVento.activeWindsCurrents)
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
 			canChange = false
