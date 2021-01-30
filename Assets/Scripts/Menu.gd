@@ -32,3 +32,19 @@ func _on_SairTextureButton_pressed() -> void:
 	MusicController.ButtonSound()
 	yield(get_tree().create_timer(0.4), "timeout")
 	get_tree().quit()
+
+
+func _on_DoeTextureButton_pressed():
+	MusicController.ButtonSound()
+	$Confirmation.visible = true
+
+
+func _on_OK_pressed():
+	MusicController.ButtonSound()
+	OS.shell_open("http://www.depresenteofuturo.com.br/")
+	$Confirmation.visible = false
+
+
+func _on_Voltar_pressed():
+	MusicController.ButtonSound()
+	$Confirmation.visible = false
