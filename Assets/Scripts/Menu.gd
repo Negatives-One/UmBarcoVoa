@@ -7,7 +7,9 @@ var loadScene : String = "res://Assets/Scenes/Loading.tscn"
 
 func _ready() -> void:
 	$Panel/MuteUnmute.pressed = GameManager.readData("mute", false)
+	$Credits/MuteUnmuteCredits.pressed = GameManager.readData("mute", false)
 	var _error : int = $Panel/MuteUnmute.connect("toggled", self, "_on_MuteUnmute_toggled")
+	var _error2 : int = $Credits/MuteUnmuteCredits.connect("toggled", self, "_on_MuteUnmuteCredits_toggled")
 	MusicController.menu = self
 
 func _on_MuteUnmute_toggled(button_pressed: bool) -> void:
@@ -15,6 +17,8 @@ func _on_MuteUnmute_toggled(button_pressed: bool) -> void:
 	GameManager.onlySaveData(true)
 	MusicController.ButtonSound()
 	AudioServer.set_bus_mute(0, GameManager.readData("mute", false))
+	$Panel/MuteUnmute.pressed = GameManager.readData("mute", false)
+	$Credits/MuteUnmuteCredits.pressed = GameManager.readData("mute", false)
 
 
 func _on_PlayTextureButton_pressed() -> void:
@@ -48,3 +52,29 @@ func _on_OK_pressed():
 func _on_Voltar_pressed():
 	MusicController.ButtonSound()
 	$Confirmation.visible = false
+
+
+func _on_CreditosTextureButton_pressed():
+	MusicController.ButtonSound()
+	$Panel.visible = false
+	$TextureRect.visible = false
+	$Credits.visible = true
+	$Credits/AnimationPlayer.play("creditos")
+	
+
+
+func _on_VoltarTextureButton_pressed():
+	MusicController.ButtonSound()
+	$Panel.visible = true
+	$TextureRect.visible = true
+	$Credits.visible = false
+	$Credits/AnimationPlayer.stop()
+
+
+func _on_MuteUnmuteCredits_toggled(button_pressed):
+	GameManager.saveData({"mute" : button_pressed})
+	GameManager.onlySaveData(true)
+	MusicController.ButtonSound()
+	AudioServer.set_bus_mute(0, GameManager.readData("mute", false))
+	$Panel/MuteUnmute.pressed = GameManager.readData("mute", false)
+	$Credits/MuteUnmuteCredits.pressed = GameManager.readData("mute", false)

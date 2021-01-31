@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/Fonts/xilosa_.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Fonts/Xilo.tres" type="Theme" id=2]
@@ -14,10 +14,58 @@
 [ext_resource path="res://Assets/Images/Background/BG_01.jpg" type="Texture" id=12]
 [ext_resource path="res://Assets/Images/UI/PausaInGameTamanhoCerto.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Images/UI/ContornoBranco.png" type="Texture" id=14]
+[ext_resource path="res://Creditos/Time.png" type="Texture" id=15]
+[ext_resource path="res://Creditos/Monumentos3.png" type="Texture" id=16]
+[ext_resource path="res://Creditos/Monumentos1.png" type="Texture" id=17]
+[ext_resource path="res://Creditos/Monumentos5.png" type="Texture" id=18]
+[ext_resource path="res://Creditos/Monumentos4.png" type="Texture" id=19]
+[ext_resource path="res://Creditos/Monumentos6.png" type="Texture" id=20]
+[ext_resource path="res://Creditos/Monumentos2.png" type="Texture" id=21]
+[ext_resource path="res://Creditos/Text.png" type="Texture" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 290
 font_data = ExtResource( 1 )
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/VOLUMEOFFTamanhoCerto.png-c390ff78b5873e81fa367e7e361b375b.stex"
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/VOLUMEONTamanhoCerto.png-3714a8523651061d49c84ccaa326e867.stex"
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/outlined1TamanhoCertoMenu.png-0700340fc9fa18c453bd18424eb49c46.stex"
+
+[sub_resource type="Animation" id=5]
+resource_name = "creditos"
+length = 30.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5.5, 9, 13.5, 18, 22.5, 27 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 15 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 16 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 20 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5, 5, 5.5, 6, 8.5, 9, 9.5, 13, 13.5, 14, 17.5, 18, 18.5, 22, 22.5, 23, 26.5, 27, 27.5, 31, 31.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -285,9 +333,86 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="Credits" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MuteUnmuteCredits" type="CheckBox" parent="Credits"]
+anchor_left = 0.068
+anchor_top = 0.841
+anchor_right = 0.119
+anchor_bottom = 0.93
+margin_left = 0.471756
+margin_top = 0.124756
+margin_right = 0.551758
+margin_bottom = 0.00476074
+focus_mode = 0
+custom_icons/radio_checked = SubResource( 2 )
+custom_icons/checked = SubResource( 2 )
+custom_icons/radio_unchecked = SubResource( 3 )
+custom_icons/unchecked = SubResource( 3 )
+pressed = true
+enabled_focus_mode = 0
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VoltarTextureButton" type="TextureButton" parent="Credits"]
+anchor_left = 0.865
+anchor_top = 0.855
+anchor_right = 0.938
+anchor_bottom = 0.936
+margin_left = -0.800049
+margin_top = -0.400024
+margin_right = 61.0399
+margin_bottom = 0.119995
+texture_normal = SubResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VoltarText" type="Label" parent="Credits/VoltarTextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.168627, 0.168627, 0.168627, 1 )
+text = "VOLTAR"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+expand = true
+stretch_mode = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Credits"]
+anims/creditos = SubResource( 5 )
+
+[node name="TextureRect2" type="TextureRect" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 22 )
+expand = true
+stretch_mode = 7
+
 [node name="Tween" type="Tween" parent="."]
 [connection signal="pressed" from="Panel/PlayTextureButton" to="." method="_on_PlayTextureButton_pressed"]
+[connection signal="pressed" from="Panel/CreditosTextureButton" to="." method="_on_CreditosTextureButton_pressed"]
 [connection signal="pressed" from="Panel/DoeTextureButton" to="." method="_on_DoeTextureButton_pressed"]
 [connection signal="pressed" from="Panel/SairTextureButton" to="." method="_on_SairTextureButton_pressed"]
 [connection signal="pressed" from="Confirmation/Redirect/OK" to="." method="_on_OK_pressed"]
 [connection signal="pressed" from="Confirmation/Redirect/Voltar" to="." method="_on_Voltar_pressed"]
+[connection signal="pressed" from="Credits/VoltarTextureButton" to="." method="_on_VoltarTextureButton_pressed"]
