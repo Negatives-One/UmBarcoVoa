@@ -78,3 +78,11 @@ func _on_MuteUnmuteCredits_toggled(button_pressed):
 	AudioServer.set_bus_mute(0, GameManager.readData("mute", false))
 	$Panel/MuteUnmute.pressed = GameManager.readData("mute", false)
 	$Credits/MuteUnmuteCredits.pressed = GameManager.readData("mute", false)
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "creditos":
+		$Panel.visible = true
+		$TextureRect.visible = true
+		$Credits.visible = false
+		$Credits/AnimationPlayer.stop()
