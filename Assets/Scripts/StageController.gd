@@ -97,15 +97,15 @@ func ChangeEvent(event : int) -> void:
 	if currentEvent == events.FreeStyle:
 		$StageSpawner.CapPos = $RigidBody2D/Camera2D2.global_position.x + get_viewport_rect().size.x/2 + 100
 		$StageSpawner.Enable()
-		$Sol.Enable()
+		#$Sol.Enable()
 		$CorrentesDeVento.Disable()
 	elif currentEvent == events.WindCurrent:
 		$StageSpawner.Disable()
-		$Sol.Disable()
+		#$Sol.Disable()
 		$CorrentesDeVento.Enable()
 	elif currentEvent == events.Nothing:
 		$StageSpawner.Disable()
-		$Sol.Disable()
+		#$Sol.Disable()
 		$CorrentesDeVento.Disable()
 
 func NextLocation() -> void:
