@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://Assets/Scripts/StageController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -56,6 +56,8 @@
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_01.jpg" type="Texture" id=54]
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_02.jpg" type="Texture" id=55]
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_04.jpg" type="Texture" id=56]
+[ext_resource path="res://Assets/Scenes/GeradorDeShape.tscn" type="PackedScene" id=57]
+[ext_resource path="res://Assets/Images/DUDU/dudu.png" type="Texture" id=58]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -278,7 +280,6 @@ __meta__ = {
 }
 
 [node name="PauseTextureButton" type="TextureButton" parent="HUD/Panel"]
-visible = false
 anchor_left = 0.938406
 anchor_top = 0.0238897
 anchor_right = 0.980072
@@ -473,9 +474,9 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="HUD/Panel/TryAgain"]
 anchor_left = 0.224299
-anchor_top = 0.387358
+anchor_top = 0.44466
 anchor_right = 0.777777
-anchor_bottom = 0.502431
+anchor_bottom = 0.559733
 custom_fonts/font = SubResource( 3 )
 text = "Voar Novamente ?"
 align = 1
@@ -572,7 +573,55 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="RecordLabel2" type="Label" parent="HUD/Panel/TryAgain"]
+anchor_left = 0.0841121
+anchor_top = 0.256789
+anchor_right = 0.914849
+anchor_bottom = 0.341068
+text = "Você coletou: 1000 Rapaduras "
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="PanelTween" type="Tween" parent="HUD/Panel"]
+
+[node name="Panel2" type="Panel" parent="HUD/Panel"]
+visible = false
+margin_left = 1168.0
+margin_right = 1768.0
+margin_bottom = 143.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="Control" parent="HUD/Panel/Panel2"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -32.844
+margin_right = -32.844
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="HUD/Panel/Panel2/Image"]
+texture = ExtResource( 58 )
+hframes = 20
+
+[node name="Label" type="Label" parent="HUD/Panel/Panel2"]
+anchor_right = 0.858
+anchor_bottom = 1.0
+margin_top = 15.0
+margin_right = 0.199951
+text = "0"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Parallax" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
@@ -675,7 +724,7 @@ motion_scale = Vector2( 0.75, 1 )
 motion_scale = Vector2( 0.9, 1 )
 
 [node name="Node2D" parent="Parallax" instance=ExtResource( 8 )]
-position = Vector2( -2945, 540 )
+position = Vector2( 4865, 540 )
 
 [node name="SunPlayer" type="AnimationPlayer" parent="."]
 anims/AnimacaoSol = ExtResource( 5 )
@@ -760,6 +809,11 @@ anims/Transicao = ExtResource( 7 )
 position = Vector2( 261.442, 204.161 )
 
 [node name="TransitionTween" type="Tween" parent="."]
+
+[node name="GeradorColetavel" parent="." instance=ExtResource( 57 )]
+rapaduraHolder = NodePath("..")
+
+[connection signal="bonusEntered" from="." to="GeradorColetavel" method="_on_StageController_bonusEntered"]
 [connection signal="pressed" from="HUD/Panel/PauseTextureButton" to="HUD/Panel" method="_on_PauseTextureButton_pressed"]
 [connection signal="mouse_entered" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_exited"]

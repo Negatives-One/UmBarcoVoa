@@ -110,6 +110,15 @@ func Lose() -> void:
 		$"../HUD/Panel/TryAgain/RecordLabel".text = "Novo Record: " + str(GameManager.readData("highScore", 0)) + " KM"
 	else:
 		$"../HUD/Panel/TryAgain/RecordLabel".text = "Não foi dessa vez, Seu Record é: " + str(GameManager.readData("highScore", 0)) + " KM"
+	
+	GameManager.saveData({"totalScore" : score}, "increment")
+	
+	$"../HUD/Panel/TryAgain/RecordLabel2".text = "Você coletou: " + str($"..".coletados) + " Rapaduras" 
+	if int(GameManager.readData("maxColetavel", 0)) < $"..".coletados:
+		GameManager.saveData({"maxColetavel" : $"..".coletados})
+	
+	GameManager.saveData({"totalColetavel" : $"..".coletados}, "increment")
+	
 	GameManager.onlySaveData(true)
 	receivingInputs = false
 	self.sleeping = true

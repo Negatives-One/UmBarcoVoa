@@ -40,12 +40,12 @@ func _on_SairTextureButton_pressed() -> void:
 
 func _on_DoeTextureButton_pressed():
 	MusicController.ButtonSound()
-	$Confirmation.visible = true
+	$Redirect.visible = true
 
 
 func _on_OK_pressed():
 	MusicController.ButtonSound()
-	OS.shell_open("http://www.depresenteofuturo.com.br/")
+	var _error : int = OS.shell_open("http://www.depresenteofuturo.com.br/")
 	$Confirmation.visible = false
 
 
@@ -86,3 +86,19 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		$TextureRect.visible = true
 		$Credits.visible = false
 		$Credits/AnimationPlayer.stop()
+
+
+func _on_RecordsTextureButton_pressed() -> void:
+	$Panel.visible = false
+	$TextureRect.visible = false
+	$Records.visible = true
+	$Records/VBoxContainer/Label1.text = "Melhor Distância: " + str(GameManager.readData("highScore", 0)) + " KM"
+	$Records/VBoxContainer/Label2.text = "Distância Total Percorrida: " + str(GameManager.readData("totalScore", 0)) + " KM"
+	$Records/VBoxContainer/Label3.text = "Melhor Coleta: " + str(GameManager.readData("maxColetavel", 0)) + " Rapaduras"
+	$Records/VBoxContainer/Label4.text = "Coleta Total: " + str(GameManager.readData("totalColetavel", 0)) + " Rapaduras"
+
+
+func _on_VoltarRecordsTextureButton_pressed() -> void:
+	$Panel.visible = true
+	$TextureRect.visible = true
+	$Records.visible = false

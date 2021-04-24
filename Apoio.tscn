@@ -77,4 +77,5 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeInOutApoio = SubResource( 1 )
 anims/FadeInOutSplash = SubResource( 2 )
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

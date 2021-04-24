@@ -32,7 +32,12 @@ var preservedYPosition : float
 
 var once : bool = true
 
+signal bonusEntered(value)
+
+var coletados : int = 0
+
 func _ready() -> void:
+	GameManager.StageControll = self
 	MusicController.get_node("Current").stream = load("res://Assets/Sounds/CearaLoop.ogg")
 	MusicController.get_node("Current").play()
 	MusicController.fadeIn(MusicController.get_node("Current"), MusicController.get_node("TweenCurrent"))
@@ -110,6 +115,8 @@ func ChangeEvent(event : int) -> void:
 
 func NextLocation() -> void:
 	isBonusStage = false
+	emit_signal("bonusEntered", false)
+	$GeradorColetavel.Disable()
 	#MusicController.get_node("AmbienciaMar").stop()
 	
 	$Sol.visible = true
@@ -161,6 +168,8 @@ func ChangeToBonus() -> void:
 		if i is Current:
 			i.call_deferred("queue_free")
 	isBonusStage = true
+	emit_signal("bonusEntered", true)
+	$GeradorColetavel.Enable()
 	
 	$Sol.visible = false
 	
@@ -229,3 +238,7 @@ func _on_TransitionTween_tween_completed(object, _key):
 		MusicController.current.stop()
 	if object == MusicController.next and MusicController.next.volume_db < -79:
 		MusicController.next.stop()
+
+func Collected() -> void:
+	coletados += 1
+	$"HUD/Panel/Panel2/Label".text = str(coletados)

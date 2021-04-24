@@ -58,6 +58,8 @@ func FillArray() -> void:
 		openSpaces.append((screenSize.y / horizontalLines * (i + 1)) - 80)
 
 func _process(_delta: float) -> void:
+	if CapPos == 900:
+		pass
 	if $"../RigidBody2D/Camera2D2".global_position.x + screenSize.x/2 < $"..".distancePerRegion - 1500:
 		if !ended:
 			isIn = true

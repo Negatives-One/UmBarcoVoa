@@ -2,13 +2,18 @@ extends Node
 
 var hudOptions
 
+var StageControll : StageController
+
 # nome do arquivo
 var save_path = "user://game_0.0.0.1.data"
 
 # variável base do nosso jogo
 var base_data: Dictionary = {
 	"mute": false,
-	"highScore": 0
+	"highScore": 0,
+	"totalScore": 0,
+	"maxColetavel": 0,
+	"totalColetavel": 0
 }
 
 # variável local, o jogo ficará trabalhando com ela e não com o arquivo
