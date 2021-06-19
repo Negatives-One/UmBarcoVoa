@@ -15,11 +15,9 @@ transitionTypeFadeOut = 4
 
 [node name="Current" type="AudioStreamPlayer" parent="."]
 volume_db = -80.0
-bus = "Musica"
 
 [node name="Next" type="AudioStreamPlayer" parent="."]
 volume_db = -80.0
-bus = "Musica"
 
 [node name="TweenCurrent" type="Tween" parent="."]
 
@@ -27,19 +25,16 @@ bus = "Musica"
 
 [node name="AmbienciaMar" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-bus = "SFX"
 
 [node name="PlaySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-bus = "SFX"
 
 [node name="Buttons" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-bus = "SFX"
 
 [node name="LoseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-bus = "SFXImpact"
+
 [connection signal="tween_completed" from="TweenCurrent" to="." method="_on_TweenCurrent_tween_completed"]
 [connection signal="tween_completed" from="TweenNext" to="." method="_on_TweenNext_tween_completed"]
 [connection signal="finished" from="PlaySound" to="." method="_on_PlaySound_finished"]

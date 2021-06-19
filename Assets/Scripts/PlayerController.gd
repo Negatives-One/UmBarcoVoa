@@ -68,8 +68,8 @@ func _unhandled_input(event : InputEvent) -> void:
 		if event is InputEventMouseButton:
 			if event.pressed and event.button_index == BUTTON_LEFT:
 				acelerando = true
-			#if event.pressed and event.button_index == BUTTON_RIGHT:
-			#	apply_central_impulse(Vector2(1, 0) * 5000)
+			if event.pressed and event.button_index == BUTTON_RIGHT:
+				apply_central_impulse(Vector2(1, 0) * 5000)
 
 func _process(_delta : float) -> void:
 	var coeficienteDaVela : float = float(windLoopVelocity) / 3

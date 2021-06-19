@@ -4,8 +4,12 @@ export(PackedScene) var coletavel : PackedScene = preload("res://Assets/Scenes/C
 
 export(NodePath) var rapaduraHolder : NodePath
 
-const MaxHeight : int = -1080
-const MinHeight : int = 0
+const MaxHeight : int = -760
+const MinHeight : int = -40
+
+export(float) var mediumXVelocity : float = 1000 
+
+var noteSpacing : float = mediumXVelocity / 2 / 4
 
 var coletavelSize := Vector2(85, 85)
 
@@ -28,9 +32,9 @@ func GenerateRect(pos : Vector2, width : int, height : int, filled : bool = fals
 	for i in range(height):
 		for j in range(width):
 			var desiredPosition : Vector2 = Vector2(pos.x + (j) * (coletavelSize.x + spacing), pos.y + (i) * (coletavelSize.y + spacing))
-			#if desiredPosition.y < MinHeight and desiredPosition.y > MaxHeight:
-			if positions[i][j]:
-				truePositions.append(desiredPosition)
+			if desiredPosition.y < MinHeight and desiredPosition.y > MaxHeight:
+				if positions[i][j]:
+					truePositions.append(desiredPosition)
 	
 	return truePositions
 
@@ -49,27 +53,54 @@ func GenerateCircle(pos : Vector2, radius : float):
 	
 	return positions
 
-func GenerateSineWave(pos : Vector2, width : float, angleSpeed : float = 0.05, xSpeed : float = 20, height : float = 500) -> Array:
-	var quantity : int = int(width / 150)
+func GenerateSineWave(pos : Vector2, angleSpeed : float = 0.05, height : float = 500) -> Array:
+	var notas : Array = CreateComposition(20, 10)
+	var quantity : int = notas.size()
+	
 	var positions : Array = []
-	var placementStep = width/quantity
-	var placementCap = pos.x
-	var startPos : Vector2 = Vector2(pos.x, pos.y)
+	
+	var placementStep = noteSpacing
 	var currentPos : Vector2 = pos
 	var angle = 0
 	
-#	positions.append(pos)
-#	placementCap += placementStep
-	
-	while(currentPos.x < (width + startPos.x)):
-		angle += angleSpeed
-		currentPos.x += xSpeed
-		currentPos.y = sin(angle) * height/2 + pos.y
-		if currentPos.x > placementCap:
+	for i in range(quantity):
+		if notas[i]:
 			positions.append(currentPos)
-			placementCap += placementStep
+		angle += angleSpeed
+		currentPos.x += placementStep
+		currentPos.y = sin(angle) * height/2 + pos.y
 	
 	return positions
+
+func GenerateCubicCurve(pos : Vector2, width : float, quantity : int) -> Array:
+	randomize()
+	var positions : Array = []
+	
+	var spacing : float = noteSpacing
+	var tempo : float = 0
+	var points : Array = []
+	
+	var distanceBetween : float = width / 4
+	
+	for j in range(4):
+		var pointPos : Vector2 = Vector2(pos.x + distanceBetween*(j + 1), rand_range(-50, -750))
+		points.append(pointPos)
+	
+	for i in range(quantity):
+		var step : float = .05
+		positions.append(CubicCurve(points[0], points[1], points[2], points[3], tempo))
+		tempo += step
+	return positions
+
+func QuadraticCurve(a : Vector2, b : Vector2, c : Vector2, t : float) -> Vector2:
+	var p0 : Vector2 = lerp(a, b, t)
+	var p1 : Vector2 = lerp(b, c, t)
+	return lerp(p0, p1, t)
+
+func CubicCurve(a : Vector2, b : Vector2, c : Vector2, d : Vector2, t : float) -> Vector2:
+	var p0 : Vector2 = QuadraticCurve(a, b, c, t)
+	var p1 : Vector2 = QuadraticCurve(b, c, d, t)
+	return lerp(p0, p1, t)
 
 func Enable() -> void:
 	pass
@@ -79,42 +110,63 @@ func Disable() -> void:
 
 func GenerateAllBonus() -> void:
 	randomize()
-	var maxDistance : float = 125000
+	var maxDistance : float = 123000
 	var minDistance : float = 105000
-	var actualDistance : float = 105000
+	var actualDistance : float = minDistance
 	
-	var spawnQuantity : int = 3#randi() % 3 + 1
-	var step : float = (maxDistance - minDistance) / (spawnQuantity + 1)
+	var spawnQuantity : int = 1#randi() % 3 + 2
+	var step : float = (maxDistance - minDistance) / (spawnQuantity)
 	
 	for _i in range(spawnQuantity):
-		var spawnShape : int = randi() % 3
+		var spawnShape : int = 1#randi() % 3
 		match spawnShape:
 			0:
-				var widthQuantity : int = randi() % 8 + 5
-				var heightQuantity : int = randi() % 6 + 4
-				var heightNumber : float = heightQuantity * coletavelSize.y
-				var filled = true
-				if randi() % 2:
-					filled = false  
-				var yPos : float = -400 - heightNumber/2
-				SpawnColetavel(GenerateRect(Vector2(actualDistance + step/2, yPos), widthQuantity, heightQuantity, filled))
+				#var radius : float = rand_range(100, 350)
+				var teste : Array = GenerateCubicCurve(Vector2(actualDistance, 0), step-2000, 20)
+				SpawnColetavel(teste)#GenerateCircle(Vector2(actualDistance - radius/2 + step/2, -400), radius))
 				actualDistance += step
 			1:
-				var radius : float = rand_range(100, 350)
-				SpawnColetavel(GenerateCircle(Vector2(actualDistance - radius/2 + step/2, -400), radius))
-				actualDistance += step
-			2:
-				SpawnColetavel(GenerateSineWave(Vector2(actualDistance, -400), rand_range(1920, step)))
+				SpawnColetavel(GenerateSineWave(Vector2(actualDistance, -400)))
 				actualDistance += step
 
 func SpawnColetavel(points : Array) -> void:
 	for i in points:
-		var newRapadura : Area2D = coletavel.instance()
-		newRapadura.global_position = i
-		call_deferred('add_child', newRapadura)
+		var newPeixe : Area2D = coletavel.instance()
+		newPeixe.global_position = i
+		call_deferred('add_child', newPeixe)
 
 
 func _on_StageController_bonusEntered(value) -> void:
 	$"../HUD/Panel/Panel2".visible = value
 	if value:
 		GenerateAllBonus()
+
+
+func CreateComposition(notes : int = 10, cells : int = 16) -> Array:
+	randomize()
+	var composition : Array = []
+	var cell1 : Array = [true, false, false, false]
+	var cell2 : Array = [true, false, false, true]
+	var cell3 : Array = [true, true, false, true]
+	var cell4 : Array = [false, true, false, false]
+	var cell5 : Array = [true, false, true, false]
+	
+	for _i in range(cells):
+		var num : float = randf()
+		if num > 0.8:
+			for j in cell1:
+				composition.append(j)
+		elif num > 0.6:
+			for j in cell2:
+				composition.append(j)
+		elif num > 0.4:
+			for j in cell3:
+				composition.append(j)
+		elif num > 0.2:
+			for j in cell4:
+				composition.append(j)
+		else:
+			for j in cell5:
+				composition.append(j)
+	
+	return composition

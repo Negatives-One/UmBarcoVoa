@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/C3.wav-bd43c06892295ce43c31da1c6c855835.sample"
+
+[deps]
+
+source_file="res://Assets/NotasPeixes/C3.wav"
+dest_files=[ "res://.import/C3.wav-bd43c06892295ce43c31da1c6c855835.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

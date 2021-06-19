@@ -57,7 +57,7 @@
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_02.jpg" type="Texture" id=55]
 [ext_resource path="res://Assets/Images/Background/BG_faseTransicao_V01_04.jpg" type="Texture" id=56]
 [ext_resource path="res://Assets/Scenes/GeradorDeShape.tscn" type="PackedScene" id=57]
-[ext_resource path="res://Assets/Images/DUDU/dudu.png" type="Texture" id=58]
+[ext_resource path="res://Assets/Images/Peixes/piaba_v003_002.png" type="Texture" id=58]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -608,14 +608,15 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="HUD/Panel/Panel2/Image"]
+position = Vector2( -25, 2 )
 texture = ExtResource( 58 )
-hframes = 20
 
 [node name="Label" type="Label" parent="HUD/Panel/Panel2"]
 anchor_right = 0.858
 anchor_bottom = 1.0
+margin_left = -63.049
 margin_top = 15.0
-margin_right = 0.199951
+margin_right = -62.8491
 text = "0"
 align = 2
 valign = 1
