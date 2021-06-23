@@ -4,7 +4,7 @@ var c3 : Array = [0.05, 0.1, 0.2, 0.05, 0.2, 0.05, 0.2, 0.05, 0.05, 0.05]
 
 var C3_Chances : Dictionary = {"C3": 0.05, "D3": 0.15, "E3": 0.35, "F3": 0.4, "G3": 0.6, "A3": 0.65, "Bb3": 0.85, "C4": 0.9, "D4": 0.95, "E4": 1}
 var D3_Chances : Dictionary = {"C3": 0.2, "D3": 0.25, "E3": 0.3, "F3": 0.5, "G3": 0.55, "A3": 0.75, "Bb3": 0.8, "C4": 0.9, "D4": 0.95, "E4": 1}
-var E3_Chances : Dictionary = {"C3": 0.2, "D3": 0.3, "E3": 0.35, "F3": 0.45, "G3": 0.65, "A3": 0.85, "Bb3": 0.95, "C4": 1, "D4": 2, "E4": 2}
+var E3_Chances : Dictionary = {"C3": 0.2, "D3": 0.25, "E3": 0.30, "F3": 0.35, "G3": 0.50, "A3": 0.55, "Bb3": 0.70, "C4": 0.80, "D4": 0.9, "E4": 1}
 var F3_Chances : Dictionary = {"C3": 0.05, "D3": 0.1, "E3": 0.2, "F3": 0.25, "G3": 0.35, "A3": 0.55, "Bb3": 0.65, "C4": 0.85, "D4": 0.9, "E4": 1}
 var G3_Chances : Dictionary = {"C3": 0.2, "D3": 0.25, "E3": 0.45, "F3": 0.55, "G3": 0.60, "A3": 0.65, "Bb3": 0.85, "C4": 0.95, "D4": 0.975, "E4": 1}
 var A3_Chances : Dictionary = {"C3": 0.05, "D3": 0.1, "E3": 0.15, "F3": 0.35, "G3": 0.45, "A3": 0.5, "Bb3": 0.6, "C4": 0.8, "D4": 0.9, "E4": 1}
@@ -20,7 +20,7 @@ export(NodePath) var rapaduraHolder : NodePath
 const MaxHeight : int = -760
 const MinHeight : int = -40
 
-export(float) var mediumXVelocity : float = 1000 
+export(float) var mediumXVelocity : float = 2000
 
 var noteSpacing : float = mediumXVelocity / 2 / 4
 
