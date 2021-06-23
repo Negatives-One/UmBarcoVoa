@@ -1,5 +1,7 @@
 extends Node2D
 
+var C3_Chances : Dictionary = {"C3": 0.05, "D3": 0.15, "E3": 0.35, "F3": 0.4, "G3": 0.6, "A3": 0.65, "Bb3": 0.85, "C4": 0.9, "D4": 0.95, "E4": 1}
+
 export(int) var speed : int = 100
 
 var noteSpacing : float = speed/2.0/4.0
@@ -11,6 +13,8 @@ var pontos = [Vector2(200, 600)]
 var pontinho : Vector2 = Vector2(200, 600)
 
 func _ready() -> void:
+	for i in C3_Chances:
+		print(C3_Chances.get(i))
 	pontos = GenerateCubicCurve(Vector2(200, 600), widthN, 10)
 
 func _draw() -> void:

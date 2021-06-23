@@ -1,7 +1,6 @@
 extends Area2D
 
-func _ready() -> void:
-	$AudioStreamPlayer.stream = load("res://Assets/NotasPeixes/C3.wav")
+class_name Peixe
 
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
@@ -14,7 +13,8 @@ func _on_Area2D_body_entered(_body: Node) -> void:
 	$AudioStreamPlayer.play()
 
 
-func SetNote(path : String) -> void:
+func SetNote(note : String) -> void:
+	var path : String = "res://Assets/NotasPeixes/" + note + ".wav"
 	$AudioStreamPlayer.stream = load(path)
 
 
