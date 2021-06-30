@@ -70,14 +70,10 @@ func GenerateCircle(pos : Vector2, radius : float):
 	
 	return positions
 
-func SineCurve(pos : Vector2, width : float, height : float, t : float, endAngle : float = PI*2) -> Vector2:
-	var position : Vector2
-	
-	position = Vector2(pos.x + width * t, sin(endAngle * t) * height/2 + pos.y)
-	
-	return position
+func SineCurve(pos : Vector2, width : float, height : float, t : float, endAngle : float = PI*6) -> Vector2:
+	return Vector2(pos.x + width * t, sin(endAngle * t) * height/2 + pos.y)
 
-func GenerateSineWave(pos : Vector2, angleSpeed : float = 0.1, height : float = 500) -> Array:
+func GenerateSineWave(pos : Vector2, height : float = 500) -> Array:
 	var notas : Array = CreateComposition()
 	
 	var positions : Array = []
@@ -110,9 +106,15 @@ func GenerateCubicCurve(pos : Vector2) -> Array:
 	
 	
 	var distanceBetween : float = width / 3
-		
+	var alturas : Array = [-800, -600, -400, -200]
+	randomize()
+	alturas.shuffle()
 	for j in range(4):
-		var pointPos : Vector2 = Vector2(pos.x + distanceBetween*(j), rand_range(-50, -750))
+		var altura : float
+		altura = alturas.pop_front()
+		print(altura)
+		
+		var pointPos : Vector2 = Vector2(pos.x + distanceBetween*(j), altura)
 		points.append(pointPos)
 	
 	for i in range(notas.size()):
@@ -150,7 +152,7 @@ func GenerateAllBonus() -> void:
 	var step : float = (maxDistance - minDistance) / (spawnQuantity)
 	
 	for _i in range(spawnQuantity):
-		var spawnShape : int = 1#randi() % 2
+		var spawnShape : int = randi() % 2
 		match spawnShape:
 			0:
 				#var radius : float = rand_range(100, 350)
@@ -158,7 +160,7 @@ func GenerateAllBonus() -> void:
 				SpawnColetavel(teste)#GenerateCircle(Vector2(actualDistance - radius/2 + step/2, -400), radius))
 				actualDistance += step
 			1:
-				SpawnColetavel(GenerateSineWave(Vector2(actualDistance, -400), 0.1))
+				SpawnColetavel(GenerateSineWave(Vector2(actualDistance, -450)))
 				actualDistance += step
 
 func SpawnColetavel(points : Array) -> void:
