@@ -211,6 +211,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button" type="Button" parent="HUD/Panel"]
+margin_left = 800.0
+margin_top = 23.0609
+margin_right = 1155.0
+margin_bottom = 123.061
+text = "Teleporte Bonus"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="InformationTextureRect" type="TextureRect" parent="HUD/Panel"]
 margin_left = -13.0
 margin_top = -15.0
@@ -815,6 +825,7 @@ position = Vector2( 261.442, 204.161 )
 rapaduraHolder = NodePath("..")
 
 [connection signal="bonusEntered" from="." to="GeradorColetavel" method="_on_StageController_bonusEntered"]
+[connection signal="pressed" from="HUD/Panel/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="HUD/Panel/PauseTextureButton" to="HUD/Panel" method="_on_PauseTextureButton_pressed"]
 [connection signal="mouse_entered" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/Panel/Panel" to="HUD/Panel" method="_on_Panel_mouse_exited"]

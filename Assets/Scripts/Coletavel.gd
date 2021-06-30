@@ -12,6 +12,8 @@ func _on_Area2D_body_entered(_body: Node) -> void:
 	GameManager.StageControll.Collected()
 	$AnimatedSprite.visible = false
 	$AudioStreamPlayer.play()
+	$CPUParticles2D.emitting = true
+	_body.EmitParticle()
 
 
 func SetNote(note : String) -> void:
@@ -21,3 +23,5 @@ func SetNote(note : String) -> void:
 
 func _on_AudioStreamPlayer_finished() -> void:
 	queue_free()
+
+

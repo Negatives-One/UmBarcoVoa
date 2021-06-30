@@ -22,12 +22,13 @@ const MinHeight : int = -40
 
 export(float) var mediumXVelocity : float = 2000
 
-var noteSpacing : float = mediumXVelocity / 2 / 4
+var noteSpacing : float
 
 var coletavelSize := Vector2(85, 85)
 
 func _ready() -> void:
-	print(noteSpacing * 4 * 16)
+	noteSpacing = mediumXVelocity / 2 / 4
+	print("Deveria ser: ", noteSpacing * 16 * 4)
 
 func GenerateRect(pos : Vector2, width : int, height : int, filled : bool = false, spacing : float = 7.0) -> Array:
 	var positions : Array = []
@@ -69,24 +70,28 @@ func GenerateCircle(pos : Vector2, radius : float):
 	
 	return positions
 
-func GenerateSineWave(pos : Vector2, angleSpeed : float = 0.05, height : float = 500) -> Array:
-	var notas : Array = CreateComposition()
-	var quantity : int = notas.size()
+func SineCurve(pos : Vector2, width : float, height : float, t : float, endAngle : float = PI*2) -> Vector2:
+	var position : Vector2
 	
-	print("Size Sine: ", noteSpacing * notas.size())
+	position = Vector2(pos.x + width * t, sin(endAngle * t) * height/2 + pos.y)
+	
+	return position
+
+func GenerateSineWave(pos : Vector2, angleSpeed : float = 0.1, height : float = 500) -> Array:
+	var notas : Array = CreateComposition()
 	
 	var positions : Array = []
 	
-	var placementStep = noteSpacing
 	var currentPos : Vector2 = pos
-	var angle = 0
+	var tempo : float = 0
 	
-	for i in range(quantity):
+	var width : float = noteSpacing * notas.size()
+	var notePercent : float = noteSpacing / width
+	
+	for i in range(notas.size()):
 		if notas[i]:
-			positions.append(currentPos)
-		angle += angleSpeed
-		currentPos.x += placementStep
-		currentPos.y = sin(angle) * height/2 + pos.y
+			positions.append(SineCurve(pos, width, height, tempo))
+		tempo += notePercent
 	
 	return positions
 
@@ -95,7 +100,6 @@ func GenerateCubicCurve(pos : Vector2) -> Array:
 	var notas : Array = CreateComposition()
 	var positions : Array = []
 	
-	var spacing : float = noteSpacing
 	var tempo : float = 0
 	var points : Array = []
 	
@@ -105,10 +109,10 @@ func GenerateCubicCurve(pos : Vector2) -> Array:
 	var notePercent = noteSpacing / width
 	
 	
-	var distanceBetween : float = width / 4
+	var distanceBetween : float = width / 3
 		
 	for j in range(4):
-		var pointPos : Vector2 = Vector2(pos.x + distanceBetween*(j + 1), rand_range(-50, -750))
+		var pointPos : Vector2 = Vector2(pos.x + distanceBetween*(j), rand_range(-50, -750))
 		points.append(pointPos)
 	
 	for i in range(notas.size()):
@@ -135,15 +139,18 @@ func Disable() -> void:
 
 func GenerateAllBonus() -> void:
 	randomize()
-	var maxDistance : float = 123000
+	var maxDistance : float = 100000 + $"..".bonusLength - 2000
 	var minDistance : float = 105000
 	var actualDistance : float = minDistance
 	
-	var spawnQuantity : int = 2#randi() % 2 + 1
+	var melodyLength : float = noteSpacing * 4 * 16
+	print(melodyLength)
+	
+	var spawnQuantity : int = floor((maxDistance - minDistance) / melodyLength)#2#randi() % 2 + 1
 	var step : float = (maxDistance - minDistance) / (spawnQuantity)
 	
 	for _i in range(spawnQuantity):
-		var spawnShape : int = randi() % 2
+		var spawnShape : int = 1#randi() % 2
 		match spawnShape:
 			0:
 				#var radius : float = rand_range(100, 350)
@@ -151,7 +158,7 @@ func GenerateAllBonus() -> void:
 				SpawnColetavel(teste)#GenerateCircle(Vector2(actualDistance - radius/2 + step/2, -400), radius))
 				actualDistance += step
 			1:
-				SpawnColetavel(GenerateSineWave(Vector2(actualDistance, -400)))
+				SpawnColetavel(GenerateSineWave(Vector2(actualDistance, -400), 0.1))
 				actualDistance += step
 
 func SpawnColetavel(points : Array) -> void:
@@ -162,7 +169,7 @@ func SpawnColetavel(points : Array) -> void:
 		call_deferred('add_child', newPeixe)
 		newPeixe.SetNote(nota)
 		nota = RandomizeNotes(nota)
-		print(nota)
+		#print(nota)
 
 
 func _on_StageController_bonusEntered(value) -> void:

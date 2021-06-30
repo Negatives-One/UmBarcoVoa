@@ -32,6 +32,8 @@ var preservedYPosition : float
 
 var once : bool = true
 
+export(float) var bonusLength : float = 50000
+
 signal bonusEntered(value)
 
 var coletados : int = 0
@@ -197,7 +199,7 @@ func ChangeToBonus() -> void:
 	$StageSpawner.CapPos = 0
 	$CorrentesDeVento.activeWindsCurrents = 0
 	once = true
-	distancePerRegion = 125000
+	distancePerRegion = 100000 + bonusLength
 
 func _on_Location_resized():
 	$HUD/Panel/ColorRect2.rect_size.x = $HUD/Panel/Location.rect_size.x
@@ -242,3 +244,10 @@ func _on_TransitionTween_tween_completed(object, _key):
 func Collected() -> void:
 	coletados += 1
 	$"HUD/Panel/Panel2/Label".text = str(coletados)
+
+
+func _on_Button_pressed() -> void:
+	var a = $RigidBody2D.physicsState.get_transform() 
+	a.origin = Vector2(97000, -500)
+	$RigidBody2D.physicsState.set_transform(a)
+	$"HUD/Panel/Button".queue_free()

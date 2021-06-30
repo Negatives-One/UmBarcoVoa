@@ -196,3 +196,7 @@ func is_angle_between(alpha : float, theta : float, beta : float) -> bool:
 	var threeSixtyMultiple : int = (beta - theta) / 360
 	theta += 360 * threeSixtyMultiple
 	return (alpha < theta) && (theta < beta)
+
+
+func EmitParticle():
+	$CPUParticles2D.emitting = true

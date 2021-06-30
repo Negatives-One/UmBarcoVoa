@@ -12,6 +12,8 @@ var pontos = [Vector2(200, 600)]
 
 var pontinho : Vector2 = Vector2(200, 600)
 
+var pontoAzul : Vector2
+
 func _ready() -> void:
 	for i in C3_Chances:
 		print(C3_Chances.get(i))
@@ -22,12 +24,17 @@ func _draw() -> void:
 		draw_circle(pontos[i], 20, Color.green)
 	
 	draw_circle(pontinho, 20, Color.red)
+	
+	draw_circle(pontoAzul, 20, Color.blue)
 
 
 func _process(delta: float) -> void:
 	pontos = GenerateCubicCurve(Vector2(200, 600), widthN, 10)
 	
 	pontinho = CubicCurve(Vector2(200, 600), Vector2(500, 200), Vector2(800, 800), Vector2(1200, 600), $HSlider.value)
+	
+	pontoAzul = SineCurve(Vector2(200, 600), 1000, 500, $HSlider.value)
+	
 	#widthN = $HSlider.value
 	update()
 
@@ -60,3 +67,10 @@ func CubicCurve(a : Vector2, b : Vector2, c : Vector2, d : Vector2, t : float) -
 	var p0 : Vector2 = QuadraticCurve(a, b, c, t)
 	var p1 : Vector2 = QuadraticCurve(b, c, d, t)
 	return lerp(p0, p1, t)
+
+func SineCurve(pos : Vector2, width : float, height : float, t : float, endAngle : float = PI*2) -> Vector2:
+	var position : Vector2
+	
+	position = Vector2(pos.x + width * t, sin(endAngle * t) * height/2 + pos.y)
+	
+	return position
