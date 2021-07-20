@@ -290,6 +290,7 @@ __meta__ = {
 }
 
 [node name="PauseTextureButton" type="TextureButton" parent="HUD/Panel"]
+visible = false
 anchor_left = 0.938406
 anchor_top = 0.0238897
 anchor_right = 0.980072

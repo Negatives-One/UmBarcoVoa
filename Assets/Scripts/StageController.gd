@@ -148,6 +148,7 @@ func NextLocation() -> void:
 	$CorrentesDeVento.activeWindsCurrents = 0
 	once = true
 	distancePerRegion = 100000
+	RandomStart()
 
 func PrepareToChangeLocation() -> void:
 	if isBonusStage == true:
