@@ -46,12 +46,12 @@ func _on_DoeTextureButton_pressed():
 func _on_OK_pressed():
 	MusicController.ButtonSound()
 	var _error : int = OS.shell_open("http://www.depresenteofuturo.com.br/")
-	$Confirmation.visible = false
+	$Redirect.visible = false
 
 
 func _on_Voltar_pressed():
 	MusicController.ButtonSound()
-	$Confirmation.visible = false
+	$Redirect.visible = false
 
 
 func _on_CreditosTextureButton_pressed():
