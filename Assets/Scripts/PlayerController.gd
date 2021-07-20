@@ -113,7 +113,7 @@ func Lose() -> void:
 	
 	GameManager.saveData({"totalScore" : score}, "increment")
 	
-	$"../HUD/Panel/TryAgain/RecordLabel2".text = "Você coletou: " + str($"..".coletados) + " Rapaduras" 
+	$"../HUD/Panel/TryAgain/RecordLabel2".text = "Você coletou: " + str($"..".coletados) + " Peixes" 
 	if int(GameManager.readData("maxColetavel", 0)) < $"..".coletados:
 		GameManager.saveData({"maxColetavel" : $"..".coletados})
 	
