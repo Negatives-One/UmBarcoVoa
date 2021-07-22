@@ -39,10 +39,11 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
 frames = SubResource( 2 )
-frame = 11
+frame = 9
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 960, -135 )
 shape = SubResource( 3 )
+
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]

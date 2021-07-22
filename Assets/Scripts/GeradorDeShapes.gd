@@ -78,7 +78,6 @@ func GenerateSineWave(pos : Vector2, height : float = 500) -> Array:
 	
 	var positions : Array = []
 	
-	var currentPos : Vector2 = pos
 	var tempo : float = 0
 	
 	var width : float = noteSpacing * notas.size()
@@ -149,7 +148,7 @@ func GenerateAllBonus() -> void:
 	print(melodyLength)
 	
 	var spawnQuantity : int = floor((maxDistance - minDistance) / melodyLength)#2#randi() % 2 + 1
-	var step : float = (maxDistance - minDistance) / (spawnQuantity)
+	var step : float = (maxDistance - minDistance) / float(spawnQuantity)
 	
 	for _i in range(spawnQuantity):
 		var spawnShape : int = randi() % 2
@@ -180,7 +179,7 @@ func _on_StageController_bonusEntered(value) -> void:
 		GenerateAllBonus()
 
 
-func CreateComposition(notes : int = 10, cells : int = 16) -> Array:
+func CreateComposition(cells : int = 16) -> Array:
 	randomize()
 	var composition : Array = []
 	var cell1 : Array = [true, false, false, false]
