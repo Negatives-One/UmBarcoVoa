@@ -823,6 +823,7 @@ position = Vector2( 261.442, 204.161 )
 [node name="TransitionTween" type="Tween" parent="."]
 
 [node name="GeradorColetavel" parent="." instance=ExtResource( 57 )]
+z_index = 8
 rapaduraHolder = NodePath("..")
 
 [connection signal="bonusEntered" from="." to="GeradorColetavel" method="_on_StageController_bonusEntered"]
@@ -838,6 +839,8 @@ rapaduraHolder = NodePath("..")
 [connection signal="frame_changed" from="Sol/AnimatedSprite" to="Sol" method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="Sol/Timer" to="Sol" method="_on_Timer_timeout"]
 [connection signal="animation_finished" from="CorrentesDeVento/Warnings/0" to="CorrentesDeVento" method="_on_0_animation_finished"]
+[connection signal="frame_changed" from="CorrentesDeVento/Warnings/0" to="CorrentesDeVento" method="_on_0_frame_changed"]
 [connection signal="animation_finished" from="CorrentesDeVento/Warnings/1" to="CorrentesDeVento" method="_on_1_animation_finished"]
+[connection signal="frame_changed" from="CorrentesDeVento/Warnings/1" to="CorrentesDeVento" method="_on_1_frame_changed"]
 [connection signal="tween_completed" from="CorrentesDeVento/CurrentsTween" to="CorrentesDeVento" method="_on_CurrentsTween_tween_completed"]
 [connection signal="tween_completed" from="TransitionTween" to="." method="_on_TransitionTween_tween_completed"]

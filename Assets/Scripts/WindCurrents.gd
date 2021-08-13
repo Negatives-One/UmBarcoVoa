@@ -123,3 +123,11 @@ func _on_1_animation_finished() -> void:
 		SpawnCurrent(1)
 		$Warnings.get_node("1").stop()
 		$Warnings.get_node("1").frame = 0
+
+
+func _on_1_frame_changed() -> void:
+	pass # Replace with function body.
+
+
+func _on_0_frame_changed() -> void:
+	pass # Replace with function body.

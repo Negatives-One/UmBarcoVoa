@@ -31,6 +31,9 @@ export(float, 0, 360) var maxAngle : float = 350
 
 var lose : bool = false
 
+var sparkPiabaPath : String = "res://Assets/Scenes/SparkPiaba.tscn"
+onready var sparkPiaba : PackedScene = load(sparkPiabaPath)
+
 func _init() -> void:
 	linear_velocity.x = 300
 
@@ -196,3 +199,12 @@ func is_angle_between(alpha : float, theta : float, beta : float) -> bool:
 	var threeSixtyMultiple : int = (beta - theta) / 360
 	theta += 360 * threeSixtyMultiple
 	return (alpha < theta) && (theta < beta)
+
+func Coletou(piabaY : float):
+	var newSpark : Spark = sparkPiaba.instance()
+	$"..".call_deferred('add_child', newSpark)
+	newSpark.player = self
+	newSpark.yPos = piabaY
+	newSpark.velocityY = linear_velocity.y
+	#newSpark.global_position = Vector2(global_position.x, piabaY)
+	#newSpark.Posicao(Vector2(global_position.x - 140, piabaY))

@@ -4,8 +4,6 @@ var dir : Vector2
 
 var speed : float = 300
 
-var player : Player
-
 var pos : Vector2
 
 func _ready() -> void:
