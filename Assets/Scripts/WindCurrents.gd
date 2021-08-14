@@ -126,7 +126,8 @@ func _on_1_animation_finished() -> void:
 
 
 func _on_1_frame_changed() -> void:
-	pass # Replace with function body.
+	if $"..".currentEvent == $"..".events.Nothing:
+		$"Warnings/1".stop()
 
 
 func _on_0_frame_changed() -> void:

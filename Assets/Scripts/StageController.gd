@@ -32,6 +32,8 @@ var preservedYPosition : float
 
 var once : bool = true
 
+var onceChangeEvent : bool = true
+
 export(float) var bonusLength : float = 50000
 
 signal bonusEntered(value)
@@ -60,6 +62,9 @@ func _unhandled_input(event):
 		OS.window_fullscreen = !OS.window_fullscreen
 
 func _process(_delta: float) -> void:
+	if $"RigidBody2D/Camera2D2".global_position.x + get_viewport_rect().size.x/2 > distancePerRegion - 1500 and onceChangeEvent:
+		ChangeEvent(events.Nothing)
+		once = false
 	#print($CorrentesDeVento.activeWindsCurrents)
 	if $RigidBody2D.global_position.x >= distancePerRegion:
 		if canChange:
@@ -116,6 +121,7 @@ func ChangeEvent(event : int) -> void:
 		$CorrentesDeVento.Disable()
 
 func NextLocation() -> void:
+	onceChangeEvent = true
 	isBonusStage = false
 	emit_signal("bonusEntered", false)
 	$GeradorColetavel.Disable()

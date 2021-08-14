@@ -48,8 +48,9 @@ func CreateShot() -> void:
 	SetShader(lastShot.get_node("AnimatedSprite"))
 
 func Enable() -> void:
-	currentState = states.SHOOTING
-	$Timer.start(randi() % maxWaitTime + minWaitTime)
+	currentState = states.IDLE
+	#currentState = states.SHOOTING
+	#$Timer.start(randi() % maxWaitTime + minWaitTime)
 
 func Disable() -> void:
 	currentState = states.IDLE
