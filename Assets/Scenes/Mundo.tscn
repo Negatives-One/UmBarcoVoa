@@ -212,6 +212,7 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="HUD/Panel"]
+visible = false
 margin_left = 800.0
 margin_top = 23.0609
 margin_right = 1155.0

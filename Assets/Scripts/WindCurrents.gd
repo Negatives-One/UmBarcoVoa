@@ -128,7 +128,15 @@ func _on_1_animation_finished() -> void:
 func _on_1_frame_changed() -> void:
 	if $"..".currentEvent == $"..".events.Nothing:
 		$"Warnings/1".stop()
-
+		$"Warnings/1".frame = 0
+		for i in self.get_children():
+			if i is Current:
+				i.queue_free()
 
 func _on_0_frame_changed() -> void:
-	pass # Replace with function body.
+	if $"..".currentEvent == $"..".events.Nothing:
+		$"Warnings/0".stop()
+		$"Warnings/0".frame = 0
+		for i in self.get_children():
+			if i is Current:
+				i.queue_free()

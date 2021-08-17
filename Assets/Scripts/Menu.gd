@@ -94,8 +94,8 @@ func _on_RecordsTextureButton_pressed() -> void:
 	$Records.visible = true
 	$Records/VBoxContainer/Label1.text = "Melhor Distância: " + str(GameManager.readData("highScore", 0)) + " KM"
 	$Records/VBoxContainer/Label2.text = "Distância Total Percorrida: " + str(GameManager.readData("totalScore", 0)) + " KM"
-	$Records/VBoxContainer/Label3.text = "Melhor Coleta: " + str(GameManager.readData("maxColetavel", 0)) + " Rapaduras"
-	$Records/VBoxContainer/Label4.text = "Coleta Total: " + str(GameManager.readData("totalColetavel", 0)) + " Rapaduras"
+	$Records/VBoxContainer/Label3.text = "Melhor Coleta: " + str(GameManager.readData("maxColetavel", 0)) + " Peixes"
+	$Records/VBoxContainer/Label4.text = "Coleta Total: " + str(GameManager.readData("totalColetavel", 0)) + " Peixes"
 
 
 func _on_VoltarRecordsTextureButton_pressed() -> void:
